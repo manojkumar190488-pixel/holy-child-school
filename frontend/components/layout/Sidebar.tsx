@@ -54,9 +54,9 @@ export function Sidebar({ className }: SidebarProps) {
   }
 
   const mockUser = {
-    name: 'Alexandra Chen',
-    email: 'alex.chen@consulting.com',
-    title: 'Senior Strategy Consultant',
+    name: 'Manoj Kumar',
+    email: 'manojkumar190488@gmail.com',
+    title: 'Senior Consulting Professional',
   }
   const displayUser = user || mockUser
 

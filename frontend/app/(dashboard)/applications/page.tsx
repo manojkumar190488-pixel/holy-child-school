@@ -45,14 +45,14 @@ const makeMockApp = (
 })
 
 const INITIAL_APPLICATIONS: Application[] = [
-  makeMockApp('a1', 'interested', { title: 'Senior Strategy Consultant', company: { name: 'McKinsey & Company' } }),
-  makeMockApp('a2', 'interested', { title: 'Director, Corporate Development', company: { name: 'Bain & Company' } }),
-  makeMockApp('a3', 'applied', { title: 'VP Strategy', company: { name: 'BCG' } }, 'Applied via LinkedIn. Connected with recruiter Sarah.', 'Follow up in 1 week'),
-  makeMockApp('a4', 'applied', { title: 'Head of Strategy', company: { name: 'Deloitte' } }, 'Submitted resume + cover letter.', 'Wait for response'),
-  makeMockApp('a5', 'interviewing', { title: 'Associate Partner', company: { name: 'Oliver Wyman' } }, 'Passed phone screen. 2nd round with partner next week.', 'Prepare case study'),
-  makeMockApp('a6', 'interviewing', { title: 'Principal Consultant', company: { name: 'Accenture' } }, '3 rounds complete. Final panel next Thursday.', 'Send thank you notes'),
-  makeMockApp('a7', 'offered', { title: 'Senior Manager, Strategy', company: { name: 'PwC' } }, 'Received offer! $195K base + 35% bonus. Deadline next week.', 'Negotiate or accept'),
-  makeMockApp('a8', 'rejected', { title: 'Chief of Staff', company: { name: 'Sequoia Capital' } }, 'Not selected. Feedback: lacked VC experience.', 'Follow up for future roles'),
+  makeMockApp('a1', 'interested', { title: 'Senior Digital Transformation Advisor', company: { name: 'World Bank Group' } }, 'Strong profile match — 96% AI score. Research team leads before applying.', 'Research key decision-makers on LinkedIn'),
+  makeMockApp('a2', 'interested', { title: 'Director, Health Information Systems', company: { name: 'UNDP India' } }, 'Spotted via ReliefWeb. Aligns perfectly with public health IT background.', 'Tailor cover letter to UNDP procurement context'),
+  makeMockApp('a3', 'applied', { title: 'PMU Director – Digital Health', company: { name: 'Asian Development Bank' } }, 'Applied via ADB career portal. AI cover letter generated and customized. Referenced Manila-based role.', 'Follow up with HR in 2 weeks'),
+  makeMockApp('a4', 'applied', { title: 'Senior Consultant, E-Governance', company: { name: 'Deloitte Government' } }, 'LinkedIn Easy Apply + custom cover letter. Recruiter Priya Sharma connected.', 'Follow up with recruiter by May 28'),
+  makeMockApp('a5', 'interviewing', { title: 'National IT Advisor – Health', company: { name: 'WHO India' } }, 'Cleared technical screening. Panel interview with Dr. Anand (Regional Director) on May 30.', 'Prepare WHO-style competency answers + SMART examples'),
+  makeMockApp('a6', 'interviewing', { title: 'Digital Transformation Lead', company: { name: 'GIZ India' } }, '2 rounds complete. Technical assessment submitted. Final HR interview June 3.', 'Send thank you email to interviewers'),
+  makeMockApp('a7', 'offered', { title: 'Senior Advisor, Digital Health Strategy', company: { name: 'Gates Foundation' } }, 'Offer received: ₹85L + benefits. Remote-first. Deadline June 5.', 'Negotiate to ₹92L + relocation allowance'),
+  makeMockApp('a8', 'rejected', { title: 'Chief Technology Advisor', company: { name: 'USAID India Mission' } }, 'Not selected. Feedback: required prior PEPFAR project experience. Filed for future reference.', 'Pursue USAID partner network for next opportunity'),
 ]
 
 interface KanbanCardProps {

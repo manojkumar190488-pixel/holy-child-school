@@ -39,32 +39,40 @@ import { formatRelativeDate, getInitials, stringToColor } from '@/lib/utils'
 import { toast } from 'sonner'
 import Link from 'next/link'
 
-// Mock data
+// Dynamic greeting based on time of day
+function getGreeting(): string {
+  const hour = new Date().getHours()
+  if (hour < 12) return 'Good morning'
+  if (hour < 17) return 'Good afternoon'
+  return 'Good evening'
+}
+
+// Mock data — reflects actual candidate domain: digital transformation, e-governance, public health IT
 const TREND_DATA = [
-  { date: 'May 15', linkedin: 12, indeed: 8, naukri: 5, other: 3, total: 28 },
-  { date: 'May 16', linkedin: 18, indeed: 10, naukri: 7, other: 4, total: 39 },
-  { date: 'May 17', linkedin: 15, indeed: 9, naukri: 6, other: 5, total: 35 },
-  { date: 'May 18', linkedin: 22, indeed: 14, naukri: 8, other: 3, total: 47 },
-  { date: 'May 19', linkedin: 19, indeed: 11, naukri: 9, other: 6, total: 45 },
-  { date: 'May 20', linkedin: 28, indeed: 16, naukri: 10, other: 4, total: 58 },
-  { date: 'May 21', linkedin: 24, indeed: 13, naukri: 11, other: 7, total: 55 },
+  { date: 'May 15', linkedin: 8, naukri: 5, devnet: 4, reliefweb: 3, total: 20 },
+  { date: 'May 16', linkedin: 12, naukri: 6, devnet: 5, reliefweb: 4, total: 27 },
+  { date: 'May 17', linkedin: 10, naukri: 7, devnet: 6, reliefweb: 5, total: 28 },
+  { date: 'May 18', linkedin: 15, naukri: 8, devnet: 7, reliefweb: 4, total: 34 },
+  { date: 'May 19', linkedin: 13, naukri: 9, devnet: 8, reliefweb: 6, total: 36 },
+  { date: 'May 20', linkedin: 18, naukri: 10, devnet: 9, reliefweb: 5, total: 42 },
+  { date: 'May 21', linkedin: 16, naukri: 11, devnet: 10, reliefweb: 7, total: 44 },
 ]
 
 const RADAR_DATA = [
-  { skill: 'Strategy', required: 90, possessed: 88 },
-  { skill: 'Finance', required: 80, possessed: 75 },
-  { skill: 'Leadership', required: 85, possessed: 92 },
-  { skill: 'Analytics', required: 75, possessed: 70 },
-  { skill: 'M&A', required: 70, possessed: 60 },
-  { skill: 'Consulting', required: 95, possessed: 95 },
+  { skill: 'Digital Transform.', required: 95, possessed: 95 },
+  { skill: 'E-Governance', required: 90, possessed: 92 },
+  { skill: 'Public Health IT', required: 85, possessed: 88 },
+  { skill: 'PMU / TSU', required: 88, possessed: 90 },
+  { skill: 'Stakeholder Mgmt', required: 90, possessed: 92 },
+  { skill: 'Data Analytics', required: 80, possessed: 72 },
 ]
 
 const MOCK_RECENT_JOBS = [
-  createMockJob({ id: '1', matchScore: { overall: 94, breakdown: { skills: 95, experience: 92, location: 90, seniority: 96, industry: 93, compensation: 90 }, matchedSkills: ['Strategy', 'Leadership', 'M&A'], missingSkills: ['Salesforce'], reasoning: '', confidence: 0.95 } }),
-  createMockJob({ id: '2', title: 'VP Strategy', company: { name: 'Boston Consulting Group' }, matchScore: { overall: 89, breakdown: { skills: 88, experience: 90, location: 85, seniority: 92, industry: 88, compensation: 85 }, matchedSkills: ['Strategy', 'Financial Modeling'], missingSkills: ['Python'], reasoning: '', confidence: 0.92 } }),
-  createMockJob({ id: '3', title: 'Director of Operations', company: { name: 'Deloitte' }, matchScore: { overall: 78, breakdown: { skills: 75, experience: 80, location: 78, seniority: 80, industry: 76, compensation: 75 }, matchedSkills: ['Operations', 'Leadership'], missingSkills: ['Six Sigma', 'Lean'], reasoning: '', confidence: 0.84 } }),
-  createMockJob({ id: '4', title: 'Head of Corporate Strategy', company: { name: 'Bain & Company' }, matchScore: { overall: 91, breakdown: { skills: 90, experience: 92, location: 88, seniority: 93, industry: 91, compensation: 88 }, matchedSkills: ['Strategy', 'Consulting', 'Leadership'], missingSkills: ['Data Science'], reasoning: '', confidence: 0.93 } }),
-  createMockJob({ id: '5', title: 'Senior Manager, Transformation', company: { name: 'PricewaterhouseCoopers' }, matchScore: { overall: 82, breakdown: { skills: 80, experience: 84, location: 80, seniority: 84, industry: 82, compensation: 80 }, matchedSkills: ['Transformation', 'Change Management'], missingSkills: [], reasoning: '', confidence: 0.88 } }),
+  createMockJob({ id: '1', title: 'Senior Digital Transformation Advisor', company: { name: 'World Bank Group' }, matchScore: { overall: 96, breakdown: { skills: 96, experience: 95, location: 94, seniority: 97, industry: 96, compensation: 93 }, matchedSkills: ['Digital Transformation', 'E-Governance', 'PMU'], missingSkills: [], reasoning: '', confidence: 0.97 } }),
+  createMockJob({ id: '2', title: 'Chief Digital Officer – Health', company: { name: 'UNDP India' }, matchScore: { overall: 91, breakdown: { skills: 92, experience: 90, location: 90, seniority: 93, industry: 91, compensation: 88 }, matchedSkills: ['Public Health IT', 'E-Governance', 'Leadership'], missingSkills: ['DHIS2'], reasoning: '', confidence: 0.93 } }),
+  createMockJob({ id: '3', title: 'Director, E-Governance Practice', company: { name: 'Deloitte Government' }, matchScore: { overall: 89, breakdown: { skills: 88, experience: 90, location: 88, seniority: 92, industry: 89, compensation: 86 }, matchedSkills: ['E-Governance', 'Digital Transformation', 'Consulting'], missingSkills: ['Salesforce Gov'], reasoning: '', confidence: 0.92 } }),
+  createMockJob({ id: '4', title: 'PMU Lead – Health Systems', company: { name: 'Asian Development Bank' }, matchScore: { overall: 94, breakdown: { skills: 93, experience: 95, location: 90, seniority: 95, industry: 94, compensation: 91 }, matchedSkills: ['PMU', 'Health Systems', 'Donor Coordination'], missingSkills: [], reasoning: '', confidence: 0.96 } }),
+  createMockJob({ id: '5', title: 'Senior Consultant, Digital Health', company: { name: 'ICF International' }, matchScore: { overall: 84, breakdown: { skills: 82, experience: 86, location: 82, seniority: 86, industry: 84, compensation: 82 }, matchedSkills: ['Digital Health', 'HIS', 'Consulting'], missingSkills: ['PEPFAR Experience'], reasoning: '', confidence: 0.88 } }),
 ]
 
 export default function DashboardPage() {
@@ -85,7 +93,7 @@ export default function DashboardPage() {
       {/* Page Header */}
       <div className="flex items-start justify-between flex-wrap gap-4">
         <div>
-          <h2 className="text-2xl font-extrabold text-foreground">Good morning, Alexandra</h2>
+          <h2 className="text-2xl font-extrabold text-foreground">{getGreeting()}, Manoj</h2>
           <p className="mt-1 text-sm text-muted-foreground">
             You have <span className="font-semibold text-gold-600 dark:text-gold-400">3 new high-match opportunities</span> since yesterday.
           </p>
@@ -115,8 +123,8 @@ export default function DashboardPage() {
       <div className="grid grid-cols-2 gap-4 lg:grid-cols-4">
         <StatsCard
           label="Total Opportunities"
-          value={1247}
-          change={12}
+          value={847}
+          change={18}
           changeLabel="vs last week"
           icon={<Briefcase className="h-5 w-5" />}
           color="gold"
@@ -124,27 +132,27 @@ export default function DashboardPage() {
         />
         <StatsCard
           label="High Match (>80%)"
-          value={83}
-          change={8}
-          changeLabel="3 new today"
+          value={64}
+          change={11}
+          changeLabel="5 new today"
           icon={<Star className="h-5 w-5" />}
           color="green"
           index={1}
         />
         <StatsCard
           label="New Today"
-          value={24}
-          change={-5}
-          changeLabel="across all sources"
+          value={44}
+          change={22}
+          changeLabel="across 8 platforms"
           icon={<PlusCircle className="h-5 w-5" />}
           color="blue"
           index={2}
         />
         <StatsCard
-          label="Applications"
-          value={7}
-          change={40}
-          changeLabel="2 interviews scheduled"
+          label="Active Applications"
+          value={5}
+          change={25}
+          changeLabel="1 interview pending"
           icon={<CheckCircle2 className="h-5 w-5" />}
           color="purple"
           index={3}
@@ -183,8 +191,9 @@ export default function DashboardPage() {
               />
               <Legend wrapperStyle={{ fontSize: '11px' }} />
               <Line type="monotone" dataKey="linkedin" stroke="#0A66C2" strokeWidth={2} dot={false} name="LinkedIn" />
-              <Line type="monotone" dataKey="indeed" stroke="#2164F3" strokeWidth={2} dot={false} name="Indeed" />
               <Line type="monotone" dataKey="naukri" stroke="#FF7555" strokeWidth={2} dot={false} name="Naukri" />
+              <Line type="monotone" dataKey="devnet" stroke="#10B981" strokeWidth={2} dot={false} name="DevNet/ReliefWeb" />
+              <Line type="monotone" dataKey="reliefweb" stroke="#8B5CF6" strokeWidth={2} dot={false} name="UN/World Bank" />
               <Line type="monotone" dataKey="total" stroke="#F59E0B" strokeWidth={2.5} dot={false} name="Total" strokeDasharray="5 5" />
             </LineChart>
           </ResponsiveContainer>

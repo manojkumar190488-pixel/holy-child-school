@@ -34,61 +34,61 @@ import { StatsCard } from '@/components/dashboard/StatsCard'
 import { cn } from '@/lib/utils'
 import { CHART_COLORS } from '@/lib/constants'
 
-// Mock analytics data
+// Mock analytics data — digital transformation, e-governance, public health IT, development sector
 const TREND_DATA = [
-  { date: 'May 1', jobs: 28, matches: 8, applied: 1 },
-  { date: 'May 5', jobs: 35, matches: 12, applied: 2 },
-  { date: 'May 8', jobs: 42, matches: 15, applied: 3 },
-  { date: 'May 11', jobs: 38, matches: 11, applied: 2 },
-  { date: 'May 15', jobs: 55, matches: 21, applied: 4 },
-  { date: 'May 18', jobs: 47, matches: 18, applied: 3 },
-  { date: 'May 21', jobs: 62, matches: 24, applied: 5 },
+  { date: 'May 1', jobs: 18, matches: 9, applied: 1 },
+  { date: 'May 5', jobs: 24, matches: 13, applied: 2 },
+  { date: 'May 8', jobs: 31, matches: 17, applied: 2 },
+  { date: 'May 11', jobs: 28, matches: 14, applied: 3 },
+  { date: 'May 15', jobs: 38, matches: 22, applied: 4 },
+  { date: 'May 18', jobs: 35, matches: 19, applied: 3 },
+  { date: 'May 21', jobs: 44, matches: 27, applied: 5 },
 ]
 
 const SOURCE_DATA = [
-  { name: 'LinkedIn', value: 45, color: CHART_COLORS.linkedin },
-  { name: 'Indeed', value: 22, color: CHART_COLORS.indeed },
-  { name: 'Glassdoor', value: 14, color: CHART_COLORS.glassdoor },
-  { name: 'Naukri', value: 11, color: CHART_COLORS.naukri },
-  { name: 'Wellfound', value: 5, color: CHART_COLORS.wellfound },
-  { name: 'Other', value: 3, color: CHART_COLORS.other },
+  { name: 'LinkedIn', value: 38, color: CHART_COLORS.linkedin },
+  { name: 'Naukri / iimjobs', value: 20, color: CHART_COLORS.naukri },
+  { name: 'DevNetJobs', value: 16, color: '#10B981' },
+  { name: 'ReliefWeb', value: 13, color: '#8B5CF6' },
+  { name: 'World Bank / ADB', value: 9, color: '#F59E0B' },
+  { name: 'Other', value: 4, color: CHART_COLORS.other },
 ]
 
 const SCORE_DIST = [
-  { range: '0-40%', count: 89 },
-  { range: '40-50%', count: 156 },
-  { range: '50-60%', count: 234 },
-  { range: '60-70%', count: 287 },
-  { range: '70-80%', count: 198 },
+  { range: '0-40%', count: 34 },
+  { range: '40-50%', count: 82 },
+  { range: '50-60%', count: 148 },
+  { range: '60-70%', count: 204 },
+  { range: '70-80%', count: 186 },
   { range: '80-90%', count: 143 },
-  { range: '90-100%', count: 67 },
+  { range: '90-100%', count: 50 },
 ]
 
 const TOP_COMPANIES = [
-  { company: 'McKinsey & Company', jobs: 28, avgScore: 87 },
-  { company: 'Boston Consulting Group', jobs: 22, avgScore: 84 },
-  { company: 'Bain & Company', jobs: 18, avgScore: 88 },
-  { company: 'Deloitte', jobs: 35, avgScore: 76 },
-  { company: 'Accenture', jobs: 41, avgScore: 72 },
-  { company: 'PwC', jobs: 29, avgScore: 78 },
-  { company: 'EY', jobs: 24, avgScore: 74 },
-  { company: 'KPMG', jobs: 19, avgScore: 71 },
+  { company: 'World Bank Group', jobs: 18, avgScore: 91 },
+  { company: 'UNDP', jobs: 14, avgScore: 89 },
+  { company: 'Deloitte Government', jobs: 22, avgScore: 85 },
+  { company: 'Asian Development Bank', jobs: 12, avgScore: 88 },
+  { company: 'EY India', jobs: 19, avgScore: 82 },
+  { company: 'GIZ India', jobs: 11, avgScore: 84 },
+  { company: 'ICF International', jobs: 9, avgScore: 80 },
+  { company: 'UNICEF', jobs: 8, avgScore: 87 },
 ]
 
 const SKILLS_GAP = [
-  { skill: 'Strategy', required: 95, possessed: 92 },
-  { skill: 'Leadership', required: 88, possessed: 90 },
-  { skill: 'M&A', required: 82, possessed: 65 },
-  { skill: 'Analytics', required: 78, possessed: 70 },
-  { skill: 'Digital', required: 72, possessed: 55 },
-  { skill: 'Agile', required: 65, possessed: 45 },
+  { skill: 'Digital Transformation', required: 95, possessed: 95 },
+  { skill: 'E-Governance', required: 90, possessed: 92 },
+  { skill: 'PMU / TSU', required: 88, possessed: 90 },
+  { skill: 'Public Health IT', required: 85, possessed: 88 },
+  { skill: 'Data Analytics', required: 82, possessed: 72 },
+  { skill: 'Cloud/AWS', required: 75, possessed: 52 },
 ]
 
 const WEEKLY_TREND = [
-  { week: 'W1', newJobs: 38, matched: 12, applied: 2 },
-  { week: 'W2', newJobs: 52, matched: 18, applied: 3 },
-  { week: 'W3', newJobs: 47, matched: 15, applied: 3 },
-  { week: 'W4', newJobs: 65, matched: 24, applied: 5 },
+  { week: 'W1', newJobs: 26, matched: 13, applied: 2 },
+  { week: 'W2', newJobs: 34, matched: 19, applied: 3 },
+  { week: 'W3', newJobs: 38, matched: 21, applied: 3 },
+  { week: 'W4', newJobs: 47, matched: 27, applied: 5 },
 ]
 
 const HEATMAP_DATA = Array.from({ length: 7 }, (_, day) =>
@@ -132,10 +132,10 @@ export default function AnalyticsPage() {
 
       {/* Stats Row */}
       <div className="grid grid-cols-2 gap-4 lg:grid-cols-4">
-        <StatsCard label="Total Opportunities" value={1247} change={18} changeLabel="vs last month" icon={<BarChart3 className="h-5 w-5" />} color="gold" index={0} />
-        <StatsCard label="High Match (>80%)" value={83} change={24} changeLabel="strong pipeline" icon={<Award className="h-5 w-5" />} color="green" index={1} />
-        <StatsCard label="Avg Match Score" value={67} suffix="%" change={5} changeLabel="improvement" icon={<Target className="h-5 w-5" />} color="blue" index={2} />
-        <StatsCard label="Recruiters Found" value={47} change={12} changeLabel="new contacts" icon={<Users className="h-5 w-5" />} color="purple" index={3} />
+        <StatsCard label="Total Opportunities" value={847} change={18} changeLabel="vs last month" icon={<BarChart3 className="h-5 w-5" />} color="gold" index={0} />
+        <StatsCard label="High Match (>80%)" value={64} change={29} changeLabel="strong pipeline" icon={<Award className="h-5 w-5" />} color="green" index={1} />
+        <StatsCard label="Avg Match Score" value={71} suffix="%" change={8} changeLabel="improvement" icon={<Target className="h-5 w-5" />} color="blue" index={2} />
+        <StatsCard label="Recruiters Tracked" value={28} change={17} changeLabel="new contacts" icon={<Users className="h-5 w-5" />} color="purple" index={3} />
       </div>
 
       {/* Main Charts Row */}
