@@ -1,54 +1,29 @@
 'use client'
 
-import { useSession, signIn, signOut } from 'next-auth/react'
 import { useCallback } from 'react'
 
+const MOCK_USER = {
+  id: '1',
+  name: 'Manoj Kumar',
+  email: 'manojkumar190488@gmail.com',
+  avatarUrl: undefined as string | undefined,
+}
+
 export function useAuth() {
-  const { data: session, status } = useSession()
-
-  const isLoading = status === 'loading'
-  const isAuthenticated = status === 'authenticated'
-  const isUnauthenticated = status === 'unauthenticated'
-
-  const user = session?.user
-    ? {
-        id: (session.user as { id?: string }).id || '',
-        name: session.user.name || '',
-        email: session.user.email || '',
-        avatarUrl: session.user.image || undefined,
-      }
-    : null
-
-  const login = useCallback(
-    async (provider: string = 'google') => {
-      await signIn(provider, { callbackUrl: '/dashboard' })
-    },
-    []
-  )
-
-  const logout = useCallback(async () => {
-    await signOut({ callbackUrl: '/' })
-  }, [])
-
+  const login = useCallback(async (_provider: string = 'google') => {}, [])
+  const logout = useCallback(async () => {}, [])
   const loginWithCredentials = useCallback(
-    async (email: string, password: string) => {
-      const result = await signIn('credentials', {
-        email,
-        password,
-        redirect: false,
-      })
-      return result
-    },
+    async (_email: string, _password: string) => ({ ok: true, error: null }),
     []
   )
 
   return {
-    user,
-    session,
-    status,
-    isLoading,
-    isAuthenticated,
-    isUnauthenticated,
+    user: MOCK_USER,
+    session: null,
+    status: 'authenticated' as const,
+    isLoading: false,
+    isAuthenticated: true,
+    isUnauthenticated: false,
     login,
     logout,
     loginWithCredentials,
