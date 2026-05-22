@@ -1,0 +1,425 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:v="urn:schemas-microsoft-com:vml" xmlns:o="urn:schemas-microsoft-com:office:office">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="x-apple-disable-message-reformatting">
+  <meta name="format-detection" content="telephone=no,address=no,email=no,date=no,url=no">
+  <title>{{ app_name }} Daily Digest - {{ digest_date }}</title>
+  <!--[if mso]>
+  <noscript>
+    <xml>
+      <o:OfficeDocumentSettings>
+        <o:PixelsPerInch>96</o:PixelsPerInch>
+      </o:OfficeDocumentSettings>
+    </xml>
+  </noscript>
+  <![endif]-->
+  <style>
+    /* Reset */
+    * { box-sizing: border-box; }
+    body, table, td, a { -webkit-text-size-adjust: 100%; -ms-text-size-adjust: 100%; }
+    table, td { mso-table-lspace: 0pt; mso-table-rspace: 0pt; }
+    img { -ms-interpolation-mode: bicubic; border: 0; height: auto; line-height: 100%; outline: none; text-decoration: none; }
+    table { border-collapse: collapse !important; }
+    body { height: 100% !important; margin: 0 !important; padding: 0 !important; width: 100% !important; }
+    a[x-apple-data-detectors] { color: inherit !important; text-decoration: none !important; font-size: inherit !important; font-family: inherit !important; font-weight: inherit !important; line-height: inherit !important; }
+    u + #body a { color: inherit; text-decoration: none; font-size: inherit; font-family: inherit; font-weight: inherit; line-height: inherit; }
+    #MessageViewBody a { color: inherit; text-decoration: none; font-size: inherit; font-family: inherit; font-weight: inherit; line-height: inherit; }
+
+    /* Dark mode */
+    @media (prefers-color-scheme: dark) {
+      .dark-bg { background-color: #1a1a2e !important; }
+      .dark-card { background-color: #16213e !important; border-color: #0f3460 !important; }
+      .dark-text { color: #e2e8f0 !important; }
+      .dark-subtext { color: #a0aec0 !important; }
+    }
+
+    /* Responsive */
+    @media screen and (max-width: 600px) {
+      .email-container { width: 100% !important; margin: auto !important; }
+      .fluid { max-width: 100% !important; height: auto !important; margin-left: auto !important; margin-right: auto !important; }
+      .stack-column, .stack-column-center { display: block !important; width: 100% !important; max-width: 100% !important; direction: ltr !important; }
+      .stack-column-center { text-align: center !important; }
+      .center-on-narrow { text-align: center !important; display: block !important; margin-left: auto !important; margin-right: auto !important; float: none !important; }
+      table.center-on-narrow { display: inline-block !important; }
+      .score-badge { display: inline-block !important; }
+      .job-meta-item { display: block !important; margin-bottom: 4px !important; }
+      .cta-button { width: 100% !important; text-align: center !important; }
+      .padding-mobile { padding: 20px 16px !important; }
+      .stats-cell { padding: 12px 8px !important; }
+    }
+  </style>
+</head>
+
+<body id="body" style="margin: 0; padding: 0; background-color: #f0f4ff; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;">
+
+<!-- Preheader text (hidden) -->
+<div style="display: none; max-height: 0; overflow: hidden; mso-hide: all;">
+  {{ new_jobs_count }} new job opportunities matched your profile — {{ digest_date }} digest from {{ app_name }}
+  &zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;
+</div>
+
+<!-- Email wrapper -->
+<table role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%" style="margin: 0; padding: 0; background-color: #f0f4ff;">
+  <tr>
+    <td style="padding: 20px 10px;" class="padding-mobile">
+
+      <!-- Email container -->
+      <table role="presentation" cellspacing="0" cellpadding="0" border="0" width="600" class="email-container" style="margin: 0 auto; max-width: 600px;">
+
+        <!-- ===== HEADER ===== -->
+        <tr>
+          <td style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); border-radius: 16px 16px 0 0; padding: 40px 48px 32px; text-align: center;" class="padding-mobile dark-bg">
+            <!-- Logo / Brand -->
+            <table role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%">
+              <tr>
+                <td style="text-align: center; padding-bottom: 16px;">
+                  <div style="display: inline-block; background-color: rgba(255,255,255,0.15); border-radius: 12px; padding: 10px 20px;">
+                    <span style="font-size: 22px; font-weight: 800; color: #ffffff; letter-spacing: -0.5px;">
+                      &#128269; {{ app_name }}
+                    </span>
+                  </div>
+                </td>
+              </tr>
+              <tr>
+                <td style="text-align: center;">
+                  <h1 style="margin: 0 0 8px; font-size: 28px; font-weight: 700; color: #ffffff; line-height: 1.2;">
+                    Your Daily Job Digest
+                  </h1>
+                  <p style="margin: 0; font-size: 15px; color: rgba(255,255,255,0.85); font-weight: 400;">
+                    {{ digest_date }}
+                  </p>
+                </td>
+              </tr>
+            </table>
+          </td>
+        </tr>
+
+        <!-- ===== STATS BAR ===== -->
+        <tr>
+          <td style="background-color: #4f46e5; padding: 0;">
+            <table role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%">
+              <tr>
+                <td class="stats-cell" style="text-align: center; padding: 16px 20px; border-right: 1px solid rgba(255,255,255,0.15);" width="33%">
+                  <div style="font-size: 26px; font-weight: 800; color: #ffffff; line-height: 1;">{{ new_jobs_count }}</div>
+                  <div style="font-size: 11px; color: rgba(255,255,255,0.75); text-transform: uppercase; letter-spacing: 0.8px; margin-top: 4px;">New Matches</div>
+                </td>
+                <td class="stats-cell" style="text-align: center; padding: 16px 20px; border-right: 1px solid rgba(255,255,255,0.15);" width="33%">
+                  <div style="font-size: 26px; font-weight: 800; color: #ffffff; line-height: 1;">{{ avg_match_score }}%</div>
+                  <div style="font-size: 11px; color: rgba(255,255,255,0.75); text-transform: uppercase; letter-spacing: 0.8px; margin-top: 4px;">Avg Match Score</div>
+                </td>
+                <td class="stats-cell" style="text-align: center; padding: 16px 20px;" width="34%">
+                  <div style="font-size: 26px; font-weight: 800; color: #ffffff; line-height: 1;">{{ top_score }}%</div>
+                  <div style="font-size: 11px; color: rgba(255,255,255,0.75); text-transform: uppercase; letter-spacing: 0.8px; margin-top: 4px;">Best Match</div>
+                </td>
+              </tr>
+            </table>
+          </td>
+        </tr>
+
+        <!-- ===== INTRO ===== -->
+        <tr>
+          <td style="background-color: #ffffff; padding: 32px 48px 24px;" class="padding-mobile dark-card">
+            <p style="margin: 0; font-size: 16px; color: #374151; line-height: 1.6;">
+              Hi <strong>{{ user_name }}</strong>,
+            </p>
+            <p style="margin: 12px 0 0; font-size: 15px; color: #6b7280; line-height: 1.7;">
+              Our AI scanned thousands of job postings and found <strong style="color: #4f46e5;">{{ new_jobs_count }} opportunities</strong>
+              that match your skills and preferences. Here are your top picks for today.
+            </p>
+          </td>
+        </tr>
+
+        <!-- ===== SECTION HEADER ===== -->
+        <tr>
+          <td style="background-color: #ffffff; padding: 0 48px 16px;" class="padding-mobile">
+            <div style="border-top: 2px solid #f3f4f6; padding-top: 24px;">
+              <h2 style="margin: 0; font-size: 18px; font-weight: 700; color: #111827; display: inline;">
+                &#11088; Top Opportunities
+              </h2>
+            </div>
+          </td>
+        </tr>
+
+        <!-- ===== JOB CARDS (loop) ===== -->
+        {% for job in jobs %}
+        <tr>
+          <td style="background-color: #ffffff; padding: 0 48px 24px;" class="padding-mobile">
+            <!-- Job Card -->
+            <table role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%"
+                   style="border: 1px solid #e5e7eb; border-radius: 12px; overflow: hidden; border-left: 4px solid {{ job.score_color }};">
+              <!-- Card Header -->
+              <tr>
+                <td style="padding: 20px 24px 16px; background-color: #fafafa;">
+                  <table role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%">
+                    <tr>
+                      <td style="vertical-align: top;">
+                        <h3 style="margin: 0 0 4px; font-size: 17px; font-weight: 700; color: #111827; line-height: 1.3;">
+                          {{ job.title }}
+                        </h3>
+                        <p style="margin: 0; font-size: 14px; color: #6b7280;">
+                          <strong style="color: #374151;">{{ job.company }}</strong>
+                          {% if job.location %}&nbsp;&#8226;&nbsp;{{ job.location }}{% endif %}
+                        </p>
+                      </td>
+                      <td style="vertical-align: top; text-align: right; padding-left: 12px; white-space: nowrap;">
+                        <!-- Match Score Badge -->
+                        <div class="score-badge" style="display: inline-block; background: linear-gradient(135deg, {{ job.score_color }}, {{ job.score_color_dark }}); color: #ffffff; font-size: 13px; font-weight: 800; padding: 6px 12px; border-radius: 20px; letter-spacing: 0.3px;">
+                          {{ job.match_score }}% Match
+                        </div>
+                      </td>
+                    </tr>
+                  </table>
+                </td>
+              </tr>
+
+              <!-- Meta row -->
+              <tr>
+                <td style="padding: 12px 24px; border-top: 1px solid #f3f4f6; border-bottom: 1px solid #f3f4f6; background-color: #f9fafb;">
+                  <table role="presentation" cellspacing="0" cellpadding="0" border="0">
+                    <tr>
+                      {% if job.remote_type %}
+                      <td class="job-meta-item" style="padding-right: 16px; white-space: nowrap;">
+                        <span style="font-size: 12px; color: #6b7280;">&#127970; {{ job.remote_type | title }}</span>
+                      </td>
+                      {% endif %}
+                      {% if job.job_type %}
+                      <td class="job-meta-item" style="padding-right: 16px; white-space: nowrap;">
+                        <span style="font-size: 12px; color: #6b7280;">&#128337; {{ job.job_type | title }}</span>
+                      </td>
+                      {% endif %}
+                      {% if job.salary_display %}
+                      <td class="job-meta-item" style="padding-right: 16px; white-space: nowrap;">
+                        <span style="font-size: 12px; color: #059669; font-weight: 600;">&#128176; {{ job.salary_display }}</span>
+                      </td>
+                      {% endif %}
+                      {% if job.posted_date_display %}
+                      <td class="job-meta-item" style="white-space: nowrap;">
+                        <span style="font-size: 12px; color: #9ca3af;">&#128197; {{ job.posted_date_display }}</span>
+                      </td>
+                      {% endif %}
+                    </tr>
+                  </table>
+                </td>
+              </tr>
+
+              <!-- Why relevant -->
+              {% if job.why_relevant %}
+              <tr>
+                <td style="padding: 16px 24px 4px;">
+                  <p style="margin: 0 0 8px; font-size: 12px; font-weight: 700; color: #4f46e5; text-transform: uppercase; letter-spacing: 0.8px;">
+                    &#9989; Why You&#39;re a Match
+                  </p>
+                  <p style="margin: 0; font-size: 14px; color: #374151; line-height: 1.6;">
+                    {{ job.why_relevant }}
+                  </p>
+                </td>
+              </tr>
+              {% endif %}
+
+              <!-- AI Summary -->
+              {% if job.ai_summary %}
+              <tr>
+                <td style="padding: 12px 24px 4px;">
+                  <p style="margin: 0 0 8px; font-size: 12px; font-weight: 700; color: #7c3aed; text-transform: uppercase; letter-spacing: 0.8px;">
+                    &#129302; AI Summary
+                  </p>
+                  <p style="margin: 0; font-size: 13px; color: #6b7280; line-height: 1.6; font-style: italic;">
+                    {{ job.ai_summary }}
+                  </p>
+                </td>
+              </tr>
+              {% endif %}
+
+              <!-- Skills gap -->
+              {% if job.missing_skills %}
+              <tr>
+                <td style="padding: 12px 24px 4px;">
+                  <p style="margin: 0 0 8px; font-size: 12px; font-weight: 700; color: #d97706; text-transform: uppercase; letter-spacing: 0.8px;">
+                    &#128214; Skills to Develop
+                  </p>
+                  <div>
+                    {% for skill in job.missing_skills %}
+                    <span style="display: inline-block; background-color: #fef3c7; color: #92400e; font-size: 11px; font-weight: 500; padding: 3px 10px; border-radius: 12px; margin: 2px 4px 2px 0;">{{ skill }}</span>
+                    {% endfor %}
+                  </div>
+                </td>
+              </tr>
+              {% endif %}
+
+              <!-- Tags -->
+              {% if job.tags %}
+              <tr>
+                <td style="padding: 12px 24px 4px;">
+                  <div>
+                    {% for tag in job.tags %}
+                    <span style="display: inline-block; background-color: #ede9fe; color: #5b21b6; font-size: 11px; font-weight: 500; padding: 3px 10px; border-radius: 12px; margin: 2px 4px 2px 0;">{{ tag }}</span>
+                    {% endfor %}
+                  </div>
+                </td>
+              </tr>
+              {% endif %}
+
+              <!-- CTA Buttons -->
+              <tr>
+                <td style="padding: 16px 24px 20px;">
+                  <table role="presentation" cellspacing="0" cellpadding="0" border="0">
+                    <tr>
+                      <td style="border-radius: 8px; overflow: hidden; margin-right: 8px;" class="cta-button">
+                        <a href="{{ job.source_url }}" target="_blank"
+                           style="display: inline-block; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: #ffffff; font-size: 13px; font-weight: 700; text-decoration: none; padding: 10px 20px; border-radius: 8px; letter-spacing: 0.3px;">
+                          Apply Now &rarr;
+                        </a>
+                      </td>
+                      <td style="padding-left: 8px;" class="cta-button">
+                        <a href="{{ frontend_url }}/jobs/{{ job.id }}" target="_blank"
+                           style="display: inline-block; background-color: #f3f4f6; color: #374151; font-size: 13px; font-weight: 600; text-decoration: none; padding: 10px 20px; border-radius: 8px; border: 1px solid #e5e7eb;">
+                          View Details
+                        </a>
+                      </td>
+                    </tr>
+                  </table>
+                </td>
+              </tr>
+            </table>
+          </td>
+        </tr>
+        {% endfor %}
+
+        <!-- ===== NO JOBS STATE ===== -->
+        {% if not jobs %}
+        <tr>
+          <td style="background-color: #ffffff; padding: 32px 48px; text-align: center;" class="padding-mobile">
+            <div style="background-color: #f9fafb; border: 2px dashed #e5e7eb; border-radius: 12px; padding: 40px 24px;">
+              <div style="font-size: 48px; margin-bottom: 16px;">&#128269;</div>
+              <h3 style="margin: 0 0 8px; font-size: 18px; font-weight: 600; color: #374151;">No New Matches Today</h3>
+              <p style="margin: 0; font-size: 14px; color: #9ca3af; line-height: 1.6;">
+                Our AI scanned all sources but didn't find new opportunities above your match threshold.<br>
+                Try lowering your minimum match score or expanding your location preferences.
+              </p>
+              <a href="{{ frontend_url }}/settings/preferences" target="_blank"
+                 style="display: inline-block; margin-top: 20px; background-color: #4f46e5; color: #ffffff; font-size: 14px; font-weight: 600; text-decoration: none; padding: 12px 24px; border-radius: 8px;">
+                Adjust Preferences
+              </a>
+            </div>
+          </td>
+        </tr>
+        {% endif %}
+
+        <!-- ===== VIEW ALL CTA ===== -->
+        {% if jobs %}
+        <tr>
+          <td style="background-color: #ffffff; padding: 8px 48px 32px; text-align: center;" class="padding-mobile">
+            <a href="{{ frontend_url }}/jobs" target="_blank"
+               style="display: inline-block; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: #ffffff; font-size: 15px; font-weight: 700; text-decoration: none; padding: 14px 40px; border-radius: 10px; letter-spacing: 0.3px;">
+              View All {{ total_available_jobs }} Available Jobs
+            </a>
+            <p style="margin: 12px 0 0; font-size: 13px; color: #9ca3af;">
+              Sorted by AI match score &bull; Updated daily at {{ digest_time }}
+            </p>
+          </td>
+        </tr>
+        {% endif %}
+
+        <!-- ===== QUICK STATS / PIPELINE ===== -->
+        <tr>
+          <td style="background-color: #ffffff; padding: 0 48px 32px;" class="padding-mobile">
+            <table role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%"
+                   style="background-color: #f8f7ff; border-radius: 12px; overflow: hidden; border: 1px solid #ede9fe;">
+              <tr>
+                <td style="padding: 20px 24px 16px;">
+                  <h3 style="margin: 0 0 16px; font-size: 14px; font-weight: 700; color: #374151; text-transform: uppercase; letter-spacing: 0.8px;">
+                    &#128202; Your Application Pipeline
+                  </h3>
+                  <table role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%">
+                    <tr>
+                      <td style="text-align: center; padding: 8px 4px;">
+                        <div style="font-size: 22px; font-weight: 800; color: #4f46e5;">{{ pipeline.applied | default(0) }}</div>
+                        <div style="font-size: 11px; color: #9ca3af; margin-top: 2px;">Applied</div>
+                      </td>
+                      <td style="text-align: center; color: #e5e7eb; font-size: 18px; padding: 0 4px;">&#8594;</td>
+                      <td style="text-align: center; padding: 8px 4px;">
+                        <div style="font-size: 22px; font-weight: 800; color: #7c3aed;">{{ pipeline.interview | default(0) }}</div>
+                        <div style="font-size: 11px; color: #9ca3af; margin-top: 2px;">Interviews</div>
+                      </td>
+                      <td style="text-align: center; color: #e5e7eb; font-size: 18px; padding: 0 4px;">&#8594;</td>
+                      <td style="text-align: center; padding: 8px 4px;">
+                        <div style="font-size: 22px; font-weight: 800; color: #059669;">{{ pipeline.offer | default(0) }}</div>
+                        <div style="font-size: 11px; color: #9ca3af; margin-top: 2px;">Offers</div>
+                      </td>
+                      <td style="text-align: center; color: #e5e7eb; font-size: 18px; padding: 0 4px;">&#8594;</td>
+                      <td style="text-align: center; padding: 8px 4px;">
+                        <div style="font-size: 22px; font-weight: 800; color: #dc2626;">{{ pipeline.rejected | default(0) }}</div>
+                        <div style="font-size: 11px; color: #9ca3af; margin-top: 2px;">Rejected</div>
+                      </td>
+                    </tr>
+                  </table>
+                </td>
+              </tr>
+              <tr>
+                <td style="padding: 0 24px 16px; text-align: center;">
+                  <a href="{{ frontend_url }}/applications" target="_blank"
+                     style="font-size: 13px; color: #4f46e5; text-decoration: none; font-weight: 600;">
+                    Manage Applications &rarr;
+                  </a>
+                </td>
+              </tr>
+            </table>
+          </td>
+        </tr>
+
+        <!-- ===== FOOTER ===== -->
+        <tr>
+          <td style="background-color: #1f2937; border-radius: 0 0 16px 16px; padding: 32px 48px;" class="padding-mobile">
+            <table role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%">
+              <!-- Brand -->
+              <tr>
+                <td style="text-align: center; padding-bottom: 20px;">
+                  <span style="font-size: 18px; font-weight: 800; color: #ffffff;">&#128269; {{ app_name }}</span>
+                  <p style="margin: 6px 0 0; font-size: 12px; color: #9ca3af;">AI-Powered Career Intelligence Platform</p>
+                </td>
+              </tr>
+              <!-- Links -->
+              <tr>
+                <td style="text-align: center; padding-bottom: 20px;">
+                  <a href="{{ frontend_url }}/jobs" target="_blank" style="color: #a5b4fc; font-size: 13px; text-decoration: none; margin: 0 12px;">Jobs</a>
+                  <a href="{{ frontend_url }}/bookmarks" target="_blank" style="color: #a5b4fc; font-size: 13px; text-decoration: none; margin: 0 12px;">Bookmarks</a>
+                  <a href="{{ frontend_url }}/applications" target="_blank" style="color: #a5b4fc; font-size: 13px; text-decoration: none; margin: 0 12px;">Applications</a>
+                  <a href="{{ frontend_url }}/settings" target="_blank" style="color: #a5b4fc; font-size: 13px; text-decoration: none; margin: 0 12px;">Settings</a>
+                </td>
+              </tr>
+              <!-- Divider -->
+              <tr>
+                <td style="border-top: 1px solid #374151; padding-top: 20px; text-align: center;">
+                  <p style="margin: 0 0 8px; font-size: 12px; color: #6b7280; line-height: 1.6;">
+                    You&#39;re receiving this digest because you signed up for daily job alerts.<br>
+                    This email was sent to <strong style="color: #9ca3af;">{{ recipient_email }}</strong>
+                  </p>
+                  <p style="margin: 0; font-size: 12px; color: #4b5563;">
+                    <a href="{{ frontend_url }}/settings/notifications" target="_blank" style="color: #6b7280; text-decoration: underline;">Manage notification settings</a>
+                    &nbsp;&bull;&nbsp;
+                    <a href="{{ unsubscribe_url }}" target="_blank" style="color: #6b7280; text-decoration: underline;">Unsubscribe</a>
+                    &nbsp;&bull;&nbsp;
+                    <a href="{{ frontend_url }}/privacy" target="_blank" style="color: #6b7280; text-decoration: underline;">Privacy Policy</a>
+                  </p>
+                  <p style="margin: 16px 0 0; font-size: 11px; color: #4b5563;">
+                    &copy; {{ current_year }} {{ app_name }}. All rights reserved.
+                  </p>
+                </td>
+              </tr>
+            </table>
+          </td>
+        </tr>
+
+      </table>
+      <!-- End email container -->
+
+    </td>
+  </tr>
+</table>
+<!-- End email wrapper -->
+
+</body>
+</html>

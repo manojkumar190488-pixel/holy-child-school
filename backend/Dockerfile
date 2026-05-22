@@ -1,28 +1,14 @@
-# Stage 1: Builder
-FROM python:3.11-slim as builder
-
-WORKDIR /app
-
-RUN apt-get update && apt-get install -y --no-install-recommends \
-    build-essential \
-    libpq-dev \
-    curl \
-    && rm -rf /var/lib/apt/lists/*
-
-COPY requirements.txt .
-RUN pip install --upgrade pip && \
-    pip wheel --no-cache-dir --no-deps --wheel-dir /app/wheels -r requirements.txt
-
-# Stage 2: Runtime
 FROM python:3.11-slim
 
 WORKDIR /app
 
-RUN apt-get update && apt-get install -y --no-install-recommends \
+# Install system dependencies including build tools and Playwright prerequisites
+RUN apt-get update && apt-get install -y \
+    gcc \
     libpq-dev \
+    curl \
     wget \
     gnupg \
-    curl \
     libnss3 \
     libatk-bridge2.0-0 \
     libdrm2 \
@@ -38,30 +24,33 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     libatspi2.0-0 \
     && rm -rf /var/lib/apt/lists/*
 
-COPY --from=builder /app/wheels /wheels
-COPY --from=builder /app/requirements.txt .
+# Copy and install Python dependencies first (layer caching)
+COPY requirements.txt .
+RUN pip install --no-cache-dir --upgrade pip && \
+    pip install --no-cache-dir -r requirements.txt
 
-RUN pip install --no-cache /wheels/*
-
-# Install Playwright browsers
+# Install Playwright chromium browser with all OS dependencies
 RUN playwright install chromium --with-deps
 
-# Create non-root user
+# Create a non-root user for security
 RUN useradd -m -u 1000 appuser
 
-# Copy application code
+# Copy application source code
 COPY . .
 
-RUN chown -R appuser:appuser /app
-USER appuser
+# Set ownership and create log directory
+RUN chown -R appuser:appuser /app && \
+    mkdir -p /app/logs
 
-# Create directories for logs
-RUN mkdir -p /app/logs
+USER appuser
 
 EXPOSE 8000
 
+# Environment variables
 ENV PYTHONUNBUFFERED=1
 ENV PYTHONDONTWRITEBYTECODE=1
 ENV PYTHONPATH=/app
 
-CMD ["gunicorn", "main:app", "--workers", "4", "--worker-class", "uvicorn.workers.UvicornWorker", "--bind", "0.0.0.0:8000", "--timeout", "120", "--keepalive", "5", "--log-level", "info"]
+# Default command: run with uvicorn in reload mode for development
+# Override in docker-compose for production (use gunicorn + UvicornWorker)
+CMD ["uvicorn", "main:app", "--host", "0.0.0.0", "--port", "8000", "--reload"]
