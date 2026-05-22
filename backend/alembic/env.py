@@ -21,13 +21,11 @@ from alembic import context
 # ---------------------------------------------------------------------------
 # These imports register the models against Base.metadata
 from app.models.user import User  # noqa: F401
-from app.models.job import Job  # noqa: F401
+from app.models.job import Job, HiddenJob  # noqa: F401
 from app.models.bookmark import Bookmark  # noqa: F401
 from app.models.application import Application  # noqa: F401
 from app.models.recruiter import Recruiter  # noqa: F401
 from app.models.search_history import SearchHistory  # noqa: F401
-from app.models.notification import Notification  # noqa: F401
-from app.models.user_preferences import UserPreferences  # noqa: F401
 
 # Import the declarative base so we can use it as target_metadata
 try:
