@@ -132,13 +132,13 @@ export default function SettingsPage() {
   })
 
   const [profileForm, setProfileForm] = useState({
-    name: 'Alexandra Chen',
-    email: 'alex.chen@consulting.com',
-    title: 'Senior Strategy Consultant',
-    location: 'New York, NY',
+    name: 'Manoj Kumar',
+    email: 'manojkumar190488@gmail.com',
+    title: 'Senior Consulting Professional',
+    location: 'New Delhi, India',
     company: '',
-    bio: 'Experienced strategy consultant with 8+ years at top-tier consulting firms. Specialized in M&A, digital transformation, and corporate strategy.',
-    linkedinUrl: 'https://linkedin.com/in/alexandra-chen',
+    bio: 'Senior consulting professional with 14+ years in Project Management, Digital Transformation, E-Governance, Public Health IT, and Government Consulting. Led PMU/TSU for World Bank & multilateral donor projects across South Asia.',
+    linkedinUrl: 'https://linkedin.com/in/manojkumar190488',
   })
 
   const [digestTime, setDigestTime] = useState('08:00')
