@@ -70,11 +70,13 @@ export function Header({ className }: HeaderProps) {
   const unreadCount = notifications.filter((n) => n.unread).length
 
   const mockUser = {
-    name: 'Alexandra Chen',
-    email: 'alex.chen@consulting.com',
-    title: 'Senior Strategy Consultant',
+    name: 'Manoj Kumar',
+    email: 'manojkumar190488@gmail.com',
+    title: 'Senior Consulting Professional',
   }
-  const displayUser = user || mockUser
+  const displayUser = user
+    ? { name: user.name, email: user.email, title: 'Senior Consulting Professional' }
+    : mockUser
 
   const markAllRead = () => {
     setNotifications((prev) => prev.map((n) => ({ ...n, unread: false })))
@@ -189,7 +191,7 @@ export function Header({ className }: HeaderProps) {
             <div className="hidden text-left md:block">
               <p className="text-xs font-semibold text-foreground leading-tight">{displayUser.name}</p>
               <p className="text-[10px] text-muted-foreground leading-tight">
-                {(displayUser as typeof mockUser).title || 'Consultant'}
+                {displayUser.title || 'Consultant'}
               </p>
             </div>
             <ChevronDown className="hidden h-3.5 w-3.5 text-muted-foreground md:block" />

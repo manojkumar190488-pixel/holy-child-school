@@ -62,7 +62,9 @@ export function Sidebar({ className }: SidebarProps) {
     email: 'manojkumar190488@gmail.com',
     title: 'Senior Consulting Professional',
   }
-  const displayUser = user || mockUser
+  const displayUser = user
+    ? { name: user.name, email: user.email, title: 'Senior Consulting Professional' }
+    : mockUser
 
   return (
     <motion.aside
@@ -242,7 +244,7 @@ export function Sidebar({ className }: SidebarProps) {
                   {displayUser.name}
                 </p>
                 <p className="text-[10px] text-muted-foreground truncate">
-                  {(displayUser as typeof mockUser).title || displayUser.email}
+                  {displayUser.title || displayUser.email}
                 </p>
               </motion.div>
             )}
