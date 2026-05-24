@@ -16,7 +16,8 @@ import {
   ChevronRight,
   Zap,
   LogOut,
-  User,
+  Mic,
+  TrendingUp,
 } from 'lucide-react'
 import { cn, getInitials } from '@/lib/utils'
 import { ThemeToggle } from '@/components/ui/ThemeToggle'
@@ -27,16 +28,19 @@ interface NavItem {
   label: string
   icon: React.ReactNode
   badge?: number
+  group?: string
 }
 
 const navItems: NavItem[] = [
-  { href: '/dashboard', label: 'Dashboard', icon: <LayoutDashboard className="h-[18px] w-[18px]" /> },
-  { href: '/jobs', label: 'Jobs', icon: <Briefcase className="h-[18px] w-[18px]" /> },
-  { href: '/bookmarks', label: 'Bookmarks', icon: <Bookmark className="h-[18px] w-[18px]" /> },
-  { href: '/applications', label: 'Applications', icon: <ClipboardList className="h-[18px] w-[18px]" /> },
-  { href: '/recruiters', label: 'Recruiters', icon: <Users className="h-[18px] w-[18px]" /> },
-  { href: '/analytics', label: 'Analytics', icon: <BarChart3 className="h-[18px] w-[18px]" /> },
-  { href: '/settings', label: 'Settings', icon: <Settings className="h-[18px] w-[18px]" /> },
+  { href: '/dashboard', label: 'Dashboard', icon: <LayoutDashboard className="h-[18px] w-[18px]" />, group: 'main' },
+  { href: '/jobs', label: 'Jobs', icon: <Briefcase className="h-[18px] w-[18px]" />, group: 'main' },
+  { href: '/bookmarks', label: 'Bookmarks', icon: <Bookmark className="h-[18px] w-[18px]" />, group: 'main' },
+  { href: '/applications', label: 'Applications', icon: <ClipboardList className="h-[18px] w-[18px]" />, group: 'main' },
+  { href: '/recruiters', label: 'Recruiters', icon: <Users className="h-[18px] w-[18px]" />, group: 'main' },
+  { href: '/analytics', label: 'Analytics', icon: <BarChart3 className="h-[18px] w-[18px]" />, group: 'main' },
+  { href: '/interview-prep', label: 'Interview Prep', icon: <Mic className="h-[18px] w-[18px]" />, group: 'ai' },
+  { href: '/skills', label: 'Skills Roadmap', icon: <TrendingUp className="h-[18px] w-[18px]" />, group: 'ai' },
+  { href: '/settings', label: 'Settings', icon: <Settings className="h-[18px] w-[18px]" />, group: 'bottom' },
 ]
 
 interface SidebarProps {
@@ -95,8 +99,9 @@ export function Sidebar({ className }: SidebarProps) {
 
       {/* Navigation */}
       <nav className="flex-1 overflow-y-auto py-3 px-2 scrollbar-none">
+        {/* Main nav items */}
         <div className="space-y-0.5">
-          {navItems.map((item) => {
+          {navItems.filter(i => i.group === 'main').map((item) => {
             const active = isActive(item.href)
             return (
               <Link
@@ -110,36 +115,93 @@ export function Sidebar({ className }: SidebarProps) {
                 )}
                 title={isCollapsed ? item.label : undefined}
               >
-                <span
-                  className={cn(
-                    'flex-shrink-0 transition-colors',
-                    active
-                      ? 'text-gold-600 dark:text-gold-400'
-                      : 'text-muted-foreground group-hover:text-foreground'
-                  )}
-                >
+                <span className={cn('flex-shrink-0 transition-colors', active ? 'text-gold-600 dark:text-gold-400' : 'text-muted-foreground group-hover:text-foreground')}>
                   {item.icon}
                 </span>
                 <AnimatePresence>
                   {!isCollapsed && (
-                    <motion.span
-                      initial={{ opacity: 0, width: 0 }}
-                      animate={{ opacity: 1, width: 'auto' }}
-                      exit={{ opacity: 0, width: 0 }}
-                      className="flex-1 overflow-hidden whitespace-nowrap"
-                    >
+                    <motion.span initial={{ opacity: 0, width: 0 }} animate={{ opacity: 1, width: 'auto' }} exit={{ opacity: 0, width: 0 }} className="flex-1 overflow-hidden whitespace-nowrap">
                       {item.label}
                     </motion.span>
                   )}
                 </AnimatePresence>
                 {item.badge && !isCollapsed && (
-                  <span className="flex h-5 w-5 items-center justify-center rounded-full bg-gold-500 text-[10px] font-bold text-navy-900">
-                    {item.badge}
-                  </span>
+                  <span className="flex h-5 w-5 items-center justify-center rounded-full bg-gold-500 text-[10px] font-bold text-navy-900">{item.badge}</span>
                 )}
               </Link>
             )
           })}
+        </div>
+
+        {/* AI Tools section */}
+        <div className="mt-4">
+          {!isCollapsed && (
+            <p className="px-2.5 mb-1.5 text-[10px] font-bold uppercase tracking-wider text-muted-foreground/60">AI Tools</p>
+          )}
+          {isCollapsed && <div className="my-2 border-t border-border mx-2" />}
+          <div className="space-y-0.5">
+            {navItems.filter(i => i.group === 'ai').map((item) => {
+              const active = isActive(item.href)
+              return (
+                <Link
+                  key={item.href}
+                  href={item.href}
+                  className={cn(
+                    'group flex items-center gap-3 rounded-lg px-2.5 py-2.5 text-sm font-medium transition-all duration-150',
+                    active
+                      ? 'bg-gold-500/10 text-gold-600 dark:text-gold-400 border border-gold-500/20'
+                      : 'text-muted-foreground hover:bg-muted hover:text-foreground border border-transparent'
+                  )}
+                  title={isCollapsed ? item.label : undefined}
+                >
+                  <span className={cn('flex-shrink-0 transition-colors', active ? 'text-gold-600 dark:text-gold-400' : 'text-muted-foreground group-hover:text-foreground')}>
+                    {item.icon}
+                  </span>
+                  <AnimatePresence>
+                    {!isCollapsed && (
+                      <motion.span initial={{ opacity: 0, width: 0 }} animate={{ opacity: 1, width: 'auto' }} exit={{ opacity: 0, width: 0 }} className="flex-1 overflow-hidden whitespace-nowrap">
+                        {item.label}
+                      </motion.span>
+                    )}
+                  </AnimatePresence>
+                </Link>
+              )
+            })}
+          </div>
+        </div>
+
+        {/* Settings */}
+        <div className="mt-4">
+          {isCollapsed && <div className="my-2 border-t border-border mx-2" />}
+          <div className="space-y-0.5">
+            {navItems.filter(i => i.group === 'bottom').map((item) => {
+              const active = isActive(item.href)
+              return (
+                <Link
+                  key={item.href}
+                  href={item.href}
+                  className={cn(
+                    'group flex items-center gap-3 rounded-lg px-2.5 py-2.5 text-sm font-medium transition-all duration-150',
+                    active
+                      ? 'bg-gold-500/10 text-gold-600 dark:text-gold-400 border border-gold-500/20'
+                      : 'text-muted-foreground hover:bg-muted hover:text-foreground border border-transparent'
+                  )}
+                  title={isCollapsed ? item.label : undefined}
+                >
+                  <span className={cn('flex-shrink-0 transition-colors', active ? 'text-gold-600 dark:text-gold-400' : 'text-muted-foreground group-hover:text-foreground')}>
+                    {item.icon}
+                  </span>
+                  <AnimatePresence>
+                    {!isCollapsed && (
+                      <motion.span initial={{ opacity: 0, width: 0 }} animate={{ opacity: 1, width: 'auto' }} exit={{ opacity: 0, width: 0 }} className="flex-1 overflow-hidden whitespace-nowrap">
+                        {item.label}
+                      </motion.span>
+                    )}
+                  </AnimatePresence>
+                </Link>
+              )
+            })}
+          </div>
         </div>
       </nav>
 

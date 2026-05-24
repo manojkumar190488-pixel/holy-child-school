@@ -31,6 +31,7 @@ import { Button } from '@/components/ui/Button'
 import { JobCard } from '@/components/jobs/JobCard'
 import { CoverLetterModal } from '@/components/ai/CoverLetterModal'
 import { OutreachModal } from '@/components/ai/OutreachModal'
+import { ResumeOptimizerModal } from '@/components/ai/ResumeOptimizerModal'
 import { createMockJob } from '@/lib/api'
 import {
   formatRelativeDate,
@@ -43,69 +44,69 @@ import {
 } from '@/lib/utils'
 import { toast } from 'sonner'
 
-// Mock job data
+// Mock job data — domain-aligned: digital transformation, e-governance, public health IT
 const getMockJob = (id: string) =>
   createMockJob({
     id,
-    title: 'Senior Strategy Consultant',
-    description: `We are seeking a highly motivated Senior Strategy Consultant to join our global strategy practice. In this role, you will work closely with C-suite executives at Fortune 500 companies to develop and implement transformative strategies.
+    title: 'Senior Digital Transformation Advisor',
+    description: `The World Bank Group is seeking an experienced Senior Digital Transformation Advisor to support its Government Digital Transformation program in India. The selected candidate will work closely with MeitY, state IT departments, and development partners to accelerate the country's digital public infrastructure agenda.
 
-You will lead complex engagements across multiple industries, driving strategic insight and tangible business impact. The ideal candidate brings deep analytical capabilities, executive presence, and a track record of delivering measurable results.
+The role requires deep expertise in e-governance policy, digital public goods (DPGs), and large-scale government IT program management. The incumbent will lead technical assistance, capacity building, and implementation support for flagship national digital programs.
 
-This is an exceptional opportunity for a seasoned consultant looking to make a step-change in their career trajectory.`,
+This is an exceptional opportunity for a senior professional to shape India's digital governance future in partnership with the world's premier development institution.`,
     requirements: [
-      'MBA from a top-tier business school',
-      '5-8 years of management consulting experience at a top-tier firm (MBB preferred)',
-      'Demonstrated expertise in corporate strategy, M&A, and business transformation',
-      'Experience managing cross-functional teams and senior client relationships',
-      'Outstanding analytical, communication, and problem-solving skills',
-      'Strong financial modeling and data analysis capabilities',
+      '12+ years of experience in digital transformation, IT consulting, or e-governance',
+      'Proven track record managing PMU/TSU operations for donor-funded government IT programs',
+      'Experience with World Bank, ADB, or other multilateral project management requirements',
+      'Deep knowledge of India\'s digital ecosystem: MeitY, NeGD, DigiLocker, ABDM, UPI, ONDC',
+      'Expertise in digital public infrastructure (DPI), e-governance frameworks, and citizen services',
+      'Strong stakeholder management skills with government officials at Secretary/DG level',
     ],
     responsibilities: [
-      'Lead full-cycle consulting engagements from problem structuring to implementation',
-      'Develop strategic frameworks and actionable recommendations for C-suite clients',
-      'Build and manage client relationships at the executive level',
-      'Mentor and develop junior team members',
-      'Drive business development and proposal development activities',
-      'Deliver presentations to boards and executive committees',
+      'Lead technical assistance delivery for state e-governance transformation programs',
+      'Design and implement PMU/TSU governance structures and M&E frameworks',
+      'Support procurement of digital services under World Bank procurement regulations',
+      'Engage with MeitY, NeGD, NIC, and state IT departments as the primary technical advisor',
+      'Produce high-quality knowledge products: policy notes, technical reports, learning briefs',
+      'Mentor government counterparts on digital transformation best practices',
     ],
-    skills: ['Strategy', 'Financial Modeling', 'M&A', 'Due Diligence', 'Leadership', 'Consulting', 'Excel', 'PowerPoint'],
-    salary: { min: 180000, max: 220000, currency: 'USD', period: 'annually', isEstimated: false },
-    industries: ['Consulting', 'Strategy', 'Finance'],
-    benefits: ['Comprehensive health insurance', 'Annual bonus (30-40%)', 'Equity participation', '401(k) matching', 'Flexible work arrangements', 'Professional development budget'],
+    skills: ['Digital Transformation', 'E-Governance', 'PMU Leadership', 'Stakeholder Management', 'M&E', 'Policy Advisory', 'DPI', 'World Bank Procurement'],
+    salary: { min: 3500000, max: 5500000, currency: 'INR', period: 'annually', isEstimated: true },
+    industries: ['Development Sector', 'Government Technology', 'E-Governance'],
+    benefits: ['UN/World Bank-grade health insurance', 'Annual performance bonus', 'International travel allowance', 'Professional development stipend', 'Pension / retirement benefits', 'Flexible hybrid work arrangement'],
     matchScore: {
-      overall: 94,
-      breakdown: { skills: 95, experience: 92, location: 90, seniority: 96, industry: 94, compensation: 91 },
-      matchedSkills: ['Strategy', 'Financial Modeling', 'Leadership', 'Consulting', 'M&A'],
-      missingSkills: ['Due Diligence', 'Agile'],
-      reasoning: 'Exceptional match on strategic consulting skills, seniority level, and industry background. Strong alignment with preferred compensation range. Minor gaps in due diligence and agile methodologies which can be quickly addressed.',
-      confidence: 0.96,
+      overall: 96,
+      breakdown: { skills: 97, experience: 95, location: 94, seniority: 97, industry: 96, compensation: 93 },
+      matchedSkills: ['Digital Transformation', 'E-Governance', 'PMU Leadership', 'Stakeholder Management', 'M&E', 'World Bank Projects'],
+      missingSkills: ['ABDM Ecosystem', 'Digital Public Infrastructure (DPI)'],
+      reasoning: 'Exceptional profile match — 14+ years of digital transformation and government consulting experience directly aligns with this advisory role. Your World Bank project management background and PMU/TSU leadership are critical differentiators. Minor gaps in ABDM ecosystem and DPI terminology, which can be addressed with 2–3 weeks of preparation.',
+      confidence: 0.97,
     },
-    aiSummary: 'This is an exceptional role at a top-tier consulting firm with strong compensation and growth potential. The 94% match score reflects deep alignment across your strategic consulting background, leadership experience, and target seniority level.',
-    whyRelevant: 'Directly matches your strategy consulting background at senior level with strong leadership component.',
+    aiSummary: 'This is a flagship opportunity with the World Bank — a perfect match for your profile. The 96% AI score reflects outstanding alignment across your e-governance, PMU, and donor project expertise. The role positions you at the intersection of global development finance and India\'s national digital agenda.',
+    whyRelevant: 'Directly aligns with your 14+ years of digital transformation, government consulting, and World Bank-funded PMU leadership experience.',
     recruiter: {
-      name: 'Sarah Mitchell',
-      title: 'Senior Recruiter, Consulting Practice',
-      company: 'McKinsey & Company',
-      email: 'sarah.mitchell@mckinsey.com',
-      linkedinUrl: 'https://linkedin.com/in/sarah-mitchell-recruiter',
+      name: 'Anjali Mehta',
+      title: 'Senior HR Partner – Digital Development Practice',
+      company: 'World Bank Group',
+      email: 'amehta@worldbank.org',
+      linkedinUrl: 'https://linkedin.com/in/anjali-mehta-worldbank',
     },
     company: {
-      name: 'McKinsey & Company',
-      industry: 'Management Consulting',
-      size: '30,000+',
-      founded: 1926,
-      headquarters: 'New York, NY',
-      website: 'https://mckinsey.com',
-      linkedinUrl: 'https://linkedin.com/company/mckinsey',
-      description: "McKinsey & Company is a global management consulting firm that serves leading businesses, governments, and nonprofits. We help organizations build the capabilities, leadership, and culture to achieve and sustain their most important goals.",
+      name: 'World Bank Group',
+      industry: 'International Development / Finance',
+      size: '15,000+',
+      founded: 1944,
+      headquarters: 'Washington, D.C.',
+      website: 'https://worldbank.org',
+      linkedinUrl: 'https://linkedin.com/company/world-bank',
+      description: "The World Bank Group is one of the world's largest sources of funding and knowledge for developing countries. Its five institutions share a commitment to reducing poverty, increasing shared prosperity, and promoting sustainable development.",
     },
   })
 
 const SIMILAR_JOBS = [
-  createMockJob({ id: 'sim1', title: 'Strategy Manager', company: { name: 'BCG' }, matchScore: { overall: 89, breakdown: { skills: 88, experience: 90, location: 85, seniority: 92, industry: 88, compensation: 85 }, matchedSkills: ['Strategy', 'Leadership'], missingSkills: ['M&A'], reasoning: '', confidence: 0.91 } }),
-  createMockJob({ id: 'sim2', title: 'Principal, Corporate Strategy', company: { name: 'Bain' }, matchScore: { overall: 86, breakdown: { skills: 85, experience: 87, location: 84, seniority: 88, industry: 86, compensation: 84 }, matchedSkills: ['Strategy', 'Consulting'], missingSkills: [], reasoning: '', confidence: 0.88 } }),
-  createMockJob({ id: 'sim3', title: 'VP Strategy', company: { name: 'Oliver Wyman' }, matchScore: { overall: 82, breakdown: { skills: 80, experience: 84, location: 80, seniority: 84, industry: 82, compensation: 80 }, matchedSkills: ['Strategy'], missingSkills: ['Digital'], reasoning: '', confidence: 0.85 } }),
+  createMockJob({ id: 'sim1', title: 'PMU Director – Digital Health', company: { name: 'Asian Development Bank' }, matchScore: { overall: 95, breakdown: { skills: 95, experience: 94, location: 92, seniority: 96, industry: 95, compensation: 92 }, matchedSkills: ['PMU', 'Digital Health', 'Donor Projects'], missingSkills: [], reasoning: '', confidence: 0.96 } }),
+  createMockJob({ id: 'sim2', title: 'Director, E-Governance Practice', company: { name: 'Deloitte Government' }, matchScore: { overall: 89, breakdown: { skills: 88, experience: 90, location: 88, seniority: 92, industry: 89, compensation: 86 }, matchedSkills: ['E-Governance', 'Digital Transformation'], missingSkills: ['Salesforce Gov'], reasoning: '', confidence: 0.91 } }),
+  createMockJob({ id: 'sim3', title: 'National IT Advisor – Health', company: { name: 'WHO India' }, matchScore: { overall: 91, breakdown: { skills: 90, experience: 92, location: 90, seniority: 92, industry: 91, compensation: 88 }, matchedSkills: ['Public Health IT', 'HIS', 'Policy'], missingSkills: [], reasoning: '', confidence: 0.93 } }),
 ]
 
 const ScoreBreakdownBar = ({
@@ -146,6 +147,7 @@ export default function JobDetailPage() {
   const [isBookmarked, setIsBookmarked] = useState(false)
   const [showCoverLetter, setShowCoverLetter] = useState(false)
   const [showOutreach, setShowOutreach] = useState(false)
+  const [showResumeOptimizer, setShowResumeOptimizer] = useState(false)
 
   const companyInitials = getInitials(job.company.name)
   const companyBgColor = stringToColor(job.company.name)
@@ -259,6 +261,14 @@ export default function JobDetailPage() {
                 onClick={() => setShowOutreach(true)}
               >
                 Outreach
+              </Button>
+              <Button
+                variant="outline"
+                size="md"
+                leftIcon={<Star className="h-4 w-4" />}
+                onClick={() => setShowResumeOptimizer(true)}
+              >
+                Optimize CV
               </Button>
             </div>
           </div>
@@ -496,6 +506,11 @@ export default function JobDetailPage() {
         onClose={() => setShowOutreach(false)}
         job={job}
         recruiter={job.recruiter}
+      />
+      <ResumeOptimizerModal
+        isOpen={showResumeOptimizer}
+        onClose={() => setShowResumeOptimizer(false)}
+        job={job}
       />
     </div>
   )
