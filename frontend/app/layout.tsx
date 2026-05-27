@@ -19,35 +19,55 @@ export const metadata: Metadata = {
   description:
     'AI-powered job opportunity intelligence for senior consultants. Discover, track, and act on the best opportunities with AI-curated matching.',
   keywords: [
-    'AI career intelligence',
-    'job matching',
-    'consulting jobs',
-    'senior consultant',
-    'job tracker',
-    'OpportunityIQ',
+    'AI career intelligence', 'job matching', 'consulting jobs',
+    'senior consultant', 'job tracker', 'OpportunityIQ',
+    'e-governance jobs', 'digital transformation careers',
   ],
   authors: [{ name: 'OpportunityIQ' }],
   creator: 'OpportunityIQ',
   metadataBase: new URL('https://opportunityiq.ai'),
+  manifest: '/manifest.json',
+  appleWebApp: {
+    capable: true,
+    statusBarStyle: 'black-translucent',
+    title: 'OpportunityIQ',
+    startupImage: [
+      { url: '/icons/icon-512x512.png', media: '(device-width: 320px)' },
+    ],
+  },
   openGraph: {
     type: 'website',
     locale: 'en_US',
     url: 'https://opportunityiq.ai',
     title: 'OpportunityIQ — AI Career Intelligence',
-    description:
-      'AI-powered job opportunity intelligence for senior consultants.',
+    description: 'AI-powered job opportunity intelligence for senior consultants.',
     siteName: 'OpportunityIQ',
   },
   twitter: {
     card: 'summary_large_image',
     title: 'OpportunityIQ — AI Career Intelligence',
-    description:
-      'AI-powered job opportunity intelligence for senior consultants.',
+    description: 'AI-powered job opportunity intelligence for senior consultants.',
   },
   icons: {
-    icon: '/favicon.ico',
-    shortcut: '/favicon-16x16.png',
-    apple: '/apple-touch-icon.png',
+    icon: [
+      { url: '/icons/icon-192x192.png', sizes: '192x192', type: 'image/png' },
+      { url: '/icons/icon-512x512.png', sizes: '512x512', type: 'image/png' },
+      { url: '/icons/icon.svg', type: 'image/svg+xml' },
+    ],
+    apple: [
+      { url: '/icons/apple-touch-icon.png', sizes: '180x180', type: 'image/png' },
+    ],
+    other: [
+      { rel: 'mask-icon', url: '/icons/icon.svg', color: '#F59E0B' },
+    ],
+  },
+  other: {
+    'mobile-web-app-capable': 'yes',
+    'apple-mobile-web-app-capable': 'yes',
+    'apple-mobile-web-app-status-bar-style': 'black-translucent',
+    'msapplication-TileColor': '#F59E0B',
+    'msapplication-TileImage': '/icons/icon-144x144.png',
+    'theme-color': '#F59E0B',
   },
 }
 
