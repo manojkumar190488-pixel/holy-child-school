@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /holy-child-school/
+
+Sitemap: https://manojkumar190488-pixel.github.io/holy-child-school/sitemap.xml

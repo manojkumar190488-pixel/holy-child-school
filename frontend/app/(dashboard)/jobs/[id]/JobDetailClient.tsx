@@ -30,6 +30,7 @@ import { CoverLetterModal } from '@/components/ai/CoverLetterModal'
 import { OutreachModal } from '@/components/ai/OutreachModal'
 import { ResumeOptimizerModal } from '@/components/ai/ResumeOptimizerModal'
 import { createMockJob } from '@/lib/api'
+import { ALL_JOBS } from '@/lib/mock-jobs'
 import {
   formatRelativeDate,
   getInitials,
@@ -40,8 +41,10 @@ import {
 import { toast } from 'sonner'
 
 // Mock job data — domain-aligned: digital transformation, e-governance, public health IT
-const getMockJob = (id: string) =>
-  createMockJob({
+const getMockJob = (id: string) => {
+  const found = ALL_JOBS.find((j) => j.id === id)
+  if (found) return found
+  return createMockJob({
     id,
     title: 'Senior Digital Transformation Advisor',
     description: `The World Bank Group is seeking an experienced Senior Digital Transformation Advisor to support its Government Digital Transformation program in India. The selected candidate will work closely with MeitY, state IT departments, and development partners to accelerate the country's digital public infrastructure agenda.
@@ -97,6 +100,7 @@ This is an exceptional opportunity for a senior professional to shape India's di
       description: "The World Bank Group is one of the world's largest sources of funding and knowledge for developing countries. Its five institutions share a commitment to reducing poverty, increasing shared prosperity, and promoting sustainable development.",
     },
   })
+}
 
 const SIMILAR_JOBS = [
   createMockJob({ id: 'sim1', title: 'PMU Director – Digital Health', company: { name: 'Asian Development Bank' }, matchScore: { overall: 95, breakdown: { skills: 95, experience: 94, location: 92, seniority: 96, industry: 95, compensation: 92 }, matchedSkills: ['PMU', 'Digital Health', 'Donor Projects'], missingSkills: [], reasoning: '', confidence: 0.96 } }),

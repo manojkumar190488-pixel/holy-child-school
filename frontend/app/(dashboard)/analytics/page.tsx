@@ -1,10 +1,10 @@
 'use client'
 
+import { useState } from 'react'
 import { motion } from 'framer-motion'
 import {
   BarChart3,
   TrendingUp,
-  TrendingDown,
   Award,
   Target,
   Users,
@@ -34,16 +34,43 @@ import { StatsCard } from '@/components/dashboard/StatsCard'
 import { cn } from '@/lib/utils'
 import { CHART_COLORS } from '@/lib/constants'
 
-// Mock analytics data — digital transformation, e-governance, public health IT, development sector
-const TREND_DATA = [
-  { date: 'May 1', jobs: 18, matches: 9, applied: 1 },
-  { date: 'May 5', jobs: 24, matches: 13, applied: 2 },
-  { date: 'May 8', jobs: 31, matches: 17, applied: 2 },
-  { date: 'May 11', jobs: 28, matches: 14, applied: 3 },
-  { date: 'May 15', jobs: 38, matches: 22, applied: 4 },
-  { date: 'May 18', jobs: 35, matches: 19, applied: 3 },
-  { date: 'May 21', jobs: 44, matches: 27, applied: 5 },
-]
+type Period = '7d' | '30d' | '90d'
+
+const TREND_DATA: Record<Period, Array<{ date: string; jobs: number; matches: number; applied: number }>> = {
+  '7d': [
+    { date: 'May 15', jobs: 18, matches: 9, applied: 1 },
+    { date: 'May 16', jobs: 24, matches: 13, applied: 2 },
+    { date: 'May 17', jobs: 31, matches: 17, applied: 2 },
+    { date: 'May 18', jobs: 28, matches: 14, applied: 3 },
+    { date: 'May 19', jobs: 38, matches: 22, applied: 4 },
+    { date: 'May 20', jobs: 35, matches: 19, applied: 3 },
+    { date: 'May 21', jobs: 44, matches: 27, applied: 5 },
+  ],
+  '30d': [
+    { date: 'May 1', jobs: 18, matches: 9, applied: 1 },
+    { date: 'May 5', jobs: 24, matches: 13, applied: 2 },
+    { date: 'May 8', jobs: 31, matches: 17, applied: 2 },
+    { date: 'May 11', jobs: 28, matches: 14, applied: 3 },
+    { date: 'May 15', jobs: 38, matches: 22, applied: 4 },
+    { date: 'May 18', jobs: 35, matches: 19, applied: 3 },
+    { date: 'May 21', jobs: 44, matches: 27, applied: 5 },
+  ],
+  '90d': [
+    { date: 'Mar 1', jobs: 12, matches: 5, applied: 0 },
+    { date: 'Mar 15', jobs: 18, matches: 8, applied: 1 },
+    { date: 'Apr 1', jobs: 22, matches: 11, applied: 1 },
+    { date: 'Apr 15', jobs: 29, matches: 15, applied: 2 },
+    { date: 'May 1', jobs: 35, matches: 19, applied: 3 },
+    { date: 'May 15', jobs: 38, matches: 22, applied: 4 },
+    { date: 'May 21', jobs: 44, matches: 27, applied: 5 },
+  ],
+}
+
+const STATS_DATA: Record<Period, { total: number; highMatch: number; avgScore: number; recruiters: number; totalChange: number; hmChange: number; scoreChange: number; recChange: number }> = {
+  '7d':  { total: 196, highMatch: 22, avgScore: 71, recruiters: 8,  totalChange: 18, hmChange: 29, scoreChange: 8,  recChange: 17 },
+  '30d': { total: 847, highMatch: 64, avgScore: 71, recruiters: 28, totalChange: 18, hmChange: 29, scoreChange: 8,  recChange: 17 },
+  '90d': { total: 2340, highMatch: 186, avgScore: 68, recruiters: 71, totalChange: 42, hmChange: 55, scoreChange: 12, recChange: 34 },
+}
 
 const SOURCE_DATA = [
   { name: 'LinkedIn', value: 38, color: CHART_COLORS.linkedin },
@@ -103,6 +130,10 @@ const DAYS = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat']
 const HOURS = Array.from({ length: 24 }, (_, i) => `${i}:00`)
 
 export default function AnalyticsPage() {
+  const [period, setPeriod] = useState<Period>('30d')
+  const stats = STATS_DATA[period]
+  const trendData = TREND_DATA[period]
+
   return (
     <div className="animate-in space-y-5">
       {/* Header */}
@@ -110,21 +141,22 @@ export default function AnalyticsPage() {
         <div>
           <h2 className="text-xl font-extrabold text-foreground">Market Intelligence</h2>
           <p className="text-sm text-muted-foreground">
-            30-day overview of your opportunity landscape
+            {period === '7d' ? '7-day' : period === '30d' ? '30-day' : '90-day'} overview of your opportunity landscape
           </p>
         </div>
         <div className="flex items-center gap-2">
-          {['7d', '30d', '90d'].map((period) => (
+          {(['7d', '30d', '90d'] as Period[]).map((p) => (
             <button
-              key={period}
+              key={p}
+              onClick={() => setPeriod(p)}
               className={cn(
                 'rounded-lg px-3 py-1.5 text-xs font-semibold transition-colors',
-                period === '30d'
+                period === p
                   ? 'bg-gold-500/10 text-gold-600 dark:text-gold-400 border border-gold-500/30'
                   : 'text-muted-foreground hover:bg-muted border border-transparent'
               )}
             >
-              {period}
+              {p}
             </button>
           ))}
         </div>
@@ -132,10 +164,10 @@ export default function AnalyticsPage() {
 
       {/* Stats Row */}
       <div className="grid grid-cols-2 gap-4 lg:grid-cols-4">
-        <StatsCard label="Total Opportunities" value={847} change={18} changeLabel="vs last month" icon={<BarChart3 className="h-5 w-5" />} color="gold" index={0} />
-        <StatsCard label="High Match (>80%)" value={64} change={29} changeLabel="strong pipeline" icon={<Award className="h-5 w-5" />} color="green" index={1} />
-        <StatsCard label="Avg Match Score" value={71} suffix="%" change={8} changeLabel="improvement" icon={<Target className="h-5 w-5" />} color="blue" index={2} />
-        <StatsCard label="Recruiters Tracked" value={28} change={17} changeLabel="new contacts" icon={<Users className="h-5 w-5" />} color="purple" index={3} />
+        <StatsCard label="Total Opportunities" value={stats.total} change={stats.totalChange} changeLabel={`vs prev ${period}`} icon={<BarChart3 className="h-5 w-5" />} color="gold" index={0} />
+        <StatsCard label="High Match (>80%)" value={stats.highMatch} change={stats.hmChange} changeLabel="strong pipeline" icon={<Award className="h-5 w-5" />} color="green" index={1} />
+        <StatsCard label="Avg Match Score" value={stats.avgScore} suffix="%" change={stats.scoreChange} changeLabel="improvement" icon={<Target className="h-5 w-5" />} color="blue" index={2} />
+        <StatsCard label="Recruiters Tracked" value={stats.recruiters} change={stats.recChange} changeLabel="new contacts" icon={<Users className="h-5 w-5" />} color="purple" index={3} />
       </div>
 
       {/* Main Charts Row */}
@@ -149,11 +181,11 @@ export default function AnalyticsPage() {
             </div>
             <div className="flex items-center gap-1.5 text-xs font-semibold text-emerald-600 dark:text-emerald-400">
               <TrendingUp className="h-3.5 w-3.5" />
-              +18% this month
+              +{stats.totalChange}% this {period}
             </div>
           </div>
           <ResponsiveContainer width="100%" height={220}>
-            <AreaChart data={TREND_DATA}>
+            <AreaChart data={trendData}>
               <defs>
                 <linearGradient id="jobsGrad" x1="0" y1="0" x2="0" y2="1">
                   <stop offset="5%" stopColor="#F59E0B" stopOpacity={0.3} />

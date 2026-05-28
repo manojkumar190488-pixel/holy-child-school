@@ -1,0 +1,629 @@
+/**
+ * Comprehensive mock job data — 40 domain-aligned opportunities for senior digital
+ * transformation / e-governance / public health IT consultant profile.
+ *
+ * All sourceUrl values are real, clickable job board search URLs.
+ */
+import { createMockJob } from '@/lib/api'
+import type { Job } from '@/types'
+
+const daysAgo = (n: number) => new Date(Date.now() - n * 86_400_000).toISOString()
+
+export const ALL_JOBS: Job[] = [
+  // ── TIER 1: 90-98% match ───────────────────────────────────────────────────
+  createMockJob({
+    id: 'j-wb-001', title: 'Senior Digital Transformation Advisor',
+    company: { name: 'World Bank Group', industry: 'International Development', size: '15,000+', headquarters: 'Washington D.C.', website: 'https://worldbank.org', linkedinUrl: 'https://linkedin.com/company/world-bank' },
+    location: 'New Delhi, India', remoteType: 'hybrid', seniorityLevel: 'senior',
+    source: 'linkedin', sourceUrl: 'https://www.linkedin.com/jobs/search/?keywords=digital+transformation+advisor+world+bank&location=India&f_TPR=r2592000',
+    skills: ['Digital Transformation', 'E-Governance', 'PMU Leadership', 'Stakeholder Management', 'M&E', 'Policy Advisory', 'DPI', 'World Bank Procurement'],
+    industries: ['Development Sector', 'Government Technology'],
+    salary: { min: 3500000, max: 5500000, currency: 'INR', period: 'annually', isEstimated: true },
+    postedAt: daysAgo(2), benefits: ['World Bank health insurance', 'Annual bonus', 'International travel allowance', 'Pension benefits'],
+    matchScore: { overall: 96, breakdown: { skills: 97, experience: 95, location: 94, seniority: 97, industry: 96, compensation: 93 }, matchedSkills: ['Digital Transformation', 'E-Governance', 'PMU Leadership', 'Stakeholder Management', 'M&E', 'World Bank Projects'], missingSkills: ['ABDM Ecosystem'], reasoning: 'Exceptional match — 14+ years directly aligns with this advisory role.', confidence: 0.97 },
+    aiSummary: 'Flagship opportunity — 96% AI match. Your World Bank PMU background is a critical differentiator.',
+    description: 'The World Bank Group seeks a Senior Digital Transformation Advisor to support Government Digital Transformation programs across India, working with MeitY, state IT departments, and development partners.',
+    requirements: ['12+ years digital transformation / e-governance experience', 'Proven PMU/TSU leadership for donor-funded programs', 'Experience with World Bank procurement regulations', 'Deep knowledge of India\'s digital ecosystem'],
+    responsibilities: ['Lead technical assistance for state e-governance programs', 'Design PMU/TSU governance structures', 'Engage with MeitY, NeGD, NIC as primary technical advisor'],
+    qualifications: ['Master\'s degree in IT, Public Policy, or related field', 'World Bank or multilateral project experience preferred'],
+  }),
+
+  createMockJob({
+    id: 'j-adb-001', title: 'PMU Director – Digital Health',
+    company: { name: 'Asian Development Bank', industry: 'International Finance', size: '3,000+', headquarters: 'Manila, Philippines', website: 'https://adb.org' },
+    location: 'New Delhi, India', remoteType: 'hybrid', seniorityLevel: 'director',
+    source: 'direct', sourceUrl: 'https://www.adb.org/work-with-us/careers/jobs',
+    skills: ['PMU Leadership', 'Digital Health', 'Donor Coordination', 'M&E', 'Health Information Systems', 'E-Governance'],
+    industries: ['International Development', 'Public Health', 'E-Governance'],
+    salary: { min: 4000000, max: 6500000, currency: 'INR', period: 'annually', isEstimated: true },
+    postedAt: daysAgo(1), benefits: ['ADB benefits package', 'Relocation allowance', 'Education grant', 'Medical insurance'],
+    matchScore: { overall: 95, breakdown: { skills: 95, experience: 94, location: 92, seniority: 96, industry: 95, compensation: 92 }, matchedSkills: ['PMU', 'Digital Health', 'Donor Projects', 'M&E', 'E-Governance'], missingSkills: [], reasoning: 'Outstanding PMU/TSU leadership match for ADB health portfolio.', confidence: 0.96 },
+    aiSummary: '95% match — ADB values your donor-funded digital health PMU track record.',
+    description: 'ADB seeks a PMU Director to lead digital health transformation programs across India, managing a portfolio of government health IT modernization projects.',
+    requirements: ['15+ years in health IT program management', 'ADB/World Bank project experience', 'Expertise in HMIS, ABDM, NHP digital architecture'],
+    responsibilities: ['Direct PMU operations for ADB India digital health portfolio', 'Coordinate with state health departments and MoHFW', 'Oversee M&E frameworks and reporting'],
+    qualifications: ['Master\'s or PhD in Health Informatics, Public Health, or related field'],
+  }),
+
+  createMockJob({
+    id: 'j-undp-001', title: 'Director, Health Information Systems',
+    company: { name: 'UNDP India', industry: 'United Nations', size: '17,000+', headquarters: 'New York, USA', website: 'https://undp.org' },
+    location: 'New Delhi, India', remoteType: 'hybrid', seniorityLevel: 'director',
+    source: 'direct', sourceUrl: 'https://jobs.undp.org/cj_view_jobs.cfm',
+    skills: ['Health Information Systems', 'Public Health IT', 'E-Governance', 'Digital Transformation', 'HIS', 'DHIS2'],
+    industries: ['United Nations', 'Public Health', 'E-Governance'],
+    salary: { min: 3800000, max: 5800000, currency: 'INR', period: 'annually', isEstimated: true },
+    postedAt: daysAgo(3), benefits: ['UN pension fund', 'Medical insurance', 'Education grant', 'Annual leave 30 days'],
+    matchScore: { overall: 93, breakdown: { skills: 93, experience: 92, location: 91, seniority: 94, industry: 93, compensation: 90 }, matchedSkills: ['Health Information Systems', 'Public Health IT', 'E-Governance', 'Digital Transformation'], missingSkills: ['DHIS2 Certification'], reasoning: 'Excellent UN HIS leadership fit with minor gap in DHIS2 certification.', confidence: 0.94 },
+    aiSummary: '93% match — UNDP values your HIS leadership across government health programs.',
+    description: 'UNDP India seeks a Director to lead Health Information Systems strengthening across states, supporting NHP, ABDM, and Co-WIN type national digital health platforms.',
+    requirements: ['12+ years health IT leadership', 'UN or multilateral agency experience preferred', 'Knowledge of NHP, ABDM, and state HIS architectures'],
+    responsibilities: ['Lead UNDP India HIS portfolio', 'Advise MoHFW and state health departments', 'Oversee technical assistance for digital health infrastructure'],
+    qualifications: ['Master\'s in Public Health, Health Informatics, or Computer Science'],
+  }),
+
+  createMockJob({
+    id: 'j-who-001', title: 'National IT Advisor – Health Systems',
+    company: { name: 'WHO India', industry: 'United Nations', size: '8,000+', headquarters: 'Geneva, Switzerland', website: 'https://who.int' },
+    location: 'New Delhi, India', remoteType: 'onsite', seniorityLevel: 'senior',
+    source: 'direct', sourceUrl: 'https://www.who.int/careers/en',
+    skills: ['Public Health IT', 'HIS', 'Digital Health Policy', 'E-Governance', 'Healthcare Technology', 'M&E'],
+    industries: ['United Nations', 'Public Health'],
+    salary: { min: 3200000, max: 4800000, currency: 'INR', period: 'annually', isEstimated: true },
+    postedAt: daysAgo(5), benefits: ['WHO pension', 'Medical coverage', 'Hazard pay', 'Annual home travel'],
+    matchScore: { overall: 91, breakdown: { skills: 90, experience: 92, location: 90, seniority: 92, industry: 91, compensation: 88 }, matchedSkills: ['Public Health IT', 'HIS', 'Digital Health Policy', 'E-Governance'], missingSkills: [], reasoning: 'Ideal public health IT advisory role at WHO scale.', confidence: 0.93 },
+    aiSummary: '91% match — WHO seeks exactly your public health IT and e-governance advisory depth.',
+    description: 'WHO India office seeks a National IT Advisor to support India\'s Ministry of Health and Family Welfare on digital health architecture and Health Information Systems strengthening.',
+    requirements: ['10+ years health IT advisory', 'Knowledge of India HIS landscape', 'Experience with WHO technical cooperation'],
+    responsibilities: ['Provide IT advisory support to MoHFW', 'Develop digital health roadmaps', 'Coordinate with state health departments'],
+    qualifications: ['MBBS/MD or Master\'s in Health Informatics or Public Health preferred'],
+  }),
+
+  createMockJob({
+    id: 'j-gates-001', title: 'Senior Advisor, Digital Health Strategy',
+    company: { name: 'Bill & Melinda Gates Foundation', industry: 'Philanthropy', size: '1,600+', headquarters: 'Seattle, USA', website: 'https://gatesfoundation.org' },
+    location: 'New Delhi, India', remoteType: 'remote', seniorityLevel: 'senior',
+    source: 'linkedin', sourceUrl: 'https://www.linkedin.com/jobs/search/?keywords=digital+health+strategy+advisor+india&location=India&f_TPR=r2592000',
+    skills: ['Digital Health', 'Public Health IT', 'Strategy', 'Donor Relations', 'Foundation Management', 'Policy Advisory'],
+    industries: ['Philanthropy', 'Public Health', 'Development Sector'],
+    salary: { min: 4500000, max: 7000000, currency: 'INR', period: 'annually', isEstimated: true },
+    postedAt: daysAgo(4), benefits: ['Comprehensive health insurance', '401k equivalent', 'Flexible working', 'Professional development'],
+    matchScore: { overall: 90, breakdown: { skills: 89, experience: 91, location: 92, seniority: 91, industry: 90, compensation: 90 }, matchedSkills: ['Digital Health', 'Public Health IT', 'Strategy', 'Donor Relations'], missingSkills: ['Global Health Security'], reasoning: 'Strong philanthropic health digital transformation advisory fit.', confidence: 0.92 },
+    aiSummary: '90% match — Gates Foundation values your cross-government digital health program leadership.',
+    description: 'The Gates Foundation seeks a Senior Digital Health Advisor to support India\'s digital public health infrastructure, ABDM rollout, and state-level digital health initiatives.',
+    requirements: ['12+ years digital health strategy', 'Donor program management experience', 'Understanding of India NHP and ABDM'],
+    responsibilities: ['Develop digital health strategy for India program', 'Engage government partners and co-investors', 'Monitor and evaluate digital health grants'],
+    qualifications: ['Master\'s or PhD in Public Health, Health Policy, or related'],
+  }),
+
+  // ── TIER 2: 85-89% match ───────────────────────────────────────────────────
+  createMockJob({
+    id: 'j-del-001', title: 'Senior Consultant, E-Governance & Digital Transformation',
+    company: { name: 'Deloitte India', industry: 'Consulting', size: '330,000+', headquarters: 'London, UK', website: 'https://deloitte.com', linkedinUrl: 'https://linkedin.com/company/deloitte' },
+    location: 'New Delhi, India', remoteType: 'hybrid', seniorityLevel: 'senior',
+    source: 'linkedin', sourceUrl: 'https://www.linkedin.com/jobs/search/?keywords=e-governance+consultant+deloitte&location=India&f_TPR=r2592000',
+    skills: ['E-Governance', 'Digital Transformation', 'Government Consulting', 'Change Management', 'Policy Advisory'],
+    industries: ['Consulting', 'Government Technology'],
+    salary: { min: 2800000, max: 4500000, currency: 'INR', period: 'annually', isEstimated: true },
+    postedAt: daysAgo(6), benefits: ['Health insurance', 'Annual bonus', 'Learning budget', 'Flexible work'],
+    matchScore: { overall: 89, breakdown: { skills: 88, experience: 90, location: 88, seniority: 91, industry: 89, compensation: 87 }, matchedSkills: ['E-Governance', 'Digital Transformation', 'Government Consulting'], missingSkills: ['Salesforce Gov Cloud'], reasoning: 'Strong alignment on e-governance consulting practice.', confidence: 0.91 },
+    aiSummary: '89% match — Deloitte\'s Government practice is expanding e-governance advisory. Minor skill gap in Salesforce.',
+    description: 'Deloitte India Government & Public Services practice seeks a Senior Consultant to lead e-governance transformation engagements for central and state government clients.',
+    requirements: ['8+ years government consulting', 'E-governance program delivery experience', 'Strong stakeholder management'],
+    responsibilities: ['Lead e-governance consulting engagements', 'Design digital services frameworks', 'Manage client relationships at Joint Secretary level and above'],
+    qualifications: ['MBA or equivalent from premium institute', 'Government IT consulting experience'],
+  }),
+
+  createMockJob({
+    id: 'j-ey-001', title: 'Practice Lead, Digital Public Infrastructure',
+    company: { name: 'EY India', industry: 'Consulting', size: '300,000+', headquarters: 'London, UK', website: 'https://ey.com' },
+    location: 'Mumbai, India', remoteType: 'hybrid', seniorityLevel: 'lead',
+    source: 'indeed', sourceUrl: 'https://in.indeed.com/jobs?q=digital+public+infrastructure+EY&l=India',
+    skills: ['Digital Transformation', 'Public Infrastructure', 'Consulting', 'DPI Stack', 'Leadership'],
+    industries: ['Consulting', 'Government Technology', 'Financial Services'],
+    salary: { min: 3000000, max: 5000000, currency: 'INR', period: 'annually', isEstimated: true },
+    postedAt: daysAgo(7), benefits: ['Medical & dental', 'Annual performance bonus', 'Global mobility', 'EY-LEAD program'],
+    matchScore: { overall: 87, breakdown: { skills: 86, experience: 88, location: 86, seniority: 89, industry: 87, compensation: 85 }, matchedSkills: ['Digital Transformation', 'Public Infrastructure', 'Consulting', 'Leadership'], missingSkills: ['DPI Stack'], reasoning: 'Good match for emerging DPI advisory practice.', confidence: 0.90 },
+    aiSummary: '87% match — EY\'s DPI practice is new and growing. Your government consulting track record is highly valued.',
+    description: 'EY India\'s Government & Public Sector practice is building a Digital Public Infrastructure advisory team. Seeking a Practice Lead to drive India Stack, ONDC, ABDM advisory.',
+    requirements: ['10+ years consulting in government technology', 'Understanding of India DPI ecosystem', 'Business development experience'],
+    responsibilities: ['Build and lead DPI practice', 'Develop thought leadership content', 'Manage key government client relationships'],
+    qualifications: ['MBA from IIM or equivalent', 'Technology advisory background'],
+  }),
+
+  createMockJob({
+    id: 'j-pwc-001', title: 'Director, Government Technology Advisory',
+    company: { name: 'PwC India', industry: 'Consulting', size: '280,000+', headquarters: 'London, UK', website: 'https://pwc.in' },
+    location: 'New Delhi, India', remoteType: 'hybrid', seniorityLevel: 'director',
+    source: 'naukri', sourceUrl: 'https://www.naukri.com/pwc-jobs?k=government+technology+director',
+    skills: ['Government Consulting', 'Digital Transformation', 'IT Strategy', 'Public Sector', 'Leadership'],
+    industries: ['Consulting', 'Government Technology'],
+    salary: { min: 3500000, max: 6000000, currency: 'INR', period: 'annually', isEstimated: true },
+    postedAt: daysAgo(8),
+    matchScore: { overall: 86, breakdown: { skills: 85, experience: 87, location: 85, seniority: 88, industry: 86, compensation: 84 }, matchedSkills: ['Government Consulting', 'Digital Transformation', 'IT Strategy'], missingSkills: ['Oracle Gov Suite'], reasoning: 'Strong government technology advisory alignment.', confidence: 0.89 },
+    aiSummary: '86% match — PwC Government practice actively hiring senior directors with your profile.',
+    description: 'PwC India seeks a Director to lead Government Technology Advisory engagements, focusing on digital transformation of central and state government services.',
+    requirements: ['12+ years IT consulting for government', 'CXO-level stakeholder management', 'Digital transformation track record'],
+    responsibilities: ['Lead large government transformation programs', 'Business development and proposal leadership', 'Practice development'],
+    qualifications: ['MBA from top-tier institute preferred'],
+  }),
+
+  createMockJob({
+    id: 'j-mckinsey-001', title: 'Associate Partner, Public Sector Digital',
+    company: { name: 'McKinsey & Company', industry: 'Consulting', size: '45,000+', headquarters: 'New York, USA', website: 'https://mckinsey.com' },
+    location: 'New Delhi, India', remoteType: 'hybrid', seniorityLevel: 'principal',
+    source: 'linkedin', sourceUrl: 'https://www.linkedin.com/jobs/search/?keywords=mckinsey+public+sector+digital+india&location=India',
+    skills: ['Strategy', 'Digital Transformation', 'Public Sector', 'Change Management', 'Data Analytics'],
+    industries: ['Consulting', 'Government Technology', 'Healthcare'],
+    salary: { min: 6000000, max: 10000000, currency: 'INR', period: 'annually', isEstimated: true },
+    postedAt: daysAgo(10),
+    matchScore: { overall: 83, breakdown: { skills: 82, experience: 85, location: 83, seniority: 84, industry: 83, compensation: 78 }, matchedSkills: ['Digital Transformation', 'Public Sector', 'Strategy'], missingSkills: ['McKinsey Problem Solving', 'MBB Methodology'], reasoning: 'Strong experience but MBB firms typically prefer internal promotions.', confidence: 0.85 },
+    aiSummary: '83% match — McKinsey is actively building public sector digital in India. Lateral AP hiring is selective.',
+    description: 'McKinsey seeks an Associate Partner for its Public Sector Digital practice in India, focusing on large-scale government transformation and digital service delivery.',
+    requirements: ['15+ years consulting experience', 'Government digital transformation track record', 'Business development expertise'],
+    responsibilities: ['Lead client service teams', 'Drive business development', 'Develop McKinsey IP on government digital'],
+    qualifications: ['MBA from top global school preferred', 'Prior MBB experience a plus'],
+  }),
+
+  createMockJob({
+    id: 'j-giz-001', title: 'Digital Transformation Lead, Indo-German Dev Cooperation',
+    company: { name: 'GIZ India', industry: 'Development Cooperation', size: '22,000+', headquarters: 'Bonn, Germany', website: 'https://giz.de' },
+    location: 'New Delhi, India', remoteType: 'hybrid', seniorityLevel: 'lead',
+    source: 'direct', sourceUrl: 'https://www.giz.de/de/jobs_und_karriere/stellenangebote.html',
+    skills: ['Digital Transformation', 'Government Consulting', 'Project Management', 'E-Governance', 'Bilateral Development'],
+    industries: ['Development Cooperation', 'Government Technology'],
+    salary: { min: 2500000, max: 4000000, currency: 'INR', period: 'annually', isEstimated: true },
+    postedAt: daysAgo(9),
+    matchScore: { overall: 88, breakdown: { skills: 87, experience: 89, location: 87, seniority: 90, industry: 88, compensation: 86 }, matchedSkills: ['Digital Transformation', 'Government Consulting', 'Project Management', 'E-Governance'], missingSkills: ['German Development Aid Protocols'], reasoning: 'Strong bilateral development cooperation match.', confidence: 0.90 },
+    aiSummary: '88% match — GIZ India\'s digital portfolio is expanding. Your government consulting depth is ideal.',
+    description: 'GIZ India seeks a Digital Transformation Lead for its Indo-German Development Cooperation program focused on e-governance, digital literacy, and smart urban services.',
+    requirements: ['10+ years digital transformation', 'Government stakeholder engagement experience', 'Bilateral development project experience preferred'],
+    responsibilities: ['Lead digital components of GIZ India projects', 'Coordinate with BMZ and Indian government counterparts', 'Design and manage technical assistance programs'],
+    qualifications: ['Master\'s in IT, Public Policy, or Development Studies'],
+  }),
+
+  createMockJob({
+    id: 'j-usaid-001', title: 'Chief Technology Advisor, Digital Governance',
+    company: { name: 'USAID India Mission', industry: 'US Government', size: '10,000+', headquarters: 'Washington D.C.', website: 'https://usaid.gov' },
+    location: 'New Delhi, India', remoteType: 'hybrid', seniorityLevel: 'senior',
+    source: 'direct', sourceUrl: 'https://www.usajobs.gov/Search/Results?k=usaid+india+digital+governance',
+    skills: ['Governance Technology', 'E-Governance', 'IT Advisory', 'Program Management', 'Donor Compliance'],
+    industries: ['US Government', 'Development Sector', 'Government Technology'],
+    salary: { min: 3000000, max: 5000000, currency: 'INR', period: 'annually', isEstimated: true },
+    postedAt: daysAgo(12),
+    matchScore: { overall: 86, breakdown: { skills: 85, experience: 87, location: 85, seniority: 88, industry: 86, compensation: 84 }, matchedSkills: ['Governance Technology', 'E-Governance', 'IT Advisory'], missingSkills: ['PEPFAR', 'USAID FAR Regulations'], reasoning: 'Good fit with minor gaps in USAID-specific procurement protocols.', confidence: 0.89 },
+    aiSummary: '86% match — USAID Digital Frontiers program is expanding India operations. USAID procurement gap is closeable.',
+    description: 'USAID India Mission seeks a Chief Technology Advisor to support digital governance transformation under Digital Frontiers and related programs.',
+    requirements: ['12+ years government technology advisory', 'USAID or US Government program experience preferred', 'Strong e-governance background'],
+    responsibilities: ['Provide CTO-level advisory to USAID India program teams', 'Engage Indian government counterparts at senior levels', 'Develop digital governance strategy'],
+    qualifications: ['Master\'s in IT, Public Policy, or International Development'],
+  }),
+
+  createMockJob({
+    id: 'j-unicef-001', title: 'Digital Health Specialist (Health Systems)',
+    company: { name: 'UNICEF India', industry: 'United Nations', size: '13,000+', headquarters: 'New York, USA', website: 'https://unicef.org' },
+    location: 'New Delhi, India', remoteType: 'hybrid', seniorityLevel: 'senior',
+    source: 'direct', sourceUrl: 'https://jobs.unicef.org/cw/en-us/listing/',
+    skills: ['Digital Health', 'Health Information Systems', 'Child Health', 'HMIS', 'RCH', 'E-Governance'],
+    industries: ['United Nations', 'Public Health', 'Child Development'],
+    salary: { min: 2800000, max: 4500000, currency: 'INR', period: 'annually', isEstimated: true },
+    postedAt: daysAgo(14),
+    matchScore: { overall: 85, breakdown: { skills: 84, experience: 86, location: 84, seniority: 87, industry: 85, compensation: 83 }, matchedSkills: ['Digital Health', 'Health Information Systems', 'E-Governance'], missingSkills: ['MNCH specific focus', 'iHRIS'], reasoning: 'Good UNICEF digital health fit with minor child health IT gap.', confidence: 0.88 },
+    aiSummary: '85% match — UNICEF India\'s digital health portfolio aligns with your HIS expertise.',
+    description: 'UNICEF India seeks a Digital Health Specialist to support strengthening of India\'s digital health systems, focusing on maternal-child health information architecture.',
+    requirements: ['10+ years digital health', 'Health information systems expertise', 'UN system experience preferred'],
+    responsibilities: ['Support HMIS strengthening for MNCH', 'Provide technical assistance to state health departments', 'Develop digital health capacity building programs'],
+    qualifications: ['Master\'s in Public Health, Health Informatics, or related'],
+  }),
+
+  // ── TIER 3: 80-84% match ───────────────────────────────────────────────────
+  createMockJob({
+    id: 'j-accenture-001', title: 'Associate Director, Government Digital Services',
+    company: { name: 'Accenture India', industry: 'Technology Consulting', size: '500,000+', headquarters: 'Dublin, Ireland', website: 'https://accenture.com' },
+    location: 'Bengaluru, India', remoteType: 'hybrid', seniorityLevel: 'director',
+    source: 'naukri', sourceUrl: 'https://www.naukri.com/accenture-jobs?k=associate+director+government+digital',
+    skills: ['Digital Transformation', 'Government Services', 'Cloud Migration', 'Agile', 'Change Management'],
+    industries: ['Technology Consulting', 'Government Technology'],
+    salary: { min: 3500000, max: 6000000, currency: 'INR', period: 'annually', isEstimated: true },
+    postedAt: daysAgo(11),
+    matchScore: { overall: 84, breakdown: { skills: 83, experience: 85, location: 82, seniority: 86, industry: 84, compensation: 82 }, matchedSkills: ['Digital Transformation', 'Government Services', 'Change Management'], missingSkills: ['Azure Gov Cloud', 'Agile at Scale'], reasoning: 'Good consulting match; cloud skills gap is addressable.', confidence: 0.87 },
+    aiSummary: '84% match — Accenture Federal/Gov practice is scaling rapidly. Cloud certification would close the gap.',
+    description: 'Accenture India seeks an Associate Director for its Government & Public Services practice to lead digital services transformation for central government clients.',
+    requirements: ['12+ years IT consulting', 'Government project delivery experience', 'Cloud transformation knowledge'],
+    responsibilities: ['Lead government digital transformation projects', 'Manage delivery teams of 20+', 'Drive account growth'],
+    qualifications: ['MBA or B.Tech from premium institute'],
+  }),
+
+  createMockJob({
+    id: 'j-meityi-001', title: 'Program Manager, Smart Cities Mission',
+    company: { name: 'MeitY / NICSI', industry: 'Government of India', size: '5,000+', headquarters: 'New Delhi, India', website: 'https://meity.gov.in' },
+    location: 'New Delhi, India', remoteType: 'onsite', seniorityLevel: 'senior',
+    source: 'naukri', sourceUrl: 'https://www.naukri.com/government-it-jobs-in-new-delhi?k=program+manager+smart+cities',
+    skills: ['Smart Cities', 'E-Governance', 'PMU', 'Policy', 'Stakeholder Management', 'Urban IT'],
+    industries: ['Government of India', 'Smart Cities', 'E-Governance'],
+    salary: { min: 2000000, max: 3200000, currency: 'INR', period: 'annually', isEstimated: true },
+    postedAt: daysAgo(15),
+    matchScore: { overall: 84, breakdown: { skills: 82, experience: 86, location: 90, seniority: 85, industry: 84, compensation: 80 }, matchedSkills: ['Smart Cities', 'E-Governance', 'PMU', 'Policy'], missingSkills: ['GIS Mapping', 'IoT Systems'], reasoning: 'Good government tech alignment; lower compensation versus market.', confidence: 0.87 },
+    aiSummary: '84% match — Strong alignment but government compensation may not meet expectations.',
+    description: 'MeitY / NICSI seeks a Program Manager for Smart Cities Mission digital components, coordinating ICT projects across 100 smart cities.',
+    requirements: ['10+ years government IT program management', 'Smart Cities or urban IT experience', 'Central government project delivery'],
+    responsibilities: ['Manage ICT components of Smart Cities projects', 'Coordinate with city-level SPVs', 'Report to Smart Cities Mission at MoHUA'],
+    qualifications: ['B.Tech/M.Tech + MBA preferred'],
+  }),
+
+  createMockJob({
+    id: 'j-wipro-001', title: 'Principal Consultant, Digital Governance',
+    company: { name: 'Wipro Government Solutions', industry: 'IT Services', size: '240,000+', headquarters: 'Bengaluru, India', website: 'https://wipro.com' },
+    location: 'New Delhi, India', remoteType: 'hybrid', seniorityLevel: 'principal',
+    source: 'linkedin', sourceUrl: 'https://www.linkedin.com/jobs/search/?keywords=principal+consultant+digital+governance+wipro&location=India',
+    skills: ['Digital Governance', 'E-Governance', 'IT Consulting', 'Government Projects', 'Enterprise Architecture'],
+    industries: ['IT Services', 'Government Technology'],
+    salary: { min: 2500000, max: 4000000, currency: 'INR', period: 'annually', isEstimated: true },
+    postedAt: daysAgo(13),
+    matchScore: { overall: 82, breakdown: { skills: 80, experience: 84, location: 83, seniority: 83, industry: 82, compensation: 80 }, matchedSkills: ['Digital Governance', 'E-Governance', 'IT Consulting', 'Government Projects'], missingSkills: ['Oracle E-Business Suite', 'SAP Public Sector'], reasoning: 'Good IT services fit; compensation below profile expectations.', confidence: 0.85 },
+    aiSummary: '82% match — Wipro\'s government vertical is strong. Compensation may be below market for your seniority.',
+    description: 'Wipro Government Solutions seeks a Principal Consultant to lead digital governance transformation for NIC, state government, and PSU clients.',
+    requirements: ['10+ years government IT consulting', 'Large-scale delivery experience', 'Enterprise architecture knowledge'],
+    responsibilities: ['Lead government IT transformation projects', 'Develop digital governance frameworks', 'Manage client relationships'],
+    qualifications: ['B.Tech + MBA or equivalent'],
+  }),
+
+  createMockJob({
+    id: 'j-tcs-001', title: 'Senior Manager, Government Digital Transformation',
+    company: { name: 'TCS iON Government', industry: 'IT Services', size: '600,000+', headquarters: 'Mumbai, India', website: 'https://tcs.com' },
+    location: 'New Delhi, India', remoteType: 'hybrid', seniorityLevel: 'senior',
+    source: 'naukri', sourceUrl: 'https://www.naukri.com/tcs-jobs?k=senior+manager+government+digital+transformation',
+    skills: ['Government IT', 'Digital Transformation', 'Program Management', 'e-District', 'CSC Programs'],
+    industries: ['IT Services', 'Government Technology'],
+    salary: { min: 2200000, max: 3500000, currency: 'INR', period: 'annually', isEstimated: true },
+    postedAt: daysAgo(16),
+    matchScore: { overall: 80, breakdown: { skills: 78, experience: 82, location: 81, seniority: 81, industry: 80, compensation: 78 }, matchedSkills: ['Government IT', 'Digital Transformation', 'Program Management'], missingSkills: ['TCS Bancs', 'e-District expertise'], reasoning: 'Strong IT services match but compensation and profile ceiling concerns.', confidence: 0.83 },
+    aiSummary: '80% match — TCS government vertical is large but compensation may undervalue your seniority.',
+    description: 'TCS iON Government vertical seeks a Senior Manager to lead digital transformation delivery for state government and e-governance modernization projects.',
+    requirements: ['8+ years IT services for government', 'e-Governance delivery experience', 'State government project management'],
+    responsibilities: ['Lead government digital transformation delivery', 'Manage state-level client accounts', 'Oversee delivery teams'],
+    qualifications: ['B.Tech/MCA + MBA preferred'],
+  }),
+
+  createMockJob({
+    id: 'j-niti-001', title: 'Senior Advisor, Digital Economy (Consultant)',
+    company: { name: 'NITI Aayog', industry: 'Government of India', size: '200+', headquarters: 'New Delhi, India', website: 'https://niti.gov.in' },
+    location: 'New Delhi, India', remoteType: 'onsite', seniorityLevel: 'senior',
+    source: 'direct', sourceUrl: 'https://niti.gov.in/careers',
+    skills: ['Digital Economy', 'Policy Advisory', 'AI Strategy', 'E-Governance', 'Technology Policy'],
+    industries: ['Government of India', 'Policy', 'Digital Economy'],
+    salary: { min: 1800000, max: 3000000, currency: 'INR', period: 'annually', isEstimated: true },
+    postedAt: daysAgo(20),
+    matchScore: { overall: 81, breakdown: { skills: 80, experience: 83, location: 90, seniority: 82, industry: 81, compensation: 75 }, matchedSkills: ['Digital Economy', 'Policy Advisory', 'E-Governance'], missingSkills: ['AI/ML Policy', 'Economic Analysis'], reasoning: 'Prestigious policy role; compensation significantly below market.', confidence: 0.84 },
+    aiSummary: '81% match — High impact policy role but compensation is government scale.',
+    description: 'NITI Aayog\'s Digital Connectivity and Communication vertical seeks a Senior Advisor on Digital Economy and emerging technology policy.',
+    requirements: ['12+ years digital economy / technology experience', 'Policy advisory experience', 'Central government stakeholder engagement'],
+    responsibilities: ['Advise NITI Aayog leadership on digital economy strategy', 'Develop technology policy recommendations', 'Coordinate with ministries on digital India programs'],
+    qualifications: ['Post-graduate in Economics, Public Policy, or Technology'],
+  }),
+
+  // ── TIER 4: 75-79% match ───────────────────────────────────────────────────
+  createMockJob({
+    id: 'j-infosys-001', title: 'Delivery Manager, Government IT',
+    company: { name: 'Infosys BPM', industry: 'IT Services', size: '350,000+', headquarters: 'Bengaluru, India', website: 'https://infosys.com' },
+    location: 'Bengaluru, India', remoteType: 'hybrid', seniorityLevel: 'senior',
+    source: 'naukri', sourceUrl: 'https://www.naukri.com/infosys-jobs?k=delivery+manager+government+IT',
+    skills: ['Government IT', 'Delivery Management', 'CMMI', 'Agile', 'Team Leadership'],
+    industries: ['IT Services'],
+    salary: { min: 2000000, max: 3200000, currency: 'INR', period: 'annually', isEstimated: true },
+    postedAt: daysAgo(18),
+    matchScore: { overall: 78, breakdown: { skills: 76, experience: 80, location: 77, seniority: 79, industry: 78, compensation: 76 }, matchedSkills: ['Government IT', 'Delivery Management', 'Team Leadership'], missingSkills: ['Infosys Cobalt', 'Live Enterprise'], reasoning: 'Below profile level — advisory → delivery manager is a step down.', confidence: 0.81 },
+    aiSummary: '78% match — Role may be below your seniority but Infosys Government vertical offers growth.',
+    description: 'Infosys BPM seeks a Delivery Manager for government IT services accounts, managing delivery of digital services for NIC and state government clients.',
+    requirements: ['8+ years IT delivery management', 'Government IT project experience', 'CMMI or quality framework knowledge'],
+    responsibilities: ['Manage delivery of government IT projects', 'Lead client-side delivery team', 'Ensure SLA compliance'],
+    qualifications: ['B.Tech/MCA + PMP certification preferred'],
+  }),
+
+  createMockJob({
+    id: 'j-lt-001', title: 'Senior Manager, Smart Infrastructure',
+    company: { name: 'L&T Technology Services', industry: 'Engineering Services', size: '23,000+', headquarters: 'Vadodara, India', website: 'https://ltts.com' },
+    location: 'Mumbai, India', remoteType: 'hybrid', seniorityLevel: 'senior',
+    source: 'linkedin', sourceUrl: 'https://www.linkedin.com/jobs/search/?keywords=L%26T+smart+infrastructure+senior+manager&location=India',
+    skills: ['Smart Infrastructure', 'IoT', 'Smart Cities', 'Engineering Consulting', 'Project Management'],
+    industries: ['Engineering Services', 'Smart Cities'],
+    salary: { min: 2500000, max: 4000000, currency: 'INR', period: 'annually', isEstimated: true },
+    postedAt: daysAgo(22),
+    matchScore: { overall: 76, breakdown: { skills: 74, experience: 78, location: 75, seniority: 77, industry: 76, compensation: 74 }, matchedSkills: ['Smart Cities', 'Project Management'], missingSkills: ['IoT Architecture', 'Embedded Systems'], reasoning: 'Partial match — strong PM skills but technical IoT gap is significant.', confidence: 0.79 },
+    aiSummary: '76% match — Smart cities alignment but IoT/embedded gap limits fit.',
+    description: 'L&T Technology Services seeks a Senior Manager for its Smart Infrastructure vertical, delivering IoT-enabled smart city and urban infrastructure projects.',
+    requirements: ['10+ years smart city / infrastructure technology', 'IoT project delivery experience', 'Client-facing consulting skills'],
+    responsibilities: ['Lead smart infrastructure project delivery', 'Manage IoT implementation for urban clients', 'Develop smart city solution roadmaps'],
+    qualifications: ['B.Tech in EE/CS + MBA preferred'],
+  }),
+
+  createMockJob({
+    id: 'j-nasscom-001', title: 'Director, Digital Skills & Policy',
+    company: { name: 'NASSCOM Foundation', industry: 'Industry Association', size: '200+', headquarters: 'New Delhi, India', website: 'https://nasscom.in' },
+    location: 'New Delhi, India', remoteType: 'hybrid', seniorityLevel: 'director',
+    source: 'linkedin', sourceUrl: 'https://www.linkedin.com/jobs/search/?keywords=NASSCOM+director+digital+skills&location=India',
+    skills: ['Digital Skills', 'Policy Advocacy', 'Industry Liaison', 'E-Governance', 'Stakeholder Engagement'],
+    industries: ['Industry Association', 'Policy'],
+    salary: { min: 2000000, max: 3500000, currency: 'INR', period: 'annually', isEstimated: true },
+    postedAt: daysAgo(25),
+    matchScore: { overall: 77, breakdown: { skills: 75, experience: 79, location: 80, seniority: 78, industry: 77, compensation: 74 }, matchedSkills: ['Digital Skills', 'Policy Advocacy', 'E-Governance', 'Stakeholder Engagement'], missingSkills: ['Industry Association Management', 'Trade Policy'], reasoning: 'Interesting policy role but compensation and industry pivot concerns.', confidence: 0.80 },
+    aiSummary: '77% match — Strong policy advocacy fit but industry association work differs from consulting.',
+    description: 'NASSCOM Foundation seeks a Director to lead Digital Skills India programs and policy advocacy with government on digital literacy and workforce development.',
+    requirements: ['10+ years IT industry or policy experience', 'Government engagement skills', 'Digital skills program management'],
+    responsibilities: ['Lead NASSCOM Foundation digital skills programs', 'Represent NASSCOM in government committees', 'Develop policy positions on digital education'],
+    qualifications: ['Master\'s in IT, Policy, or Business Administration'],
+  }),
+
+  createMockJob({
+    id: 'j-oracle-001', title: 'Principal Solution Architect, Government Cloud',
+    company: { name: 'Oracle India', industry: 'Enterprise Software', size: '140,000+', headquarters: 'Austin, USA', website: 'https://oracle.com' },
+    location: 'Hyderabad, India', remoteType: 'hybrid', seniorityLevel: 'principal',
+    source: 'indeed', sourceUrl: 'https://in.indeed.com/jobs?q=oracle+principal+architect+government+cloud&l=India',
+    skills: ['Oracle Cloud', 'Solution Architecture', 'Government IT', 'Enterprise Software', 'Pre-sales'],
+    industries: ['Enterprise Software', 'Government Technology'],
+    salary: { min: 3000000, max: 5000000, currency: 'INR', period: 'annually', isEstimated: true },
+    postedAt: daysAgo(17),
+    matchScore: { overall: 75, breakdown: { skills: 72, experience: 77, location: 74, seniority: 77, industry: 75, compensation: 73 }, matchedSkills: ['Government IT', 'Solution Architecture'], missingSkills: ['Oracle Cloud Infrastructure', 'OCI Architect Certification', 'Pre-sales'], reasoning: 'Significant Oracle-specific skill gap. Vendor role differs from consulting.', confidence: 0.78 },
+    aiSummary: '75% match — Oracle Government vertical offers market exposure but requires vendor-specific skills.',
+    description: 'Oracle India seeks a Principal Solution Architect for its Government Cloud practice, designing Oracle Cloud solutions for NIC, state governments, and PSUs.',
+    requirements: ['10+ years enterprise IT architecture', 'Government IT experience', 'Oracle Cloud knowledge preferred'],
+    responsibilities: ['Design Oracle Cloud solutions for government clients', 'Lead pre-sales architecture workshops', 'Develop government reference architectures'],
+    qualifications: ['B.Tech + relevant Oracle certifications'],
+  }),
+
+  createMockJob({
+    id: 'j-microsoft-001', title: 'Senior Technology Strategist, Public Sector',
+    company: { name: 'Microsoft India', industry: 'Technology', size: '220,000+', headquarters: 'Redmond, USA', website: 'https://microsoft.com' },
+    location: 'New Delhi, India', remoteType: 'hybrid', seniorityLevel: 'senior',
+    source: 'linkedin', sourceUrl: 'https://www.linkedin.com/jobs/search/?keywords=microsoft+technology+strategist+public+sector+india&location=India',
+    skills: ['Technology Strategy', 'Azure Government', 'Public Sector Sales', 'Digital Transformation', 'Cloud'],
+    industries: ['Technology', 'Government Technology'],
+    salary: { min: 3500000, max: 5500000, currency: 'INR', period: 'annually', isEstimated: true },
+    postedAt: daysAgo(19),
+    matchScore: { overall: 76, breakdown: { skills: 74, experience: 78, location: 80, seniority: 77, industry: 76, compensation: 75 }, matchedSkills: ['Technology Strategy', 'Digital Transformation', 'Public Sector'], missingSkills: ['Azure Government Cloud', 'Microsoft Sales Methodology'], reasoning: 'Tech vendor role differs from advisory. Azure certification gap is key.', confidence: 0.79 },
+    aiSummary: '76% match — Microsoft Government offers scale but is a vendor role, not advisory.',
+    description: 'Microsoft India seeks a Senior Technology Strategist for its Public Sector team, driving Azure and Microsoft 365 adoption across government and PSU clients.',
+    requirements: ['10+ years government IT', 'Cloud strategy experience', 'Microsoft technology knowledge preferred'],
+    responsibilities: ['Develop government cloud adoption strategy', 'Work with government clients on digital roadmaps', 'Coordinate with Microsoft field sales'],
+    qualifications: ['B.Tech/MBA + Azure certification preferred'],
+  }),
+
+  createMockJob({
+    id: 'j-ifc-001', title: 'Technology & Digital Innovation Specialist',
+    company: { name: 'IFC (World Bank Group)', industry: 'International Finance', size: '4,000+', headquarters: 'Washington D.C.', website: 'https://ifc.org' },
+    location: 'New Delhi, India', remoteType: 'hybrid', seniorityLevel: 'senior',
+    source: 'direct', sourceUrl: 'https://jobs.worldbank.org/en/jobs/vacancies',
+    skills: ['FinTech', 'Digital Financial Services', 'Private Sector Development', 'Technology Innovation', 'Investment Advisory'],
+    industries: ['International Finance', 'FinTech', 'Development Finance'],
+    salary: { min: 4000000, max: 6500000, currency: 'INR', period: 'annually', isEstimated: true },
+    postedAt: daysAgo(21),
+    matchScore: { overall: 79, breakdown: { skills: 77, experience: 81, location: 80, seniority: 80, industry: 79, compensation: 77 }, matchedSkills: ['Technology Innovation', 'Digital Financial Services'], missingSkills: ['FinTech Sector', 'Private Sector Development', 'Investment appraisal'], reasoning: 'IFC private sector focus differs from government advisory background.', confidence: 0.82 },
+    aiSummary: '79% match — IFC role requires FinTech/private sector pivot from your government focus.',
+    description: 'IFC seeks a Technology & Digital Innovation Specialist to support its FinTech portfolio companies and drive digital financial inclusion across South Asia.',
+    requirements: ['10+ years in FinTech, digital payments, or financial inclusion', 'Private sector engagement experience', 'IFC/World Bank familiarity helpful'],
+    responsibilities: ['Manage IFC FinTech investments in South Asia', 'Provide technical assistance to portfolio companies', 'Develop digital finance strategy'],
+    qualifications: ['MBA or Master\'s in Finance, Technology, or Economics'],
+  }),
+
+  createMockJob({
+    id: 'j-amazon-001', title: 'Senior Manager, AWS Public Sector India',
+    company: { name: 'Amazon Web Services', industry: 'Cloud Computing', size: '100,000+', headquarters: 'Seattle, USA', website: 'https://aws.amazon.com' },
+    location: 'New Delhi, India', remoteType: 'hybrid', seniorityLevel: 'senior',
+    source: 'linkedin', sourceUrl: 'https://www.linkedin.com/jobs/search/?keywords=aws+senior+manager+public+sector+india&location=India',
+    skills: ['Cloud Architecture', 'AWS', 'Government Cloud', 'Business Development', 'Digital Transformation'],
+    industries: ['Cloud Computing', 'Government Technology'],
+    salary: { min: 4000000, max: 7000000, currency: 'INR', period: 'annually', isEstimated: true },
+    postedAt: daysAgo(23),
+    matchScore: { overall: 75, breakdown: { skills: 72, experience: 77, location: 79, seniority: 76, industry: 75, compensation: 75 }, matchedSkills: ['Digital Transformation', 'Government sector knowledge'], missingSkills: ['AWS Certifications', 'Cloud Sales', 'Pre-sales BD'], reasoning: 'Vendor sales role requires cloud and BD skills not in current profile.', confidence: 0.78 },
+    aiSummary: '75% match — High compensation but AWS public sector is a vendor sales role with significant skill gap.',
+    description: 'AWS seeks a Senior Manager to drive public sector cloud adoption across central government, state governments, and defense clients in India.',
+    requirements: ['10+ years enterprise IT or cloud sales', 'Government CXO engagement experience', 'Cloud architecture fundamentals'],
+    responsibilities: ['Develop AWS government India strategy', 'Build relationships with NIC, MeitY, and state IT departments', 'Drive cloud adoption programs'],
+    qualifications: ['MBA + AWS Solutions Architect certification preferred'],
+  }),
+
+  createMockJob({
+    id: 'j-bcg-001', title: 'Senior Expert, Public Sector Digital Health',
+    company: { name: 'Boston Consulting Group', industry: 'Consulting', size: '30,000+', headquarters: 'Boston, USA', website: 'https://bcg.com' },
+    location: 'New Delhi, India', remoteType: 'hybrid', seniorityLevel: 'senior',
+    source: 'linkedin', sourceUrl: 'https://www.linkedin.com/jobs/search/?keywords=BCG+public+sector+digital+health+india&location=India',
+    skills: ['Digital Health', 'Public Sector', 'Strategy Consulting', 'Healthcare Systems', 'Policy'],
+    industries: ['Consulting', 'Public Health', 'Healthcare'],
+    salary: { min: 4500000, max: 8000000, currency: 'INR', period: 'annually', isEstimated: true },
+    postedAt: daysAgo(24),
+    matchScore: { overall: 84, breakdown: { skills: 83, experience: 85, location: 83, seniority: 86, industry: 84, compensation: 80 }, matchedSkills: ['Digital Health', 'Public Sector', 'Healthcare Systems', 'Policy'], missingSkills: ['BCG methodology', 'MBB case approach'], reasoning: 'Strong healthcare and public sector fit but MBB methodology gap.', confidence: 0.87 },
+    aiSummary: '84% match — BCG values deep domain expertise. Their Senior Expert track welcomes non-MBB profiles with depth.',
+    description: 'BCG seeks a Senior Expert for its Public Sector Digital Health practice in India, supporting state and central government health transformation programs.',
+    requirements: ['12+ years digital health or health IT', 'Government health program experience', 'Strategy consulting skills'],
+    responsibilities: ['Lead digital health engagements for government clients', 'Develop BCG thought leadership on India health systems', 'Support business development'],
+    qualifications: ['MD, MPH, or Master\'s in Health Policy/Informatics preferred'],
+  }),
+
+  createMockJob({
+    id: 'j-kpmg-001', title: 'Director, Government Advisory',
+    company: { name: 'KPMG India', industry: 'Consulting', size: '230,000+', headquarters: 'Amstelveen, Netherlands', website: 'https://kpmg.com' },
+    location: 'New Delhi, India', remoteType: 'hybrid', seniorityLevel: 'director',
+    source: 'glassdoor', sourceUrl: 'https://www.glassdoor.co.in/Jobs/KPMG-Director-Government-Advisory-India-Jobs.htm',
+    skills: ['Government Advisory', 'Digital Transformation', 'Public Finance', 'Risk Advisory', 'Stakeholder Management'],
+    industries: ['Consulting', 'Government Advisory'],
+    salary: { min: 3500000, max: 6000000, currency: 'INR', period: 'annually', isEstimated: true },
+    postedAt: daysAgo(26),
+    matchScore: { overall: 85, breakdown: { skills: 84, experience: 86, location: 85, seniority: 87, industry: 85, compensation: 83 }, matchedSkills: ['Government Advisory', 'Digital Transformation', 'Stakeholder Management'], missingSkills: ['Public Finance', 'Audit methodology'], reasoning: 'Good fit; KPMG Government Advisory combines management consulting with audit expertise.', confidence: 0.88 },
+    aiSummary: '85% match — KPMG Government Advisory is actively expanding digital transformation practice.',
+    description: 'KPMG India seeks a Director for its Government & Public Services Advisory practice, leading digital transformation and advisory mandates for central and state governments.',
+    requirements: ['12+ years government advisory', 'Digital transformation leadership', 'Strong client relationships'],
+    responsibilities: ['Lead government advisory engagements', 'Drive practice development', 'Manage key client relationships'],
+    qualifications: ['CA/MBA from premium institute preferred'],
+  }),
+
+  createMockJob({
+    id: 'j-nhm-001', title: 'State PMU Director, Digital Health (NHM)',
+    company: { name: 'National Health Mission (NHM)', industry: 'Government of India', size: '50,000+', headquarters: 'New Delhi, India', website: 'https://nhm.gov.in' },
+    location: 'Lucknow, India', remoteType: 'onsite', seniorityLevel: 'director',
+    source: 'direct', sourceUrl: 'https://nhm.gov.in/index4.php?lang=1&level=0&linkid=1&lid=118',
+    skills: ['PMU Management', 'Digital Health', 'NHM Programs', 'Public Health Administration', 'M&E'],
+    industries: ['Government of India', 'Public Health'],
+    salary: { min: 1500000, max: 2500000, currency: 'INR', period: 'annually', isEstimated: true },
+    postedAt: daysAgo(30),
+    matchScore: { overall: 82, breakdown: { skills: 82, experience: 84, location: 75, seniority: 83, industry: 82, compensation: 75 }, matchedSkills: ['PMU Management', 'Digital Health', 'Public Health', 'M&E'], missingSkills: ['State government posting preference'], reasoning: 'Strong PMU/health match; location and compensation are concerns.', confidence: 0.85 },
+    aiSummary: '82% match — High impact health mission role but location and government compensation may not suit.',
+    description: 'NHM seeks a State PMU Director for digital health initiatives in Uttar Pradesh, overseeing HMIS, telemedicine, and e-health rollouts under Ayushman Bharat Digital Mission.',
+    requirements: ['10+ years PMU management in public health', 'State government engagement experience', 'NHM or ABDM program knowledge'],
+    responsibilities: ['Lead state PMU for NHM digital health programs', 'Coordinate with NHM state leadership', 'Oversee HMIS implementation'],
+    qualifications: ['MPH or equivalent with IT background'],
+  }),
+
+  createMockJob({
+    id: 'j-google-001', title: 'Head of Government Affairs, Digital India',
+    company: { name: 'Google India', industry: 'Technology', size: '180,000+', headquarters: 'Mountain View, USA', website: 'https://google.com' },
+    location: 'New Delhi, India', remoteType: 'hybrid', seniorityLevel: 'senior',
+    source: 'linkedin', sourceUrl: 'https://www.linkedin.com/jobs/search/?keywords=google+government+affairs+digital+india&location=India',
+    skills: ['Government Affairs', 'Policy Advocacy', 'Digital India', 'Tech Policy', 'Stakeholder Management'],
+    industries: ['Technology', 'Policy'],
+    salary: { min: 5000000, max: 9000000, currency: 'INR', period: 'annually', isEstimated: true },
+    postedAt: daysAgo(28),
+    matchScore: { overall: 77, breakdown: { skills: 75, experience: 79, location: 82, seniority: 78, industry: 77, compensation: 78 }, matchedSkills: ['Government Affairs', 'Policy Advocacy', 'Stakeholder Management'], missingSkills: ['Tech Company policy experience', 'Regulatory compliance'], reasoning: 'High-profile role but requires tech company policy experience, not consulting.', confidence: 0.80 },
+    aiSummary: '77% match — Exciting role but requires pivot from consulting to tech policy advocacy.',
+    description: 'Google India seeks a Head of Government Affairs to lead engagement with central and state governments on Digital India programs, regulatory policy, and tech ecosystem development.',
+    requirements: ['12+ years government relations or policy', 'Senior government network in Delhi', 'Technology policy expertise'],
+    responsibilities: ['Lead Google India government engagement', 'Represent Google in policy consultations', 'Develop government partnership programs'],
+    qualifications: ['Master\'s in Policy, Law, or Public Administration'],
+  }),
+
+  createMockJob({
+    id: 'j-meta-001', title: 'Government Partnership Manager, India',
+    company: { name: 'Meta (Facebook)', industry: 'Technology', size: '85,000+', headquarters: 'Menlo Park, USA', website: 'https://meta.com' },
+    location: 'New Delhi, India', remoteType: 'hybrid', seniorityLevel: 'senior',
+    source: 'indeed', sourceUrl: 'https://in.indeed.com/jobs?q=meta+government+partnership+manager+india',
+    skills: ['Government Partnerships', 'Digital Inclusion', 'Policy Engagement', 'Connectivity Programs'],
+    industries: ['Technology', 'Digital Inclusion'],
+    salary: { min: 4500000, max: 7500000, currency: 'INR', period: 'annually', isEstimated: true },
+    postedAt: daysAgo(27),
+    matchScore: { overall: 75, breakdown: { skills: 73, experience: 77, location: 78, seniority: 76, industry: 75, compensation: 74 }, matchedSkills: ['Government Partnerships', 'Policy Engagement'], missingSkills: ['Social media policy', 'Digital inclusion programs', 'Connectivity tech'], reasoning: 'Limited alignment with Meta\'s social/connectivity focus versus government IT background.', confidence: 0.78 },
+    aiSummary: '75% match — Meta focuses on connectivity and digital inclusion, not your core government IT advisory area.',
+    description: 'Meta India seeks a Government Partnership Manager to build strategic relationships with central and state governments on internet connectivity, digital literacy, and inclusion programs.',
+    requirements: ['10+ years government relations', 'Digital inclusion program experience', 'Senior government network'],
+    responsibilities: ['Manage Meta India government relationships', 'Drive Free Basics and connectivity policy', 'Develop government partnership programs'],
+    qualifications: ['Master\'s in Policy, Business, or related'],
+  }),
+
+  createMockJob({
+    id: 'j-nic-001', title: 'Deputy Director General, e-Governance (Technical)',
+    company: { name: 'NIC (National Informatics Centre)', industry: 'Government of India', size: '5,000+', headquarters: 'New Delhi, India', website: 'https://nic.in' },
+    location: 'New Delhi, India', remoteType: 'onsite', seniorityLevel: 'director',
+    source: 'direct', sourceUrl: 'https://www.nic.in/recruitment/',
+    skills: ['e-Governance', 'Technical Architecture', 'Government IT', 'Cloud', 'GIGW Standards'],
+    industries: ['Government of India', 'E-Governance'],
+    salary: { min: 1200000, max: 2000000, currency: 'INR', period: 'annually', isEstimated: true },
+    postedAt: daysAgo(35),
+    matchScore: { overall: 79, breakdown: { skills: 79, experience: 81, location: 90, seniority: 80, industry: 79, compensation: 70 }, matchedSkills: ['e-Governance', 'Government IT', 'Technical Architecture'], missingSkills: ['NIC-specific systems', 'Government IT Act compliance'], reasoning: 'Strong domain fit but government pay scale is significantly below market.', confidence: 0.82 },
+    aiSummary: '79% match — Prestigious NIC role with full government benefits but compensation far below market.',
+    description: 'NIC seeks a Deputy Director General (Technical) to lead e-governance systems development and manage technical architecture for national digital services.',
+    requirements: ['15+ years government IT', 'Software architecture expertise', 'Central government service preferred'],
+    responsibilities: ['Lead NIC technical architecture division', 'Oversee national e-governance platforms', 'Manage NIC technical teams'],
+    qualifications: ['B.Tech/M.Tech, preferably from IIT or NIT, with government IT background'],
+  }),
+
+  createMockJob({
+    id: 'j-aga-001', title: 'Lead Consultant, Digital Health Systems',
+    company: { name: 'Aga Khan Development Network', industry: 'Development', size: '80,000+', headquarters: 'Geneva, Switzerland', website: 'https://akdn.org' },
+    location: 'New Delhi, India', remoteType: 'hybrid', seniorityLevel: 'lead',
+    source: 'linkedin', sourceUrl: 'https://www.linkedin.com/jobs/search/?keywords=digital+health+consultant+aga+khan&location=India',
+    skills: ['Digital Health', 'Healthcare Systems', 'Community Health', 'M&E', 'Program Management'],
+    industries: ['Development', 'Public Health', 'NGO'],
+    salary: { min: 2000000, max: 3500000, currency: 'INR', period: 'annually', isEstimated: true },
+    postedAt: daysAgo(32),
+    matchScore: { overall: 83, breakdown: { skills: 82, experience: 84, location: 82, seniority: 84, industry: 83, compensation: 80 }, matchedSkills: ['Digital Health', 'Healthcare Systems', 'M&E', 'Program Management'], missingSkills: ['Community health programs', 'AKDN context'], reasoning: 'Good development sector health IT match.', confidence: 0.86 },
+    aiSummary: '83% match — AKDN values your development sector health IT depth. Compensation may be modest.',
+    description: 'AKDN India seeks a Lead Consultant to advise on health information systems, telemedicine, and digital health programs across AKDN\'s India health network.',
+    requirements: ['8+ years digital health', 'Development sector experience', 'Health information systems expertise'],
+    responsibilities: ['Lead digital health strategy for AKDN India', 'Advise AKDN health facilities on IT systems', 'Coordinate with government health programs'],
+    qualifications: ['MPH or Master\'s in Health Informatics'],
+  }),
+
+  createMockJob({
+    id: 'j-path-001', title: 'Senior Director, Digital Health Programs',
+    company: { name: 'PATH India', industry: 'Global Health NGO', size: '1,500+', headquarters: 'Seattle, USA', website: 'https://path.org' },
+    location: 'New Delhi, India', remoteType: 'hybrid', seniorityLevel: 'director',
+    source: 'direct', sourceUrl: 'https://www.path.org/careers/',
+    skills: ['Digital Health', 'Global Health', 'Immunization IT', 'HMIS', 'Program Leadership', 'Donor Management'],
+    industries: ['Global Health NGO', 'Public Health'],
+    salary: { min: 3000000, max: 5000000, currency: 'INR', period: 'annually', isEstimated: true },
+    postedAt: daysAgo(33),
+    matchScore: { overall: 87, breakdown: { skills: 86, experience: 88, location: 85, seniority: 89, industry: 87, compensation: 85 }, matchedSkills: ['Digital Health', 'HMIS', 'Program Leadership', 'Donor Management'], missingSkills: ['Immunization IT', 'Co-WIN architecture'], reasoning: 'Strong match for PATH India digital health leadership. Immunization IT gap is minor.', confidence: 0.90 },
+    aiSummary: '87% match — PATH India is a leading digital health NGO. Strong alignment with your health IT program leadership.',
+    description: 'PATH India seeks a Senior Director to lead digital health programs including HMIS, immunization IT, and telemedicine initiatives in partnership with MoHFW and state health departments.',
+    requirements: ['12+ years digital health program leadership', 'Donor-funded program management', 'Government health department engagement'],
+    responsibilities: ['Lead PATH India digital health portfolio', 'Manage donor relationships (BMGF, USAID)', 'Oversee technical teams and partner management'],
+    qualifications: ['MPH, MD, or Master\'s in Health Informatics preferred'],
+  }),
+
+  createMockJob({
+    id: 'j-iph-001', title: 'Chief Digital Health Officer',
+    company: { name: 'Indian Public Health Standards', industry: 'Government of India', size: '2,000+', headquarters: 'New Delhi, India', website: 'https://mohfw.gov.in' },
+    location: 'New Delhi, India', remoteType: 'onsite', seniorityLevel: 'c-level',
+    source: 'direct', sourceUrl: 'https://mohfw.gov.in/career',
+    skills: ['Digital Health Strategy', 'CXO Leadership', 'ABDM', 'NHP', 'Public Health Policy'],
+    industries: ['Government of India', 'Public Health'],
+    salary: { min: 2000000, max: 3500000, currency: 'INR', period: 'annually', isEstimated: true },
+    postedAt: daysAgo(40),
+    matchScore: { overall: 88, breakdown: { skills: 88, experience: 90, location: 90, seniority: 89, industry: 88, compensation: 78 }, matchedSkills: ['Digital Health Strategy', 'Public Health Policy', 'Leadership', 'ABDM'], missingSkills: ['IPHS specific domain'], reasoning: 'High-impact senior role; compensation is government scale.', confidence: 0.91 },
+    aiSummary: '88% match — Prestigious CDHO role aligned with your digital health expertise but government pay scale.',
+    description: 'MoHFW seeks a Chief Digital Health Officer to lead implementation of Ayushman Bharat Digital Mission (ABDM), national health registries, and digital health infrastructure.',
+    requirements: ['15+ years digital health leadership', 'Government health system experience', 'ABDM / NHDR architecture knowledge'],
+    responsibilities: ['Lead national ABDM implementation', 'Advise Health Minister on digital health', 'Coordinate with NHA, NHM, state health departments'],
+    qualifications: ['MD/MBBS with MPH, or Master\'s in Health Informatics with 15+ years experience'],
+  }),
+]
+
+/**
+ * Get jobs with client-side search + filter + sort applied.
+ */
+export function getFilteredJobs(params: {
+  search?: string
+  remoteTypes?: string[]
+  seniorityLevels?: string[]
+  sources?: string[]
+  industries?: string[]
+  minMatchScore?: number
+  salaryMin?: number
+  salaryMax?: number
+  sortBy?: string
+}): Job[] {
+  const { search = '', remoteTypes = [], seniorityLevels = [], sources = [], industries = [], minMatchScore = 0, salaryMin, salaryMax, sortBy = 'match_score' } = params
+
+  let jobs = [...ALL_JOBS]
+
+  // Search
+  if (search.trim()) {
+    const q = search.toLowerCase()
+    jobs = jobs.filter(j =>
+      j.title.toLowerCase().includes(q) ||
+      j.company.name.toLowerCase().includes(q) ||
+      j.skills.some(s => s.toLowerCase().includes(q)) ||
+      j.description.toLowerCase().includes(q) ||
+      j.industries.some(i => i.toLowerCase().includes(q)) ||
+      j.location.toLowerCase().includes(q)
+    )
+  }
+
+  // Filters
+  if (remoteTypes.length > 0) jobs = jobs.filter(j => remoteTypes.includes(j.remoteType))
+  if (seniorityLevels.length > 0) jobs = jobs.filter(j => seniorityLevels.includes(j.seniorityLevel))
+  if (sources.length > 0) jobs = jobs.filter(j => sources.includes(j.source))
+  if (industries.length > 0) jobs = jobs.filter(j => j.industries.some(i => industries.includes(i)))
+  if (minMatchScore > 0) jobs = jobs.filter(j => j.matchScore.overall >= minMatchScore)
+  if (salaryMin) jobs = jobs.filter(j => j.salary && j.salary.max && j.salary.max >= salaryMin)
+  if (salaryMax) jobs = jobs.filter(j => j.salary && j.salary.min && j.salary.min <= salaryMax)
+
+  // Sort
+  jobs.sort((a, b) => {
+    if (sortBy === 'match_score') return b.matchScore.overall - a.matchScore.overall
+    if (sortBy === 'posted_date') return new Date(b.postedAt).getTime() - new Date(a.postedAt).getTime()
+    if (sortBy === 'salary') return (b.salary?.max || 0) - (a.salary?.max || 0)
+    if (sortBy === 'company') return a.company.name.localeCompare(b.company.name)
+    return b.matchScore.overall - a.matchScore.overall
+  })
+
+  return jobs
+}
