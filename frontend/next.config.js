@@ -32,10 +32,12 @@ const withPWA = require('next-pwa')({
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  output: 'export',        // Static export for GitHub Pages / Capacitor
-  trailingSlash: true,     // Required for static hosting (index.html in each dir)
+  output: 'export',
+  trailingSlash: true,
+  basePath: '/holy-child-school',      // GitHub Pages repo subpath
+  assetPrefix: '/holy-child-school/',  // Ensures JS/CSS assets load correctly
   images: {
-    unoptimized: true,     // Static export doesn't support Next.js Image Optimization
+    unoptimized: true,
     remotePatterns: [
       { protocol: 'https', hostname: 'logo.clearbit.com', pathname: '/**' },
       { protocol: 'https', hostname: 'avatars.githubusercontent.com', pathname: '/**' },
