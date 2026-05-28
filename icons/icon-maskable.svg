@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+  <rect width="512" height="512" fill="#F59E0B"/>
+  <polygon points="256,130 272,194 338,194 286,232 306,298 256,262 206,298 226,232 174,194 240,194" fill="#0A1628"/>
+  <text x="256" y="430" font-family="system-ui,sans-serif" font-size="56" font-weight="900" text-anchor="middle" fill="#0A1628">IQ</text>
+</svg>
