@@ -3,13 +3,7 @@
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import { motion, AnimatePresence } from 'framer-motion'
-import {
-  LayoutDashboard,
-  Briefcase,
-  ClipboardList,
-  Mic,
-  BarChart3,
-} from 'lucide-react'
+import { LayoutDashboard, Users, CalendarCheck, DollarSign, BookOpen } from 'lucide-react'
 import { cn } from '@/lib/utils'
 
 interface MobileNavItem {
@@ -19,30 +13,30 @@ interface MobileNavItem {
 }
 
 const items: MobileNavItem[] = [
-  { href: '/dashboard',      label: 'Home',       icon: <LayoutDashboard className="h-5 w-5" /> },
-  { href: '/jobs',           label: 'Jobs',       icon: <Briefcase className="h-5 w-5" /> },
-  { href: '/applications',   label: 'Pipeline',   icon: <ClipboardList className="h-5 w-5" /> },
-  { href: '/interview-prep', label: 'Prep',       icon: <Mic className="h-5 w-5" /> },
-  { href: '/analytics',      label: 'Insights',   icon: <BarChart3 className="h-5 w-5" /> },
+  { href: '/dashboard',    label: 'Home',      icon: <LayoutDashboard className="h-5 w-5" /> },
+  { href: '/students',     label: 'Students',  icon: <Users className="h-5 w-5" /> },
+  { href: '/attendance',   label: 'Attendance',icon: <CalendarCheck className="h-5 w-5" /> },
+  { href: '/fees',         label: 'Fees',      icon: <DollarSign className="h-5 w-5" /> },
+  { href: '/examinations', label: 'Exams',     icon: <BookOpen className="h-5 w-5" /> },
 ]
 
 export function MobileNav() {
   const pathname = usePathname()
 
   const isActive = (href: string) => {
-    if (href === '/dashboard') return pathname === '/dashboard'
-    return pathname.startsWith(href)
+    const path = pathname.replace('/holy-child-school', '')
+    if (href === '/dashboard') return path === '/dashboard' || path === '/'
+    return path.startsWith(href)
   }
 
   return (
     <nav className="fixed bottom-0 left-0 right-0 z-50 md:hidden">
-      {/* Safe area padding for iPhone notch / home bar */}
       <div
         className="border-t border-border bg-card/95 backdrop-blur-md"
         style={{ paddingBottom: 'env(safe-area-inset-bottom, 8px)' }}
       >
         <div className="flex items-stretch">
-          {items.map((item) => {
+          {items.map(item => {
             const active = isActive(item.href)
             return (
               <Link
@@ -53,11 +47,10 @@ export function MobileNav() {
                   active ? 'text-gold-500' : 'text-muted-foreground'
                 )}
               >
-                {/* Active pill indicator */}
                 <AnimatePresence>
                   {active && (
                     <motion.div
-                      layoutId="mobile-nav-pill"
+                      layoutId="school-mobile-nav-pill"
                       className="absolute top-0 left-1/2 h-0.5 w-8 -translate-x-1/2 rounded-full bg-gold-500"
                       initial={{ opacity: 0 }}
                       animate={{ opacity: 1 }}
@@ -66,15 +59,12 @@ export function MobileNav() {
                     />
                   )}
                 </AnimatePresence>
-
-                {/* Icon with scale animation on active */}
                 <motion.div
                   animate={{ scale: active ? 1.1 : 1 }}
                   transition={{ type: 'spring', stiffness: 400, damping: 25 }}
                 >
                   {item.icon}
                 </motion.div>
-
                 <span className="text-[10px] font-semibold leading-none">{item.label}</span>
               </Link>
             )
