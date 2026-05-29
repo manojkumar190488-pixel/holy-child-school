@@ -1,16 +1,16 @@
 {
-  "name": "OpportunityIQ — AI Career Intelligence",
-  "short_name": "OpportunityIQ",
-  "description": "AI-powered job opportunity intelligence for senior consulting professionals. Discover, score, and track the best career opportunities.",
+  "name": "Holy Child School ERP",
+  "short_name": "HCS ERP",
+  "description": "Enterprise-grade School Management System for Holy Child School, Lucknow. Manage students, attendance, fees, examinations, library, transport & more.",
   "start_url": "/holy-child-school/dashboard/",
   "display": "standalone",
   "display_override": ["window-controls-overlay", "standalone", "minimal-ui"],
-  "background_color": "#0A1628",
-  "theme_color": "#F59E0B",
+  "background_color": "#1e3a5f",
+  "theme_color": "#1e3a5f",
   "orientation": "portrait-primary",
   "scope": "/holy-child-school/",
   "lang": "en",
-  "categories": ["productivity", "business", "career"],
+  "categories": ["education", "productivity", "business"],
   "icons": [
     { "src": "/holy-child-school/icons/icon-72x72.png",   "sizes": "72x72",   "type": "image/png" },
     { "src": "/holy-child-school/icons/icon-96x96.png",   "sizes": "96x96",   "type": "image/png" },
@@ -25,32 +25,34 @@
   ],
   "shortcuts": [
     {
-      "name": "Jobs",
-      "short_name": "Jobs",
-      "description": "Browse AI-matched job opportunities",
-      "url": "/holy-child-school/jobs/",
-      "icons": [{ "src": "/holy-child-school/icons/icon-96x96.png", "sizes": "96x96" }]
-    },
-    {
       "name": "Dashboard",
       "short_name": "Home",
-      "description": "Your career intelligence dashboard",
+      "description": "School ERP Dashboard",
       "url": "/holy-child-school/dashboard/",
       "icons": [{ "src": "/holy-child-school/icons/icon-96x96.png", "sizes": "96x96" }]
     },
     {
-      "name": "Interview Prep",
-      "short_name": "Prep",
-      "description": "AI interview preparation",
-      "url": "/holy-child-school/interview-prep/",
+      "name": "Students",
+      "short_name": "Students",
+      "description": "Student management",
+      "url": "/holy-child-school/students/",
+      "icons": [{ "src": "/holy-child-school/icons/icon-96x96.png", "sizes": "96x96" }]
+    },
+    {
+      "name": "Attendance",
+      "short_name": "Attend",
+      "description": "Mark daily attendance",
+      "url": "/holy-child-school/attendance/",
+      "icons": [{ "src": "/holy-child-school/icons/icon-96x96.png", "sizes": "96x96" }]
+    },
+    {
+      "name": "Fees",
+      "short_name": "Fees",
+      "description": "Fee collection & reports",
+      "url": "/holy-child-school/fees/",
       "icons": [{ "src": "/holy-child-school/icons/icon-96x96.png", "sizes": "96x96" }]
     }
   ],
   "related_applications": [],
-  "prefer_related_applications": false,
-  "share_target": {
-    "action": "/holy-child-school/jobs/",
-    "method": "GET",
-    "params": { "title": "title", "text": "text", "url": "url" }
-  }
+  "prefer_related_applications": false
 }

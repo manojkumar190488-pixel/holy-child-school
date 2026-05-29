@@ -14,6 +14,7 @@ import {
 } from 'recharts'
 import { cn } from '@/lib/utils'
 import { useRBAC } from '@/lib/rbac'
+import { SchoolInsights } from '@/components/ai/SchoolInsights'
 import {
   DASHBOARD_STATS, MONTHLY_ENROLLMENT, CLASS_DISTRIBUTION,
   SUBJECT_PERFORMANCE, MONTHLY_FEE_COLLECTION, ATTENDANCE_TREND,
@@ -192,6 +193,8 @@ function PrincipalDashboard({ name }: { name: string }) {
           </div>
         </div>
       </div>
+
+      <SchoolInsights />
 
       <div className="grid grid-cols-2 gap-3 sm:grid-cols-4">
         {[
