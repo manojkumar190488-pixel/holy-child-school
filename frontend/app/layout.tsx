@@ -13,61 +13,61 @@ const inter = Inter({
 
 export const metadata: Metadata = {
   title: {
-    default: 'OpportunityIQ — AI Career Intelligence',
-    template: '%s | OpportunityIQ',
+    default: 'Holy Child School ERP | CBSE Affiliated',
+    template: '%s | Holy Child School ERP',
   },
   description:
-    'AI-powered job opportunity intelligence for senior consultants. Discover, track, and act on the best opportunities with AI-curated matching.',
+    'Enterprise-grade School ERP Platform for Holy Child School, Lucknow. Manage students, staff, fees, attendance, examinations, library, transport, and more.',
   keywords: [
-    'AI career intelligence', 'job matching', 'consulting jobs',
-    'senior consultant', 'job tracker', 'OpportunityIQ',
-    'e-governance jobs', 'digital transformation careers',
+    'School ERP', 'School Management System', 'Holy Child School Lucknow',
+    'CBSE School', 'Student Management', 'Fee Management', 'Attendance System',
+    'School Portal', 'Parent Portal', 'Teacher Portal',
   ],
-  authors: [{ name: 'OpportunityIQ' }],
-  creator: 'OpportunityIQ',
-  metadataBase: new URL('https://opportunityiq.ai'),
-  manifest: '/manifest.json',
+  authors: [{ name: 'Holy Child School' }],
+  creator: 'Holy Child School ERP',
+  metadataBase: new URL('https://manojkumar190488-pixel.github.io'),
+  manifest: '/holy-child-school/manifest.json',
   appleWebApp: {
     capable: true,
     statusBarStyle: 'black-translucent',
-    title: 'OpportunityIQ',
+    title: 'Holy Child ERP',
     startupImage: [
-      { url: '/icons/icon-512x512.png', media: '(device-width: 320px)' },
+      { url: '/holy-child-school/icons/icon-512x512.png', media: '(device-width: 320px)' },
     ],
   },
   openGraph: {
     type: 'website',
-    locale: 'en_US',
-    url: 'https://opportunityiq.ai',
-    title: 'OpportunityIQ — AI Career Intelligence',
-    description: 'AI-powered job opportunity intelligence for senior consultants.',
-    siteName: 'OpportunityIQ',
+    locale: 'en_IN',
+    url: 'https://manojkumar190488-pixel.github.io/holy-child-school/',
+    title: 'Holy Child School ERP | CBSE Affiliated',
+    description: 'Enterprise School Management Platform — Students, Fees, Attendance, Examinations & More.',
+    siteName: 'Holy Child School ERP',
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'OpportunityIQ — AI Career Intelligence',
-    description: 'AI-powered job opportunity intelligence for senior consultants.',
+    title: 'Holy Child School ERP',
+    description: 'Enterprise School Management Platform for Holy Child School, Lucknow.',
   },
   icons: {
     icon: [
-      { url: '/icons/icon-192x192.png', sizes: '192x192', type: 'image/png' },
-      { url: '/icons/icon-512x512.png', sizes: '512x512', type: 'image/png' },
-      { url: '/icons/icon.svg', type: 'image/svg+xml' },
+      { url: '/holy-child-school/icons/icon-192x192.png', sizes: '192x192', type: 'image/png' },
+      { url: '/holy-child-school/icons/icon-512x512.png', sizes: '512x512', type: 'image/png' },
+      { url: '/holy-child-school/icons/icon.svg', type: 'image/svg+xml' },
     ],
     apple: [
-      { url: '/icons/apple-touch-icon.png', sizes: '180x180', type: 'image/png' },
+      { url: '/holy-child-school/icons/apple-touch-icon.png', sizes: '180x180', type: 'image/png' },
     ],
     other: [
-      { rel: 'mask-icon', url: '/icons/icon.svg', color: '#F59E0B' },
+      { rel: 'mask-icon', url: '/holy-child-school/icons/icon.svg', color: '#1e3a5f' },
     ],
   },
   other: {
     'mobile-web-app-capable': 'yes',
     'apple-mobile-web-app-capable': 'yes',
     'apple-mobile-web-app-status-bar-style': 'black-translucent',
-    'msapplication-TileColor': '#F59E0B',
-    'msapplication-TileImage': '/icons/icon-144x144.png',
-    'theme-color': '#F59E0B',
+    'msapplication-TileColor': '#1e3a5f',
+    'msapplication-TileImage': '/holy-child-school/icons/icon-144x144.png',
+    'theme-color': '#1e3a5f',
   },
 }
 
@@ -91,11 +91,7 @@ export default function RootLayout({
               position="top-right"
               richColors
               theme="system"
-              toastOptions={{
-                style: {
-                  fontFamily: 'Inter, sans-serif',
-                },
-              }}
+              toastOptions={{ style: { fontFamily: 'Inter, sans-serif' } }}
             />
           </QueryClientProviderWrapper>
         </ThemeProvider>

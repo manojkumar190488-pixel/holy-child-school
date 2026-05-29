@@ -1,418 +1,118 @@
 'use client'
 
-import { useState } from 'react'
-import { motion } from 'framer-motion'
+import { BarChart3, TrendingUp, Users, DollarSign } from 'lucide-react'
 import {
-  BarChart3,
-  TrendingUp,
-  Award,
-  Target,
-  Users,
-} from 'lucide-react'
-import {
-  LineChart,
-  Line,
-  BarChart,
-  Bar,
-  XAxis,
-  YAxis,
-  CartesianGrid,
-  Tooltip,
-  ResponsiveContainer,
-  PieChart,
-  Pie,
-  Cell,
-  Legend,
-  RadarChart,
-  PolarGrid,
-  PolarAngleAxis,
-  Radar,
-  AreaChart,
-  Area,
+  AreaChart, Area, BarChart, Bar, PieChart, Pie, Cell,
+  XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, Legend,
 } from 'recharts'
-import { StatsCard } from '@/components/dashboard/StatsCard'
-import { cn } from '@/lib/utils'
-import { CHART_COLORS } from '@/lib/constants'
+import { MONTHLY_ENROLLMENT, CLASS_DISTRIBUTION, SUBJECT_PERFORMANCE, MONTHLY_FEE_COLLECTION, ATTENDANCE_TREND, DASHBOARD_STATS } from '@/lib/mock-school-data'
 
-type Period = '7d' | '30d' | '90d'
-
-const TREND_DATA: Record<Period, Array<{ date: string; jobs: number; matches: number; applied: number }>> = {
-  '7d': [
-    { date: 'May 15', jobs: 18, matches: 9, applied: 1 },
-    { date: 'May 16', jobs: 24, matches: 13, applied: 2 },
-    { date: 'May 17', jobs: 31, matches: 17, applied: 2 },
-    { date: 'May 18', jobs: 28, matches: 14, applied: 3 },
-    { date: 'May 19', jobs: 38, matches: 22, applied: 4 },
-    { date: 'May 20', jobs: 35, matches: 19, applied: 3 },
-    { date: 'May 21', jobs: 44, matches: 27, applied: 5 },
-  ],
-  '30d': [
-    { date: 'May 1', jobs: 18, matches: 9, applied: 1 },
-    { date: 'May 5', jobs: 24, matches: 13, applied: 2 },
-    { date: 'May 8', jobs: 31, matches: 17, applied: 2 },
-    { date: 'May 11', jobs: 28, matches: 14, applied: 3 },
-    { date: 'May 15', jobs: 38, matches: 22, applied: 4 },
-    { date: 'May 18', jobs: 35, matches: 19, applied: 3 },
-    { date: 'May 21', jobs: 44, matches: 27, applied: 5 },
-  ],
-  '90d': [
-    { date: 'Mar 1', jobs: 12, matches: 5, applied: 0 },
-    { date: 'Mar 15', jobs: 18, matches: 8, applied: 1 },
-    { date: 'Apr 1', jobs: 22, matches: 11, applied: 1 },
-    { date: 'Apr 15', jobs: 29, matches: 15, applied: 2 },
-    { date: 'May 1', jobs: 35, matches: 19, applied: 3 },
-    { date: 'May 15', jobs: 38, matches: 22, applied: 4 },
-    { date: 'May 21', jobs: 44, matches: 27, applied: 5 },
-  ],
-}
-
-const STATS_DATA: Record<Period, { total: number; highMatch: number; avgScore: number; recruiters: number; totalChange: number; hmChange: number; scoreChange: number; recChange: number }> = {
-  '7d':  { total: 196, highMatch: 22, avgScore: 71, recruiters: 8,  totalChange: 18, hmChange: 29, scoreChange: 8,  recChange: 17 },
-  '30d': { total: 847, highMatch: 64, avgScore: 71, recruiters: 28, totalChange: 18, hmChange: 29, scoreChange: 8,  recChange: 17 },
-  '90d': { total: 2340, highMatch: 186, avgScore: 68, recruiters: 71, totalChange: 42, hmChange: 55, scoreChange: 12, recChange: 34 },
-}
-
-const SOURCE_DATA = [
-  { name: 'LinkedIn', value: 38, color: CHART_COLORS.linkedin },
-  { name: 'Naukri / iimjobs', value: 20, color: CHART_COLORS.naukri },
-  { name: 'DevNetJobs', value: 16, color: '#10B981' },
-  { name: 'ReliefWeb', value: 13, color: '#8B5CF6' },
-  { name: 'World Bank / ADB', value: 9, color: '#F59E0B' },
-  { name: 'Other', value: 4, color: CHART_COLORS.other },
-]
-
-const SCORE_DIST = [
-  { range: '0-40%', count: 34 },
-  { range: '40-50%', count: 82 },
-  { range: '50-60%', count: 148 },
-  { range: '60-70%', count: 204 },
-  { range: '70-80%', count: 186 },
-  { range: '80-90%', count: 143 },
-  { range: '90-100%', count: 50 },
-]
-
-const TOP_COMPANIES = [
-  { company: 'World Bank Group', jobs: 18, avgScore: 91 },
-  { company: 'UNDP', jobs: 14, avgScore: 89 },
-  { company: 'Deloitte Government', jobs: 22, avgScore: 85 },
-  { company: 'Asian Development Bank', jobs: 12, avgScore: 88 },
-  { company: 'EY India', jobs: 19, avgScore: 82 },
-  { company: 'GIZ India', jobs: 11, avgScore: 84 },
-  { company: 'ICF International', jobs: 9, avgScore: 80 },
-  { company: 'UNICEF', jobs: 8, avgScore: 87 },
-]
-
-const SKILLS_GAP = [
-  { skill: 'Digital Transformation', required: 95, possessed: 95 },
-  { skill: 'E-Governance', required: 90, possessed: 92 },
-  { skill: 'PMU / TSU', required: 88, possessed: 90 },
-  { skill: 'Public Health IT', required: 85, possessed: 88 },
-  { skill: 'Data Analytics', required: 82, possessed: 72 },
-  { skill: 'Cloud/AWS', required: 75, possessed: 52 },
-]
-
-const WEEKLY_TREND = [
-  { week: 'W1', newJobs: 26, matched: 13, applied: 2 },
-  { week: 'W2', newJobs: 34, matched: 19, applied: 3 },
-  { week: 'W3', newJobs: 38, matched: 21, applied: 3 },
-  { week: 'W4', newJobs: 47, matched: 27, applied: 5 },
-]
-
-const HEATMAP_DATA = Array.from({ length: 7 }, (_, day) =>
-  Array.from({ length: 24 }, (_, hour) => ({
-    day,
-    hour,
-    value: Math.floor(Math.random() * 15),
-  }))
-).flat()
-
-const DAYS = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat']
-const HOURS = Array.from({ length: 24 }, (_, i) => `${i}:00`)
+const PIE_COLORS = ['#1e3a5f', '#2d5a8e', '#4a7fb5', '#6b9fd4', '#8bbce8', '#a8d1f5', '#c5e4ff']
 
 export default function AnalyticsPage() {
-  const [period, setPeriod] = useState<Period>('30d')
-  const stats = STATS_DATA[period]
-  const trendData = TREND_DATA[period]
-
   return (
-    <div className="animate-in space-y-5">
-      {/* Header */}
-      <div className="flex items-center justify-between flex-wrap gap-3">
-        <div>
-          <h2 className="text-xl font-extrabold text-foreground">Market Intelligence</h2>
-          <p className="text-sm text-muted-foreground">
-            {period === '7d' ? '7-day' : period === '30d' ? '30-day' : '90-day'} overview of your opportunity landscape
-          </p>
-        </div>
-        <div className="flex items-center gap-2">
-          {(['7d', '30d', '90d'] as Period[]).map((p) => (
-            <button
-              key={p}
-              onClick={() => setPeriod(p)}
-              className={cn(
-                'rounded-lg px-3 py-1.5 text-xs font-semibold transition-colors',
-                period === p
-                  ? 'bg-gold-500/10 text-gold-600 dark:text-gold-400 border border-gold-500/30'
-                  : 'text-muted-foreground hover:bg-muted border border-transparent'
-              )}
-            >
-              {p}
-            </button>
-          ))}
-        </div>
+    <div className="space-y-6">
+      <div>
+        <h2 className="text-xl font-extrabold text-foreground">Analytics</h2>
+        <p className="text-sm text-muted-foreground">School performance insights & trends</p>
       </div>
 
-      {/* Stats Row */}
       <div className="grid grid-cols-2 gap-4 lg:grid-cols-4">
-        <StatsCard label="Total Opportunities" value={stats.total} change={stats.totalChange} changeLabel={`vs prev ${period}`} icon={<BarChart3 className="h-5 w-5" />} color="gold" index={0} />
-        <StatsCard label="High Match (>80%)" value={stats.highMatch} change={stats.hmChange} changeLabel="strong pipeline" icon={<Award className="h-5 w-5" />} color="green" index={1} />
-        <StatsCard label="Avg Match Score" value={stats.avgScore} suffix="%" change={stats.scoreChange} changeLabel="improvement" icon={<Target className="h-5 w-5" />} color="blue" index={2} />
-        <StatsCard label="Recruiters Tracked" value={stats.recruiters} change={stats.recChange} changeLabel="new contacts" icon={<Users className="h-5 w-5" />} color="purple" index={3} />
+        {[
+          { label: 'Students', value: DASHBOARD_STATS.totalStudents, icon: <Users className="h-5 w-5" />, color: '#3b82f6' },
+          { label: 'Staff', value: DASHBOARD_STATS.totalStaff, icon: <Users className="h-5 w-5" />, color: '#8b5cf6' },
+          { label: 'Attendance', value: `${DASHBOARD_STATS.attendanceToday}%`, icon: <TrendingUp className="h-5 w-5" />, color: '#10b981' },
+          { label: 'Fee Collection', value: `₹${(DASHBOARD_STATS.feeCollectedMonth / 100000).toFixed(1)}L`, icon: <DollarSign className="h-5 w-5" />, color: '#f59e0b' },
+        ].map((card, i) => (
+          <div key={card.label} className="rounded-xl border border-border bg-card p-4 flex items-center justify-between">
+            <div>
+              <p className="text-xs font-semibold text-muted-foreground uppercase tracking-wide">{card.label}</p>
+              <p className="text-2xl font-extrabold text-foreground mt-1">{card.value}</p>
+            </div>
+            <div className="rounded-xl p-2.5" style={{ background: `${card.color}18`, color: card.color }}>{card.icon}</div>
+          </div>
+        ))}
       </div>
 
-      {/* Main Charts Row */}
-      <div className="grid gap-4 lg:grid-cols-3">
-        {/* Opportunity Volume Over Time */}
-        <div className="lg:col-span-2 rounded-xl border border-border bg-card p-5">
-          <div className="mb-4 flex items-center justify-between">
-            <div>
-              <h3 className="text-sm font-bold text-foreground">Opportunity Volume</h3>
-              <p className="text-xs text-muted-foreground">Jobs discovered, matched, applied</p>
-            </div>
-            <div className="flex items-center gap-1.5 text-xs font-semibold text-emerald-600 dark:text-emerald-400">
-              <TrendingUp className="h-3.5 w-3.5" />
-              +{stats.totalChange}% this {period}
-            </div>
-          </div>
-          <ResponsiveContainer width="100%" height={220}>
-            <AreaChart data={trendData}>
+      <div className="grid gap-4 lg:grid-cols-2">
+        <div className="rounded-xl border border-border bg-card p-5">
+          <h3 className="text-sm font-bold text-foreground mb-4">Monthly Enrollment Trend</h3>
+          <ResponsiveContainer width="100%" height={200}>
+            <AreaChart data={MONTHLY_ENROLLMENT}>
               <defs>
-                <linearGradient id="jobsGrad" x1="0" y1="0" x2="0" y2="1">
-                  <stop offset="5%" stopColor="#F59E0B" stopOpacity={0.3} />
-                  <stop offset="95%" stopColor="#F59E0B" stopOpacity={0} />
-                </linearGradient>
-                <linearGradient id="matchGrad" x1="0" y1="0" x2="0" y2="1">
-                  <stop offset="5%" stopColor="#10B981" stopOpacity={0.3} />
-                  <stop offset="95%" stopColor="#10B981" stopOpacity={0} />
+                <linearGradient id="ag1" x1="0" y1="0" x2="0" y2="1">
+                  <stop offset="5%" stopColor="#3b82f6" stopOpacity={0.3} />
+                  <stop offset="95%" stopColor="#3b82f6" stopOpacity={0} />
                 </linearGradient>
               </defs>
               <CartesianGrid strokeDasharray="3 3" stroke="var(--border)" />
-              <XAxis dataKey="date" tick={{ fontSize: 11, fill: 'var(--muted-foreground)' }} />
+              <XAxis dataKey="month" tick={{ fontSize: 11, fill: 'var(--muted-foreground)' }} />
               <YAxis tick={{ fontSize: 11, fill: 'var(--muted-foreground)' }} />
-              <Tooltip contentStyle={{ background: 'var(--card)', border: '1px solid var(--border)', borderRadius: '8px', fontSize: '12px', color: 'var(--foreground)' }} />
-              <Legend wrapperStyle={{ fontSize: '11px' }} />
-              <Area type="monotone" dataKey="jobs" stroke="#F59E0B" fill="url(#jobsGrad)" strokeWidth={2} name="Total Jobs" />
-              <Area type="monotone" dataKey="matches" stroke="#10B981" fill="url(#matchGrad)" strokeWidth={2} name="High Matches" />
-              <Line type="monotone" dataKey="applied" stroke="#3B82F6" strokeWidth={2} dot={{ r: 3 }} name="Applied" />
+              <Tooltip contentStyle={{ background: 'var(--card)', border: '1px solid var(--border)', borderRadius: 8, fontSize: 12 }} />
+              <Area type="monotone" dataKey="students" stroke="#3b82f6" fill="url(#ag1)" strokeWidth={2} name="Students" />
             </AreaChart>
           </ResponsiveContainer>
         </div>
 
-        {/* Source Breakdown Pie */}
         <div className="rounded-xl border border-border bg-card p-5">
-          <div className="mb-4">
-            <h3 className="text-sm font-bold text-foreground">Source Breakdown</h3>
-            <p className="text-xs text-muted-foreground">Jobs by platform</p>
-          </div>
-          <ResponsiveContainer width="100%" height={180}>
+          <h3 className="text-sm font-bold text-foreground mb-4">Attendance Trend (Weekly)</h3>
+          <ResponsiveContainer width="100%" height={200}>
+            <AreaChart data={ATTENDANCE_TREND}>
+              <defs>
+                <linearGradient id="ag2" x1="0" y1="0" x2="0" y2="1">
+                  <stop offset="5%" stopColor="#10b981" stopOpacity={0.3} />
+                  <stop offset="95%" stopColor="#10b981" stopOpacity={0} />
+                </linearGradient>
+              </defs>
+              <CartesianGrid strokeDasharray="3 3" stroke="var(--border)" />
+              <XAxis dataKey="week" tick={{ fontSize: 11, fill: 'var(--muted-foreground)' }} />
+              <YAxis domain={[70, 100]} tick={{ fontSize: 11, fill: 'var(--muted-foreground)' }} />
+              <Tooltip contentStyle={{ background: 'var(--card)', border: '1px solid var(--border)', borderRadius: 8, fontSize: 12 }} />
+              <Area type="monotone" dataKey="percentage" stroke="#10b981" fill="url(#ag2)" strokeWidth={2} name="Attendance %" />
+            </AreaChart>
+          </ResponsiveContainer>
+        </div>
+
+        <div className="rounded-xl border border-border bg-card p-5">
+          <h3 className="text-sm font-bold text-foreground mb-4">Fee Collection vs Target</h3>
+          <ResponsiveContainer width="100%" height={200}>
+            <BarChart data={MONTHLY_FEE_COLLECTION}>
+              <CartesianGrid strokeDasharray="3 3" stroke="var(--border)" />
+              <XAxis dataKey="month" tick={{ fontSize: 11, fill: 'var(--muted-foreground)' }} />
+              <YAxis tick={{ fontSize: 11, fill: 'var(--muted-foreground)' }} tickFormatter={v => `₹${v / 100000}L`} />
+              <Tooltip contentStyle={{ background: 'var(--card)', border: '1px solid var(--border)', borderRadius: 8, fontSize: 12 }} formatter={(v: number) => [`₹${(v / 100000).toFixed(1)}L`]} />
+              <Legend wrapperStyle={{ fontSize: 11 }} />
+              <Bar dataKey="collected" fill="#10b981" name="Collected" radius={[4, 4, 0, 0]} />
+              <Bar dataKey="target" fill="#e5e7eb" name="Target" radius={[4, 4, 0, 0]} />
+            </BarChart>
+          </ResponsiveContainer>
+        </div>
+
+        <div className="rounded-xl border border-border bg-card p-5">
+          <h3 className="text-sm font-bold text-foreground mb-4">Subject Performance (Avg %)</h3>
+          <ResponsiveContainer width="100%" height={200}>
+            <BarChart data={SUBJECT_PERFORMANCE} layout="vertical">
+              <CartesianGrid strokeDasharray="3 3" stroke="var(--border)" />
+              <XAxis type="number" domain={[0, 100]} tick={{ fontSize: 11, fill: 'var(--muted-foreground)' }} />
+              <YAxis type="category" dataKey="subject" tick={{ fontSize: 10, fill: 'var(--muted-foreground)' }} width={70} />
+              <Tooltip contentStyle={{ background: 'var(--card)', border: '1px solid var(--border)', borderRadius: 8, fontSize: 12 }} />
+              <Bar dataKey="avgScore" name="Avg Score" fill="#3b82f6" radius={[0, 4, 4, 0]} />
+            </BarChart>
+          </ResponsiveContainer>
+        </div>
+      </div>
+
+      <div className="rounded-xl border border-border bg-card p-5">
+        <h3 className="text-sm font-bold text-foreground mb-4">Class Distribution</h3>
+        <div className="flex flex-col sm:flex-row items-center gap-6">
+          <ResponsiveContainer width="100%" height={200}>
             <PieChart>
-              <Pie
-                data={SOURCE_DATA}
-                cx="50%"
-                cy="50%"
-                innerRadius={45}
-                outerRadius={70}
-                paddingAngle={3}
-                dataKey="value"
-              >
-                {SOURCE_DATA.map((entry, index) => (
-                  <Cell key={index} fill={entry.color} />
-                ))}
+              <Pie data={CLASS_DISTRIBUTION} dataKey="students" nameKey="class" cx="50%" cy="50%" outerRadius={80} label={({ name, value }) => `${name}: ${value}`} labelLine={false}>
+                {CLASS_DISTRIBUTION.map((_, i) => <Cell key={i} fill={PIE_COLORS[i % PIE_COLORS.length]} />)}
               </Pie>
-              <Tooltip contentStyle={{ background: 'var(--card)', border: '1px solid var(--border)', borderRadius: '8px', fontSize: '12px', color: 'var(--foreground)' }} formatter={(value) => [`${value}%`, '']} />
+              <Tooltip contentStyle={{ background: 'var(--card)', border: '1px solid var(--border)', borderRadius: 8, fontSize: 11 }} />
             </PieChart>
           </ResponsiveContainer>
-          <div className="mt-2 space-y-1.5">
-            {SOURCE_DATA.slice(0, 4).map((source) => (
-              <div key={source.name} className="flex items-center justify-between text-xs">
-                <div className="flex items-center gap-1.5">
-                  <div className="h-2.5 w-2.5 rounded-full" style={{ backgroundColor: source.color }} />
-                  <span className="text-muted-foreground">{source.name}</span>
-                </div>
-                <span className="font-semibold text-foreground">{source.value}%</span>
-              </div>
-            ))}
-          </div>
-        </div>
-      </div>
-
-      {/* Second Row */}
-      <div className="grid gap-4 lg:grid-cols-2">
-        {/* Score Distribution */}
-        <div className="rounded-xl border border-border bg-card p-5">
-          <div className="mb-4">
-            <h3 className="text-sm font-bold text-foreground">Match Score Distribution</h3>
-            <p className="text-xs text-muted-foreground">Number of jobs by match score range</p>
-          </div>
-          <ResponsiveContainer width="100%" height={200}>
-            <BarChart data={SCORE_DIST}>
-              <CartesianGrid strokeDasharray="3 3" stroke="var(--border)" />
-              <XAxis dataKey="range" tick={{ fontSize: 10, fill: 'var(--muted-foreground)' }} />
-              <YAxis tick={{ fontSize: 10, fill: 'var(--muted-foreground)' }} />
-              <Tooltip contentStyle={{ background: 'var(--card)', border: '1px solid var(--border)', borderRadius: '8px', fontSize: '12px', color: 'var(--foreground)' }} />
-              <Bar dataKey="count" name="Jobs" radius={[4, 4, 0, 0]}>
-                {SCORE_DIST.map((entry, index) => {
-                  const pct = parseInt(entry.range)
-                  const color = pct >= 80 ? '#10B981' : pct >= 60 ? '#F59E0B' : pct >= 40 ? '#3B82F6' : '#94A3B8'
-                  return <Cell key={index} fill={color} />
-                })}
-              </Bar>
-            </BarChart>
-          </ResponsiveContainer>
-        </div>
-
-        {/* Skills Gap Radar */}
-        <div className="rounded-xl border border-border bg-card p-5">
-          <div className="mb-4">
-            <h3 className="text-sm font-bold text-foreground">Skills Gap Analysis</h3>
-            <p className="text-xs text-muted-foreground">Your skills vs market demand</p>
-          </div>
-          <ResponsiveContainer width="100%" height={220}>
-            <RadarChart data={SKILLS_GAP}>
-              <PolarGrid stroke="var(--border)" />
-              <PolarAngleAxis dataKey="skill" tick={{ fontSize: 10, fill: 'var(--muted-foreground)' }} />
-              <Radar name="Market Demand" dataKey="required" stroke="#F59E0B" fill="#F59E0B" fillOpacity={0.15} strokeWidth={2} />
-              <Radar name="Your Skills" dataKey="possessed" stroke="#10B981" fill="#10B981" fillOpacity={0.15} strokeWidth={2} />
-              <Legend wrapperStyle={{ fontSize: '11px' }} />
-            </RadarChart>
-          </ResponsiveContainer>
-        </div>
-      </div>
-
-      {/* Top Companies + Weekly Trends */}
-      <div className="grid gap-4 lg:grid-cols-3">
-        {/* Top Companies */}
-        <div className="lg:col-span-2 rounded-xl border border-border bg-card">
-          <div className="border-b border-border px-5 py-4">
-            <h3 className="text-sm font-bold text-foreground">Top Companies Posting</h3>
-            <p className="text-xs text-muted-foreground">Most active recruiters in your space</p>
-          </div>
-          <div className="divide-y divide-border">
-            {TOP_COMPANIES.map((company, i) => (
-              <motion.div
-                key={company.company}
-                initial={{ opacity: 0, x: -8 }}
-                animate={{ opacity: 1, x: 0 }}
-                transition={{ delay: i * 0.05 }}
-                className="flex items-center gap-4 px-5 py-3 hover:bg-muted transition-colors"
-              >
-                <span className="w-5 text-xs font-bold text-muted-foreground">{i + 1}</span>
-                <div className="flex-1 min-w-0">
-                  <p className="text-sm font-semibold text-foreground">{company.company}</p>
-                </div>
-                <div className="text-right flex-shrink-0">
-                  <p className="text-sm font-bold text-foreground">{company.jobs}</p>
-                  <p className="text-[11px] text-muted-foreground">jobs</p>
-                </div>
-                <div className="flex items-center gap-2 w-32 flex-shrink-0">
-                  <div className="h-1.5 flex-1 rounded-full bg-muted overflow-hidden">
-                    <div
-                      className="h-full rounded-full bg-gold-500"
-                      style={{ width: `${company.avgScore}%` }}
-                    />
-                  </div>
-                  <span className="text-xs font-bold text-foreground w-9">{company.avgScore}%</span>
-                </div>
-              </motion.div>
-            ))}
-          </div>
-        </div>
-
-        {/* Weekly Trends */}
-        <div className="rounded-xl border border-border bg-card p-5">
-          <div className="mb-4">
-            <h3 className="text-sm font-bold text-foreground">Weekly Activity</h3>
-            <p className="text-xs text-muted-foreground">Your job search momentum</p>
-          </div>
-          <ResponsiveContainer width="100%" height={200}>
-            <BarChart data={WEEKLY_TREND} layout="vertical">
-              <CartesianGrid strokeDasharray="3 3" stroke="var(--border)" horizontal={false} />
-              <XAxis type="number" tick={{ fontSize: 10, fill: 'var(--muted-foreground)' }} />
-              <YAxis dataKey="week" type="category" tick={{ fontSize: 10, fill: 'var(--muted-foreground)' }} />
-              <Tooltip contentStyle={{ background: 'var(--card)', border: '1px solid var(--border)', borderRadius: '8px', fontSize: '12px', color: 'var(--foreground)' }} />
-              <Bar dataKey="newJobs" name="New Jobs" fill="#F59E0B" radius={[0, 3, 3, 0]} />
-              <Bar dataKey="matched" name="Matched" fill="#10B981" radius={[0, 3, 3, 0]} />
-            </BarChart>
-          </ResponsiveContainer>
-          <div className="mt-4 space-y-2">
-            {[
-              { label: 'Best day for job posts', value: 'Tuesday', color: 'text-gold-600 dark:text-gold-400' },
-              { label: 'Peak match rate', value: 'Week 4 (38%)', color: 'text-emerald-600 dark:text-emerald-400' },
-              { label: 'Avg response time', value: '4.2 days', color: 'text-blue-600 dark:text-blue-400' },
-            ].map(({ label, value, color }) => (
-              <div key={label} className="flex justify-between text-xs">
-                <span className="text-muted-foreground">{label}</span>
-                <span className={cn('font-semibold', color)}>{value}</span>
-              </div>
-            ))}
-          </div>
-        </div>
-      </div>
-
-      {/* Recruiter Activity Heatmap */}
-      <div className="rounded-xl border border-border bg-card p-5">
-        <div className="mb-4">
-          <h3 className="text-sm font-bold text-foreground">Recruiter Activity Heatmap</h3>
-          <p className="text-xs text-muted-foreground">
-            Best times to reach out — darker = more active
-          </p>
-        </div>
-        <div className="overflow-x-auto">
-          <div className="min-w-[600px]">
-            <div className="flex gap-1 mb-1">
-              <div className="w-8" />
-              {[0, 3, 6, 9, 12, 15, 18, 21].map((h) => (
-                <div
-                  key={h}
-                  className="flex-1 text-center text-[10px] text-muted-foreground"
-                >
-                  {h}:00
-                </div>
-              ))}
-            </div>
-            {DAYS.map((day, dayIdx) => (
-              <div key={day} className="flex items-center gap-1 mb-1">
-                <div className="w-8 text-[10px] text-muted-foreground text-right pr-1">{day}</div>
-                {Array.from({ length: 24 }, (_, hour) => {
-                  const val =
-                    HEATMAP_DATA.find((d) => d.day === dayIdx && d.hour === hour)?.value || 0
-                  const opacity = val / 15
-                  return (
-                    <div
-                      key={hour}
-                      title={`${day} ${hour}:00 — ${val} activities`}
-                      className="h-5 flex-1 rounded-sm transition-colors cursor-default"
-                      style={{
-                        backgroundColor: `rgba(245, 158, 11, ${opacity})`,
-                        border: `1px solid rgba(245, 158, 11, ${opacity * 0.5})`,
-                      }}
-                    />
-                  )
-                })}
-              </div>
-            ))}
-            <div className="flex items-center gap-2 mt-3 justify-end">
-              <span className="text-[10px] text-muted-foreground">Less</span>
-              {[0.1, 0.3, 0.5, 0.7, 1].map((op) => (
-                <div
-                  key={op}
-                  className="h-3 w-6 rounded-sm"
-                  style={{ backgroundColor: `rgba(245, 158, 11, ${op})` }}
-                />
-              ))}
-              <span className="text-[10px] text-muted-foreground">More</span>
-            </div>
-          </div>
         </div>
       </div>
     </div>
