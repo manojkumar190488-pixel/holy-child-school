@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+  <rect width="512" height="512" rx="96" fill="#F59E0B"/>
+  <path d="M256 96 L312 208 L436 226 L346 314 L368 438 L256 378 L144 438 L166 314 L76 226 L200 208 Z" fill="#0A1628" opacity="0.15"/>
+  <polygon points="256,120 270,180 332,180 284,216 302,278 256,244 210,278 228,216 180,180 242,180" fill="#0A1628"/>
+  <rect x="220" y="300" width="72" height="10" rx="5" fill="#0A1628" opacity="0.8"/>
+  <rect x="235" y="320" width="42" height="8" rx="4" fill="#0A1628" opacity="0.6"/>
+  <text x="256" y="420" font-family="system-ui,sans-serif" font-size="52" font-weight="900" text-anchor="middle" fill="#0A1628">IQ</text>
+</svg>

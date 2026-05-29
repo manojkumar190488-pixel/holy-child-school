@@ -1,0 +1,21 @@
+(self.webpackChunk_N_E=self.webpackChunk_N_E||[]).push([[8738],{17259:function(e,r,t){Promise.resolve().then(t.bind(t,22241))},22241:function(e,r,t){"use strict";t.r(r),t.d(r,{default:function(){return d}});var s=t(57437),n=t(87138),a=t(95137),o=t(2500);function d(){return(0,s.jsxs)("div",{className:"space-y-5",children:[(0,s.jsxs)("div",{className:"flex items-center gap-3",children:[(0,s.jsx)(n.default,{href:"/fees",className:"rounded-lg border border-border p-2 text-muted-foreground hover:bg-muted transition-colors",children:(0,s.jsx)(a.Z,{className:"h-4 w-4"})}),(0,s.jsxs)("div",{children:[(0,s.jsx)("h2",{className:"text-xl font-extrabold text-foreground",children:"Fee Structure"}),(0,s.jsx)("p",{className:"text-sm text-muted-foreground",children:"Fee heads for each class tier"})]})]}),(0,s.jsx)("div",{className:"grid gap-4 md:grid-cols-2",children:o.bL.map(e=>(0,s.jsxs)("div",{className:"rounded-xl border border-border bg-card overflow-hidden",children:[(0,s.jsxs)("div",{className:"border-b border-border bg-muted/40 px-5 py-3.5",children:[(0,s.jsx)("h3",{className:"font-bold text-foreground",children:e.tier}),(0,s.jsxs)("p",{className:"text-xs text-muted-foreground",children:["Classes: ",e.classes.join(", ")]})]}),(0,s.jsx)("div",{className:"divide-y divide-border",children:[{head:"Tuition Fee",amount:e.tuition},{head:"Transport Fee",amount:e.transport},{head:"Library Fee",amount:e.library},{head:"Lab Fee",amount:e.lab},{head:"Sports Fee",amount:e.sports},{head:"Miscellaneous",amount:e.misc}].filter(e=>e.amount>0).map(e=>(0,s.jsxs)("div",{className:"flex items-center justify-between px-5 py-3",children:[(0,s.jsx)("span",{className:"text-sm text-foreground",children:e.head}),(0,s.jsxs)("span",{className:"font-semibold text-foreground",children:["₹",e.amount.toLocaleString()]})]},e.head))}),(0,s.jsxs)("div",{className:"border-t border-border bg-gold-50/40 dark:bg-gold-900/10 px-5 py-3 flex justify-between",children:[(0,s.jsx)("span",{className:"font-bold text-foreground",children:"Monthly Total"}),(0,s.jsxs)("span",{className:"font-extrabold text-gold-600 dark:text-gold-400",children:["₹",e.total.toLocaleString()]})]})]},e.id))})]})}},78030:function(e,r,t){"use strict";t.d(r,{Z:function(){return l}});var s=t(2265);/**
+ * @license lucide-react v0.414.0 - ISC
+ *
+ * This source code is licensed under the ISC license.
+ * See the LICENSE file in the root directory of this source tree.
+ */let n=e=>e.replace(/([a-z0-9])([A-Z])/g,"$1-$2").toLowerCase(),a=function(){for(var e=arguments.length,r=Array(e),t=0;t<e;t++)r[t]=arguments[t];return r.filter((e,r,t)=>!!e&&t.indexOf(e)===r).join(" ")};/**
+ * @license lucide-react v0.414.0 - ISC
+ *
+ * This source code is licensed under the ISC license.
+ * See the LICENSE file in the root directory of this source tree.
+ */var o={xmlns:"http://www.w3.org/2000/svg",width:24,height:24,viewBox:"0 0 24 24",fill:"none",stroke:"currentColor",strokeWidth:2,strokeLinecap:"round",strokeLinejoin:"round"};/**
+ * @license lucide-react v0.414.0 - ISC
+ *
+ * This source code is licensed under the ISC license.
+ * See the LICENSE file in the root directory of this source tree.
+ */let d=(0,s.forwardRef)((e,r)=>{let{color:t="currentColor",size:n=24,strokeWidth:d=2,absoluteStrokeWidth:l,className:i="",children:c,iconNode:u,...m}=e;return(0,s.createElement)("svg",{ref:r,...o,width:n,height:n,stroke:t,strokeWidth:l?24*Number(d)/Number(n):d,className:a("lucide",i),...m},[...u.map(e=>{let[r,t]=e;return(0,s.createElement)(r,t)}),...Array.isArray(c)?c:[c]])}),l=(e,r)=>{let t=(0,s.forwardRef)((t,o)=>{let{className:l,...i}=t;return(0,s.createElement)(d,{ref:o,iconNode:r,className:a("lucide-".concat(n(e)),l),...i})});return t.displayName="".concat(e),t}},95137:function(e,r,t){"use strict";t.d(r,{Z:function(){return s}});/**
+ * @license lucide-react v0.414.0 - ISC
+ *
+ * This source code is licensed under the ISC license.
+ * See the LICENSE file in the root directory of this source tree.
+ */let s=(0,t(78030).Z)("ArrowLeft",[["path",{d:"m12 19-7-7 7-7",key:"1l729n"}],["path",{d:"M19 12H5",key:"x3x0zl"}]])}},function(e){e.O(0,[7138,2500,2971,7023,1744],function(){return e(e.s=17259)}),_N_E=e.O()}]);
