@@ -9,6 +9,7 @@ from app.api.v1 import (
     analytics,
     recruiters,
     notifications,
+    copilot,
 )
 
 api_router = APIRouter(prefix="/api/v1")
@@ -22,3 +23,4 @@ api_router.include_router(applications.router)
 api_router.include_router(analytics.router)
 api_router.include_router(recruiters.router)
 api_router.include_router(notifications.router)
+api_router.include_router(copilot.router)

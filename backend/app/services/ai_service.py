@@ -28,9 +28,11 @@ def get_anthropic_client() -> anthropic.AsyncAnthropic:
 
 
 PROFILE_SUMMARY_TEXT = f"""
-Candidate: Senior Consulting Professional, {CANDIDATE_PROFILE['years_experience']}+ years experience.
+Candidate: {CANDIDATE_PROFILE['name']}, {CANDIDATE_PROFILE['current_role']}, {CANDIDATE_PROFILE['years_experience']}+ years experience.
+Previous organizations: {', '.join(CANDIDATE_PROFILE['previous_organizations'])}.
 Core expertise: {', '.join(CANDIDATE_PROFILE['core_competencies'][:10])}.
-Key domains: {', '.join(CANDIDATE_PROFILE['domain_expertise'][:8])}.
+Key domains: {', '.join(CANDIDATE_PROFILE['domain_expertise'])}.
+Multilateral experience: {', '.join(CANDIDATE_PROFILE['multilateral_experience'])}.
 Preferred roles: {', '.join(CANDIDATE_PROFILE['preferred_roles'][:8])}.
 Preferred employers: {', '.join(CANDIDATE_PROFILE['preferred_employers'][:8])}.
 Keywords (high priority): {', '.join(CANDIDATE_PROFILE['keywords_high_priority'][:10])}.
@@ -328,6 +330,113 @@ LinkedIn message format (under 300 characters for connection request, or full me
         except Exception as e:
             logger.error(f"Outreach generation failed: {e}")
             raise
+
+    def _matching_notable_projects(self, job_text: str, limit: int = 3) -> List[Dict[str, Any]]:
+        """Rule-based mapping from CV notable_projects to a job's stated sector/skills."""
+        text = job_text.lower()
+        scored_projects = []
+        for project in CANDIDATE_PROFILE["notable_projects"]:
+            hits = sum(1 for skill in project["skills"] if skill.lower() in text)
+            sector_hit = 1 if project["sector"].lower() in text else 0
+            funder_hit = 1 if project["funder"].lower() in text else 0
+            relevance = hits + (sector_hit * 2) + (funder_hit * 2)
+            if relevance > 0:
+                scored_projects.append((relevance, project))
+
+        scored_projects.sort(key=lambda x: x[0], reverse=True)
+        if not scored_projects:
+            # Fall back to top 2 projects most representative of the profile
+            return CANDIDATE_PROFILE["notable_projects"][:2]
+        return [p for _, p in scored_projects[:limit]]
+
+    def _rule_based_missing_skills(self, job_text: str) -> List[str]:
+        """Fast, no-API-call gap check against required qualifications commonly cited in govt/consulting RFPs."""
+        text = job_text.lower()
+        checklist = {
+            "power bi / advanced analytics": ["power bi", "data analytics", "dashboard"],
+            "specific ERP/vendor platform certification": ["sap certified", "salesforce certified"],
+            "cloud governance certification": ["aws certified", "azure certified", "gcp certified"],
+            "sector-specific regulatory knowledge": ["regulatory compliance", "regulatory framework"],
+        }
+        known_text = " ".join(CANDIDATE_PROFILE["core_competencies"] + CANDIDATE_PROFILE["technical_skills"]).lower()
+        gaps = []
+        for gap_label, triggers in checklist.items():
+            if any(t in text for t in triggers) and not any(t in known_text for t in triggers):
+                gaps.append(gap_label)
+        return gaps[:5]
+
+    async def generate_qualification_dossier(self, job: Any, match_result: Optional[Dict[str, Any]] = None) -> Dict[str, Any]:
+        """
+        Build the full opportunity-qualification package for an opportunity:
+        why it matches, relevant CV projects, missing skills, positioning,
+        application strategy, and interview preparation notes.
+
+        Uses the deterministic profile/CV mapping (always available) and
+        layers in an LLM-generated narrative when AI scoring is enabled.
+        """
+        job_text = self._build_job_text(job)
+        relevant_projects = self._matching_notable_projects(job_text)
+        missing_skills = self._rule_based_missing_skills(job_text)
+
+        leadership_level = (match_result or {}).get("leadership_level", "unspecified")
+        strategic_value = (match_result or {}).get("strategic_value", "Medium")
+        multilateral_signals = (match_result or {}).get("multilateral_signals", [])
+        govt_signals = (match_result or {}).get("government_consulting_signals", [])
+
+        why_matches_parts = []
+        if govt_signals:
+            why_matches_parts.append(
+                f"Directly aligned with government/public-sector consulting expertise ({', '.join(govt_signals[:3])})."
+            )
+        if multilateral_signals:
+            why_matches_parts.append(
+                f"Matches multilateral programme experience with {', '.join(multilateral_signals[:2])}."
+            )
+        if relevant_projects:
+            why_matches_parts.append(
+                f"Directly comparable to prior delivery on '{relevant_projects[0]['name']}'."
+            )
+        if leadership_level in ("partner/practice-head", "vp", "director/associate-partner", "practice-lead"):
+            why_matches_parts.append(f"Seniority target matches current level ({leadership_level.replace('-', ' ')}).")
+        why_matches = " ".join(why_matches_parts) or "Aligned with core government consulting and digital transformation expertise."
+
+        positioning = (
+            f"Position as a {CANDIDATE_PROFILE['current_role']} with {CANDIDATE_PROFILE['years_experience']}+ years "
+            f"delivering {relevant_projects[0]['sector'] if relevant_projects else 'government advisory'} programmes; "
+            f"lead with multilateral delivery credentials where relevant."
+        )
+
+        application_strategy_steps = [
+            "Tailor the opening summary to the opportunity's named funder/sector before submission.",
+            f"Lead with '{relevant_projects[0]['name']}'" if relevant_projects else "Lead with the most sector-relevant delivery track record.",
+            "Quantify programme scale (budget, states/geographies covered, stakeholders managed) in the first two bullets.",
+            "Request a warm introduction via existing multilateral or practice network where available before cold applying.",
+        ]
+
+        interview_prep_notes = [
+            f"Be ready to walk through '{p['name']}' end-to-end (scope, governance, outcomes)." for p in relevant_projects[:2]
+        ] + [
+            "Prepare a concise procurement/bid-management case study (DPR/RFP lifecycle) if the role touches procurement advisory.",
+            "Have 2-3 measurable outcomes ready per multilateral engagement (World Bank/ADB/JICA/AIIB) referenced in the JD.",
+        ]
+
+        dossier = {
+            "why_matches": why_matches,
+            "relevant_projects": relevant_projects,
+            "missing_skills": missing_skills,
+            "recommended_positioning": positioning,
+            "application_strategy": application_strategy_steps,
+            "interview_prep": interview_prep_notes,
+        }
+
+        if settings.AI_SCORING_ENABLED and settings.OPENAI_API_KEY:
+            try:
+                narrative = await self.explain_relevance(job)
+                dossier["ai_narrative"] = narrative
+            except Exception as e:
+                logger.debug(f"Qualification narrative generation skipped: {e}")
+
+        return dossier
 
     async def analyze_skills_gap(self, jobs: List[Any]) -> Dict[str, Any]:
         """Analyze skills gap across a set of jobs."""

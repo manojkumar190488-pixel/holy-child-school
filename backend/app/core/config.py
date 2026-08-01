@@ -13,7 +13,7 @@ class Settings(BaseSettings):
     )
 
     # App
-    APP_NAME: str = "Job Intelligence Agent"
+    APP_NAME: str = "GovIntel AI"
     APP_VERSION: str = "1.0.0"
     DEBUG: bool = False
     ENVIRONMENT: str = "production"
@@ -55,18 +55,36 @@ class Settings(BaseSettings):
     SMTP_USERNAME: str = ""
     SMTP_PASSWORD: str = ""
     SMTP_USE_TLS: bool = True
-    EMAIL_FROM: str = "noreply@jobintelligence.ai"
-    EMAIL_FROM_NAME: str = "Job Intelligence Agent"
+    EMAIL_FROM: str = "noreply@govintel.ai"
+    EMAIL_FROM_NAME: str = "GovIntel AI"
 
     # Telegram
     TELEGRAM_BOT_TOKEN: str = ""
     TELEGRAM_CHAT_ID: str = ""
 
+    # WhatsApp (via Twilio WhatsApp Business API, or compatible provider)
+    WHATSAPP_API_TOKEN: str = ""
+    WHATSAPP_FROM_NUMBER: str = ""
+    WHATSAPP_TO_NUMBER: str = ""
+    WHATSAPP_API_URL: str = ""  # e.g. https://api.twilio.com/2010-04-01/Accounts/{sid}/Messages.json
+
+    # Alert rules — notify only when one of these is exceeded
+    ALERT_MIN_MATCH_SCORE: float = 80.0
+    ALERT_MIN_VALUE_INR: float = 2_500_000.0  # 25 lakh
+    ALERT_ON_LEADERSHIP_MATCH: bool = True
+
+    # Opportunity qualification thresholds
+    FULL_TIME_MIN_EXPERIENCE_YEARS: int = 12
+    FULL_TIME_PREFERRED_EXPERIENCE_YEARS: int = 15
+    FREELANCE_MIN_VALUE_INR: float = 100_000.0
+    FREELANCE_MIN_HOURLY_RATE_INR: float = 5_000.0
+    STRICT_NCR_FILTER_FULL_TIME: bool = True
+
     # CORS
     BACKEND_CORS_ORIGINS: List[str] = [
         "http://localhost:3000",
         "http://localhost:5173",
-        "https://app.jobintelligence.ai",
+        "https://app.govintel.ai",
     ]
 
     @field_validator("BACKEND_CORS_ORIGINS", mode="before")
@@ -95,11 +113,42 @@ class Settings(BaseSettings):
     LINKEDIN_EMAIL: str = ""
     LINKEDIN_PASSWORD: str = ""
 
-    # Scheduler
+    # Consulting marketplace partner API keys (optional — these platforms require
+    # a partner/enterprise agreement; connectors stay inactive until a key is set)
+    CATALANT_API_KEY: str = ""
+    COMATCH_API_KEY: str = ""
+    TALMIX_API_KEY: str = ""
+    EXPERT360_API_KEY: str = ""
+    MALT_API_KEY: str = ""
+    BTG_API_KEY: str = ""  # Business Talent Group
+
+    # Expert network partner API keys (optional — project-invite based networks)
+    GLG_API_KEY: str = ""
+    GUIDEPOINT_API_KEY: str = ""
+    ALPHASIGHTS_API_KEY: str = ""
+    THIRDBRIDGE_API_KEY: str = ""
+    COLEMAN_API_KEY: str = ""
+
+    # Government procurement portal credentials (optional — GeM requires a
+    # registered seller/buyer login for bid-level detail)
+    GEM_API_KEY: str = ""
+
+    # Scheduler — GovIntel discovery agent runs 3x daily: 6 AM, 12 PM, 6 PM IST
     SCHEDULER_TIMEZONE: str = "Asia/Kolkata"
+    DISCOVERY_RUN_HOURS: List[int] = [6, 12, 18]
     DAILY_DIGEST_HOUR: int = 8
     DAILY_DIGEST_MINUTE: int = 0
     REFRESH_JOBS_INTERVAL_HOURS: int = 6
+
+    @field_validator("DISCOVERY_RUN_HOURS", mode="before")
+    @classmethod
+    def parse_discovery_hours(cls, v):
+        if isinstance(v, str):
+            try:
+                return json.loads(v)
+            except Exception:
+                return [int(h.strip()) for h in v.split(",")]
+        return v
 
     # Feature flags
     AI_SCORING_ENABLED: bool = True

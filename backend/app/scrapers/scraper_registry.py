@@ -11,19 +11,55 @@ from app.scrapers.reliefweb_scraper import ReliefWebScraper
 from app.scrapers.undp_scraper import UNDPScraper
 from app.scrapers.worldbank_scraper import WorldBankScraper
 from app.scrapers.iimjobs_scraper import IIMJobsScraper
+from app.scrapers.adb_scraper import ADBScraper
+from app.scrapers.multilateral_partners_scraper import (
+    AIIBScraper, UNICEFScraper, WHOScraper, GIZScraper, FCDOScraper,
+)
+from app.scrapers.consulting_marketplace_scraper import (
+    CatalantScraper, ComatchScraper, TalmixScraper, Expert360Scraper,
+    MaltScraper, BusinessTalentGroupScraper,
+)
+from app.scrapers.expert_network_scraper import (
+    GLGScraper, GuidepointScraper, AlphaSightsScraper, ThirdBridgeScraper, ColemanResearchScraper,
+)
+from app.scrapers.govt_procurement_scraper import CPPPScraper, GeMScraper
 from app.services.job_service import JobService, JobCreate
 from app.core.logging_config import logger
 
 
 SCRAPER_REGISTRY: Dict[str, Type[BaseScraper]] = {
+    # Full-time job boards
     "linkedin": LinkedInScraper,
     "indeed": IndeedScraper,
     "naukri": NaukriScraper,
     "devnetjobs": DevNetScraper,
+    "iimjobs": IIMJobsScraper,
+    # Development agencies / multilaterals
     "reliefweb": ReliefWebScraper,
     "undp": UNDPScraper,
     "worldbank": WorldBankScraper,
-    "iimjobs": IIMJobsScraper,
+    "adb": ADBScraper,
+    "aiib": AIIBScraper,
+    "unicef": UNICEFScraper,
+    "who": WHOScraper,
+    "giz": GIZScraper,
+    "fcdo": FCDOScraper,
+    # Government procurement
+    "cppp": CPPPScraper,
+    "gem": GeMScraper,
+    # Consulting marketplaces (partner-API gated)
+    "catalant": CatalantScraper,
+    "comatch": ComatchScraper,
+    "talmix": TalmixScraper,
+    "expert360": Expert360Scraper,
+    "malt": MaltScraper,
+    "btg": BusinessTalentGroupScraper,
+    # Expert networks (partner-API gated)
+    "glg": GLGScraper,
+    "guidepoint": GuidepointScraper,
+    "alphasights": AlphaSightsScraper,
+    "thirdbridge": ThirdBridgeScraper,
+    "coleman": ColemanResearchScraper,
 }
 
 

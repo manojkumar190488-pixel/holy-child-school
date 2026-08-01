@@ -1,5 +1,5 @@
 """
-Job Intelligence Agent — FastAPI Application Entry Point
+GovIntel AI — FastAPI Application Entry Point
 """
 
 import time

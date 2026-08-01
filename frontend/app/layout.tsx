@@ -13,36 +13,36 @@ const inter = Inter({
 
 export const metadata: Metadata = {
   title: {
-    default: 'OpportunityIQ — AI Career Intelligence',
-    template: '%s | OpportunityIQ',
+    default: 'GovIntel AI — Opportunity Intelligence Platform',
+    template: '%s | GovIntel AI',
   },
   description:
-    'AI-powered job opportunity intelligence for senior consultants. Discover, track, and act on the best opportunities with AI-curated matching.',
+    'AI-powered opportunity intelligence for senior government consulting and digital transformation leaders. Discover, rank, and act on the best leadership, remote, and consulting opportunities.',
   keywords: [
+    'government consulting jobs',
     'AI career intelligence',
-    'job matching',
-    'consulting jobs',
-    'senior consultant',
-    'job tracker',
-    'OpportunityIQ',
+    'digital transformation leadership',
+    'public sector advisory',
+    'multilateral consulting',
+    'GovIntel AI',
   ],
-  authors: [{ name: 'OpportunityIQ' }],
-  creator: 'OpportunityIQ',
-  metadataBase: new URL('https://opportunityiq.ai'),
+  authors: [{ name: 'GovIntel AI' }],
+  creator: 'GovIntel AI',
+  metadataBase: new URL('https://govintel.ai'),
   openGraph: {
     type: 'website',
     locale: 'en_US',
-    url: 'https://opportunityiq.ai',
-    title: 'OpportunityIQ — AI Career Intelligence',
+    url: 'https://govintel.ai',
+    title: 'GovIntel AI — Opportunity Intelligence Platform',
     description:
-      'AI-powered job opportunity intelligence for senior consultants.',
-    siteName: 'OpportunityIQ',
+      'AI-powered opportunity intelligence for senior government consulting and digital transformation leaders.',
+    siteName: 'GovIntel AI',
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'OpportunityIQ — AI Career Intelligence',
+    title: 'GovIntel AI — Opportunity Intelligence Platform',
     description:
-      'AI-powered job opportunity intelligence for senior consultants.',
+      'AI-powered opportunity intelligence for senior government consulting and digital transformation leaders.',
   },
   icons: {
     icon: '/favicon.ico',

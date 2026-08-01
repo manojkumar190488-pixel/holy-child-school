@@ -8,6 +8,8 @@ from sqlalchemy.dialects.postgresql import insert as pg_insert
 from pydantic import BaseModel
 from app.models.job import Job, HiddenJob
 from app.core.logging_config import logger
+from app.core.config import settings
+from app.ai.profile import CANDIDATE_PROFILE
 
 
 class JobCreate(BaseModel):
@@ -39,6 +41,44 @@ class JobCreate(BaseModel):
 class JobService:
     def __init__(self, db: AsyncSession):
         self.db = db
+
+    @staticmethod
+    def classify_opportunity_type(job: Any) -> str:
+        """Classify an opportunity as full_time / remote / freelance."""
+        remote_type = (getattr(job, "remote_type", "") or "").lower()
+        job_type = (getattr(job, "job_type", "") or "").lower()
+
+        if any(k in job_type for k in ("freelance", "consulting assignment", "contract", "assignment")):
+            return "freelance"
+        if remote_type == "remote":
+            return "remote"
+        return "full_time"
+
+    @staticmethod
+    def qualifies_for_recommendation(job: Any) -> Tuple[bool, str]:
+        """
+        Apply GovIntel's strict qualification rules:
+        - full_time: must be located in Delhi NCR
+        - remote: no location restriction (global)
+        - freelance: must clear the minimum value/rate threshold
+        Returns (qualifies, reason).
+        """
+        opp_type = JobService.classify_opportunity_type(job)
+        location = (getattr(job, "location", "") or "").lower()
+
+        if opp_type == "full_time":
+            if settings.STRICT_NCR_FILTER_FULL_TIME:
+                if not any(ncr in location for ncr in CANDIDATE_PROFILE["ncr_locations"]):
+                    return False, "full_time_outside_ncr"
+            return True, "ok"
+
+        if opp_type == "freelance":
+            salary_max = getattr(job, "salary_max", None) or getattr(job, "salary_min", None)
+            if salary_max is not None and salary_max < CANDIDATE_PROFILE["freelance_min_value_inr"]:
+                return False, "freelance_below_min_value"
+            return True, "ok"
+
+        return True, "ok"  # remote: unrestricted by location
 
     @staticmethod
     def compute_content_hash(title: str, company: str, posted_date: Optional[datetime] = None) -> str:
@@ -83,6 +123,8 @@ class JobService:
             query = query.where(Job.posted_date >= filters["posted_after"])
         if filters.get("min_score") is not None:
             query = query.where(Job.match_score >= filters["min_score"])
+        if filters.get("min_value") is not None:
+            query = query.where(Job.salary_max >= filters["min_value"])
         if filters.get("max_score") is not None:
             query = query.where(Job.match_score <= filters["max_score"])
         if filters.get("is_active") is not None:
@@ -97,6 +139,12 @@ class JobService:
                     Job.location.ilike(search_term),
                 )
             )
+
+        if filters.get("opportunity_type"):
+            query = self._apply_opportunity_type_filter(query, filters["opportunity_type"])
+
+        if filters.get("strict_qualify", True):
+            query = self._apply_strict_qualification(query)
 
         # Count total
         count_query = select(func.count()).select_from(query.subquery())
@@ -121,6 +169,56 @@ class JobService:
         jobs = result.scalars().all()
 
         return jobs, total
+
+    def _apply_opportunity_type_filter(self, query, opportunity_type: str):
+        """Filter to a specific opportunity type: full_time / remote / freelance."""
+        freelance_pattern = or_(
+            Job.job_type.ilike("%freelance%"),
+            Job.job_type.ilike("%consulting assignment%"),
+            Job.job_type.ilike("%contract%"),
+            Job.job_type.ilike("%assignment%"),
+        )
+        if opportunity_type == "freelance":
+            return query.where(freelance_pattern)
+        if opportunity_type == "remote":
+            return query.where(Job.remote_type == "remote", ~freelance_pattern)
+        if opportunity_type == "full_time":
+            return query.where(Job.remote_type != "remote", ~freelance_pattern)
+        return query
+
+    def _apply_strict_qualification(self, query):
+        """
+        Enforce GovIntel qualification rules at the query level:
+        - Full-time roles: Delhi NCR only.
+        - Freelance: must clear the minimum value threshold (when value is known).
+        - Remote: unrestricted.
+        """
+        freelance_pattern = or_(
+            Job.job_type.ilike("%freelance%"),
+            Job.job_type.ilike("%consulting assignment%"),
+            Job.job_type.ilike("%contract%"),
+            Job.job_type.ilike("%assignment%"),
+        )
+        is_full_time = and_(Job.remote_type != "remote", ~freelance_pattern)
+
+        ncr_location_match = or_(*[
+            Job.location.ilike(f"%{city}%") for city in CANDIDATE_PROFILE["ncr_locations"]
+        ])
+        freelance_value_ok = or_(
+            Job.salary_max.is_(None),
+            Job.salary_max >= CANDIDATE_PROFILE["freelance_min_value_inr"],
+        )
+
+        return query.where(
+            or_(
+                ~is_full_time,  # not full-time -> no NCR restriction here
+                and_(is_full_time, ncr_location_match),
+            ),
+            or_(
+                ~freelance_pattern,
+                and_(freelance_pattern, freelance_value_ok),
+            ),
+        )
 
     async def get_job_by_id(self, job_id: int) -> Optional[Job]:
         result = await self.db.execute(select(Job).where(Job.id == job_id))

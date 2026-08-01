@@ -302,7 +302,7 @@ export default function SettingsPage() {
                 <SettingRow label="Enable Telegram" description="Receive notifications via Telegram Bot">
                   <SwitchToggle onChange={(c) => c && toast.info('Enter your Telegram chat ID below')} />
                 </SettingRow>
-                <SettingRow label="Telegram Chat ID" description="Get this from @OpportunityIQBot" divider={false}>
+                <SettingRow label="Telegram Chat ID" description="Get this from @GovIntelAIBot" divider={false}>
                   <input
                     type="text"
                     className="input w-40"
@@ -507,7 +507,7 @@ export default function SettingsPage() {
               {
                 icon: <div className="flex h-5 w-5 items-center justify-center rounded bg-blue-500 text-white"><MessageSquare className="h-3 w-3" /></div>,
                 name: 'Telegram Bot',
-                description: 'Receive instant notifications via @OpportunityIQBot',
+                description: 'Receive instant notifications via @GovIntelAIBot',
                 connected: false,
               },
               {

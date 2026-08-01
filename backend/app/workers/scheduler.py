@@ -1,8 +1,10 @@
 """
-APScheduler setup for the Job Intelligence Agent.
+APScheduler setup for GovIntel AI.
 
 Schedule:
-- Daily 8:00 AM IST: run all scrapers → AI score new jobs → send digest
+- 6:00 AM, 12:00 PM, 6:00 PM IST daily: discovery agent runs all scrapers,
+  deduplicates, scores every opportunity, and fires threshold-based alerts
+- Daily 8:00 AM IST: compiles and sends the daily digest (email/Telegram/WhatsApp)
 - Every 6 hours: re-check and deactivate expired/filled jobs
 - Weekly Sunday 9:00 AM IST: skills gap analysis report
 """
@@ -20,27 +22,48 @@ IST = pytz_timezone("Asia/Kolkata")
 scheduler: AsyncIOScheduler = None
 
 
-async def job_daily_scrape_and_digest():
-    """Main daily pipeline: scrape → score → notify."""
-    logger.info("Starting daily scrape and digest pipeline")
+async def job_discovery_agent():
+    """
+    GovIntel discovery agent — runs 3x daily (6 AM / 12 PM / 6 PM IST).
+    Scrapes all sources, deduplicates, scores every opportunity against the
+    weighted matching model, and fires real-time alerts for anything that
+    clears the alert thresholds (match score > 80, value > 25L, or a
+    leadership-level opportunity).
+    """
+    logger.info("Starting GovIntel discovery agent run")
     from app.core.database import AsyncSessionLocal
     from app.scrapers.scraper_registry import run_all_scrapers
     from app.services.notification_service import NotificationService
 
     async with AsyncSessionLocal() as db:
         try:
-            # 1. Run all scrapers
             scrape_stats = await run_all_scrapers(db=db, score_jobs=True)
-            logger.info(f"Daily scrape complete: {scrape_stats}")
+            logger.info(f"Discovery agent scrape complete: {scrape_stats}")
 
-            # 2. Send digest to all users
             notif_service = NotificationService(db)
-            digest_stats = await notif_service.compile_daily_digest()
-            logger.info(f"Daily digest sent: {digest_stats}")
+            alert_stats = await notif_service.send_realtime_alerts()
+            logger.info(f"Real-time alerts dispatched: {alert_stats}")
 
             await db.commit()
         except Exception as e:
-            logger.error(f"Daily scrape/digest pipeline error: {e}", exc_info=True)
+            logger.error(f"Discovery agent run error: {e}", exc_info=True)
+            await db.rollback()
+
+
+async def job_daily_digest():
+    """Daily 8:00 AM IST: compile and send the full daily digest email/Telegram."""
+    logger.info("Compiling daily digest")
+    from app.core.database import AsyncSessionLocal
+    from app.services.notification_service import NotificationService
+
+    async with AsyncSessionLocal() as db:
+        try:
+            notif_service = NotificationService(db)
+            digest_stats = await notif_service.compile_daily_digest()
+            logger.info(f"Daily digest sent: {digest_stats}")
+            await db.commit()
+        except Exception as e:
+            logger.error(f"Daily digest error: {e}", exc_info=True)
             await db.rollback()
 
 
@@ -163,16 +186,26 @@ def create_scheduler() -> AsyncIOScheduler:
         },
     )
 
+    # Discovery agent at 6:00 AM, 12:00 PM, 6:00 PM IST
+    for hour in settings.DISCOVERY_RUN_HOURS:
+        scheduler.add_job(
+            job_discovery_agent,
+            trigger=CronTrigger(hour=hour, minute=0, timezone=IST),
+            id=f"discovery_agent_{hour:02d}00",
+            name=f"GovIntel Discovery Agent ({hour:02d}:00 IST)",
+            replace_existing=True,
+        )
+
     # Daily digest at 8:00 AM IST
     scheduler.add_job(
-        job_daily_scrape_and_digest,
+        job_daily_digest,
         trigger=CronTrigger(
             hour=settings.DAILY_DIGEST_HOUR,
             minute=settings.DAILY_DIGEST_MINUTE,
             timezone=IST,
         ),
-        id="daily_scrape_digest",
-        name="Daily Scrape & Digest",
+        id="daily_digest",
+        name="Daily Digest",
         replace_existing=True,
     )
 
