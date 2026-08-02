@@ -86,7 +86,7 @@ export function Sidebar({ className }: { className?: string }) {
     setCollapsedGroups(prev => ({ ...prev, [label]: !prev[label] }))
   }
 
-  const mockUser = { name: 'Manoj Kumar', email: 'manojkumar190488@gmail.com', title: 'Senior Consulting Professional' }
+  const mockUser = { name: 'Manoj Kumar', email: 'manojkumar190488@gmail.com', title: 'VP – Digital & Advisory' }
   const displayUser = user || mockUser
 
   return (
@@ -103,8 +103,8 @@ export function Sidebar({ className }: { className?: string }) {
           <AnimatePresence>
             {!isCollapsed && (
               <motion.div initial={{ opacity: 0, width: 0 }} animate={{ opacity: 1, width: 'auto' }} exit={{ opacity: 0, width: 0 }} className="overflow-hidden">
-                <span className="text-sm font-bold text-foreground whitespace-nowrap">ECIA<span className="text-gold-500">.</span></span>
-                <p className="text-[10px] text-muted-foreground whitespace-nowrap">Executive Career Intelligence</p>
+                <span className="text-sm font-bold text-foreground whitespace-nowrap">GovIntel<span className="text-gold-500"> AI</span></span>
+                <p className="text-[10px] text-muted-foreground whitespace-nowrap">Opportunity Intelligence Platform</p>
               </motion.div>
             )}
           </AnimatePresence>

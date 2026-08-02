@@ -1,8 +1,14 @@
-# OpportunityIQ - AI Career Intelligence Platform
+# GovIntel AI — Opportunity Intelligence Platform
 
-> Stop scrolling job boards. Let AI find the right opportunities for you.
+> Stop scrolling job boards. Let AI find the right government consulting, digital transformation, and multilateral opportunities for you.
 
-OpportunityIQ is a self-hosted, AI-powered job intelligence platform that continuously scrapes job listings from multiple platforms, scores them against your professional profile, and delivers a curated daily digest — so you only see roles worth applying for.
+GovIntel AI is a self-hosted, AI-powered opportunity intelligence platform purpose-built for senior government consulting leaders, public sector advisors, and digital transformation executives. It continuously discovers opportunities across full-time leadership roles (strict Delhi NCR filter), global remote/advisory roles, and high-value freelance/consulting assignments — scores every one against a weighted profile-fit model, and surfaces only what clears the bar.
+
+**Scoring model (0-100):** Leadership Match 25% · Government Consulting 20% · Domain Match 15% · Multilateral Match 15% · Procurement Match 10% · Technology Match 5% · Compensation Match 5% · Location Match 5%.
+
+**Discovery agent:** runs three times daily (6:00 AM / 12:00 PM / 6:00 PM IST), scraping all configured sources, deduplicating, scoring, and firing real-time alerts (email / Telegram / WhatsApp) whenever match score > 80, opportunity value > ₹25L, or a leadership-level position is found.
+
+**AI Career Copilot:** ask natural-language questions like *"Find VP-level government consulting jobs in Delhi NCR"* or *"Find World Bank consulting assignments worth more than ₹5 lakh"* via `POST /api/v1/copilot/query`.
 
 ---
 

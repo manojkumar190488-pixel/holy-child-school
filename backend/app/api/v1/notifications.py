@@ -149,7 +149,7 @@ async def test_telegram_notification(
     success = await notification_service.send_telegram_message(
         chat_id=current_user.telegram_chat_id,
         message=(
-            "Job Intelligence Agent is connected! You will receive daily digests of "
+            "GovIntel AI is connected! You will receive daily digests of "
             "top job opportunities here."
         ),
     )

@@ -156,7 +156,7 @@ export default function LandingPage() {
             </h1>
 
             <p className="mt-6 text-lg text-muted-foreground leading-relaxed max-w-2xl mx-auto">
-              Stop manually searching 15 job platforms. OpportunityIQ aggregates,
+              Stop manually searching 15 job platforms. GovIntel AI aggregates,
               scores, and delivers the exact opportunities you need — every morning,
               with an 85%+ AI match accuracy.
             </p>
@@ -432,7 +432,7 @@ export default function LandingPage() {
               </span>
             </div>
             <p className="text-xs text-muted-foreground">
-              © {new Date().getFullYear()} OpportunityIQ. All rights reserved.
+              © {new Date().getFullYear()} GovIntel AI. All rights reserved.
             </p>
           </div>
         </div>

@@ -65,6 +65,8 @@ async def list_jobs(
     min_score: Optional[float] = Query(None, ge=0, le=100, description="Minimum match score"),
     max_score: Optional[float] = Query(None, ge=0, le=100, description="Maximum match score"),
     search: Optional[str] = Query(None, description="Text search in title/company/description"),
+    opportunity_type: Optional[str] = Query(None, description="full_time/remote/freelance"),
+    strict_qualify: bool = Query(True, description="Enforce NCR-only full-time and freelance value-floor rules"),
     # Pagination
     page: int = Query(1, ge=1),
     limit: int = Query(20, ge=1, le=100),
@@ -88,6 +90,8 @@ async def list_jobs(
         "min_score": min_score,
         "max_score": max_score,
         "search": search,
+        "opportunity_type": opportunity_type,
+        "strict_qualify": strict_qualify,
     }
 
     jobs, total = await job_service.get_jobs_with_filters(
